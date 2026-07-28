@@ -18,9 +18,9 @@ import md, build_single
 
 ROOTDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE_URL = "https://smart2raw.com"
-# Preencha quando o perfil for confirmado; enquanto estiver vazio, o botão
-# simplesmente não aparece — nada de link quebrado no ar.
-LINKEDIN = ""
+# Enquanto estiver vazio, o botão simplesmente não aparece — nada de link
+# quebrado no ar.
+LINKEDIN = "https://br.linkedin.com/in/carlos-alberto-terencio-bastos"
 
 # id da página, e para cada idioma: caminho na URL e rótulo no menu (None = fora do menu)
 PAGES = [
