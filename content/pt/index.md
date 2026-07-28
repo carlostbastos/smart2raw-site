@@ -1,16 +1,20 @@
 ---
-title: Smart2Raw — classifique uma vez, opere para sempre no menor formato nativo
-description: Uma biblioteca C de um único header que guarda colunas de inteiros na menor classe nativa que a amplitude real exige, mantendo os bytes diretamente executáveis. Teste com o seu próprio dado, no navegador.
+title: Smart2Raw — o servidor que você não precisa comprar
+description: Colunas de inteiros guardadas na menor classe nativa que a amplitude real exige — até 8× menos bytes, sem passo de decodificação, porque os bytes guardados são inteiros nativos. Teste com o seu próprio dado, no navegador.
 ---
 
 ::html
 <section class="hero">
   <p class="slogan">A inteligência está na classificação. O que sai é byte puro.</p>
-  <h1>Sua coluna de inteiros tem 8 bytes porque ninguém perguntou de quanto ela precisa.</h1>
-  <p class="lead">O Smart2Raw pergunta. Ele mede a amplitude real da coluna e a guarda na menor
-  classe nativa que essa amplitude exige — 8, 16, 32 ou 64 bits, com ou sem sinal. Sem
-  dicionário, sem empacotamento de bits, sem passo de decodificação: os bytes guardados
-  <em>são</em> inteiros nativos, e por isso toda operação roda direto em cima deles.</p>
+  <h1>O servidor que você não precisa comprar.</h1>
+  <p class="lead">Sua coluna de inteiros tem 8 bytes porque ninguém perguntou de quanto ela
+  precisa. O Smart2Raw pergunta. Ele mede a amplitude real e guarda a coluna na menor classe
+  nativa que essa amplitude exige — 8, 16, 32 ou 64 bits, com ou sem sinal. Sem dicionário, sem
+  empacotamento de bits, sem passo de decodificação: os bytes guardados <em>são</em> inteiros
+  nativos, e por isso toda operação roda direto em cima deles.</p>
+  <p class="qual">Até 8× menos bytes na mesma máquina, quando a amplitude da coluna permite — e
+  a mesma máquina passa a caber 8× mais dado quente. A demonstração aqui embaixo mede isso com
+  o <b>seu</b> dado, no seu próprio navegador, em cerca de 30 segundos.</p>
   <div class="cta">
     <a class="btn" href="#s2rdemo">Teste com a sua coluna</a>
     <a class="btn ghost" href="/pt/comece/">Comece</a>
@@ -32,6 +36,51 @@ description: Uma biblioteca C de um único header que guarda colunas de inteiros
 {{DEMO}}
 
 ::html
+</section>
+::
+
+::html
+<section class="why">
+<h2>Por que isso importa agora</h2>
+<p class="whysub">Estes três números não são nossos. Vêm de terceiros, e cada um traz a sua
+fonte. Os números que nós medimos ficam acima, e você reproduz cada um deles aqui mesmo — a
+separação é de propósito.</p>
+<div class="mk">
+
+  <div class="mkc">
+    <p class="mkn">3,0× <i>contra</i> 1,6×</p>
+    <p class="mkt">O gargalo deixou de ser cálculo</p>
+    <p>Em 20 anos, o pico de computação do hardware cresceu 3,0× a cada 2 anos. A banda de
+    memória DRAM cresceu 1,6×; a de interconexão, 1,4×. A distância aumenta todo ano.</p>
+    <p class="mkso">IEEE Micro · <a href="https://arxiv.org/abs/2403.14123">arXiv:2403.14123</a></p>
+    <p class="arrow">→ Somar FLOP parou de resolver. Ler menos byte, sem pagar decodificação,
+    ataca exatamente o lado que ficou estreito.</p>
+  </div>
+
+  <div class="mkc">
+    <p class="mkn">+58% a 63%</p>
+    <p class="mkt">Em um único trimestre</p>
+    <p>Foi quanto subiu o preço de contrato da DRAM no 2º trimestre de 2026, na pior escassez em
+    quase 15 anos. Um servidor de IA usa de 8 a 10 vezes a memória de um servidor comum.</p>
+    <p class="mkso">TrendForce, abril de 2026</p>
+    <p class="arrow">→ Byte que você não guarda é dinheiro que você não gasta — e memória que
+    sobra para outra coisa.</p>
+  </div>
+
+  <div class="mkc">
+    <p class="mkn">945 TWh</p>
+    <p class="mkt">Data centers em 2030</p>
+    <p>O consumo de eletricidade dos data centers deve mais que dobrar até 2030, chegando a cerca
+    de 945 TWh, com a IA como principal motor.</p>
+    <p class="mkso">Agência Internacional de Energia</p>
+    <p class="arrow">→ Mover menos byte é gastar menos energia por consulta. Não é slogan: é a
+    mesma conta, vista do outro lado.</p>
+  </div>
+
+</div>
+<p class="note">Uma biblioteca que pede confiança numa medição deveria ser a primeira a dizer
+quais números são dela. Os nossos estão acima, e são reproduzíveis. Estes são de outros, e estão
+linkados.</p>
 </section>
 ::
 
