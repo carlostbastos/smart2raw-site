@@ -50,10 +50,11 @@ always welcome.
   </div>
 </form>
 </div>
+<p class="dim small" style="margin-top:10px">Prefer plain e-mail? Write straight to <a href="mailto:contact@smart2raw.com">contact@smart2raw.com</a> — it reaches the same person.</p>
 <script>
 (function(){
   var f=document.getElementById('cform'), k=f.access_key.value,
-      st=document.getElementById('cstat'), MAIL='smart2raw@gmail.com';
+      st=document.getElementById('cstat'), MAIL='contact@smart2raw.com';
   if(k.indexOf('S2R_WEB3FORMS')===0){
     document.getElementById('csend').disabled=true;
     st.innerHTML='The form is not connected yet — write to <a href="mailto:'+MAIL+'">'+MAIL+'</a>.';
