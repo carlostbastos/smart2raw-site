@@ -3,12 +3,24 @@ title: About Smart2Raw and its author — Carlos Alberto Terêncio de Bastos
 description: Who is behind the library, how the project is run, and the trail of deposited versions that documents it.
 ---
 
-# About
-
-Smart2Raw is written and maintained by **Carlos Alberto Terêncio de Bastos**, who
-holds the copyright — which is what makes the dual licence on this site possible.
-There is no company between you and the project: what you write on the
-[contact page](/contact/) reaches the person who wrote the code.
+::html
+<section class="hero">
+  <p class="slogan">The method is dated by third parties, not asserted here.</p>
+  <h1>About</h1>
+  <p class="lead">Smart2Raw is written and maintained by <strong>Carlos Alberto Terêncio de Bastos</strong>, who holds the copyright — which is what makes the dual licence on this site possible. There is no company between you and the project: what you write on the <a href="/contact/">contact page</a> reaches the person who wrote the code.</p>
+  <p class="qual">Below are the three habits that run the project — all verifiable in the repository, not declared here — and the trail of deposited versions that documents them.</p>
+  <div class="cta">
+    <a class="btn" href="/contact/">Contact</a>
+    <a class="btn ghost" href="https://github.com/carlostbastos/Smart2Raw">The code</a>
+    <a class="btn ghost" href="/scope/">Technical scope</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>5</b><small>deposited versions, each a record of the method dated by a third party</small></div>
+    <div class="kpi"><b>2</b><small>defects published with the minimal case that reproduces each, instead of buried</small></div>
+    <div class="kpi"><b>31</b><small>test suites, 0 failures — and the fuzz suite exists because it found one of them</small></div>
+  </div>
+</section>
+::
 
 ## The idea, in one paragraph
 
@@ -59,4 +71,21 @@ also what gives the project a priority date.
   {{LINKEDIN}}
   <a class="btn" href="/contact/">Contact</a>
 </div>
+::
+
+::html
+<section class="next">
+<h2>Where to go next</h2>
+<div class="cards">
+  <div class="card"><h3>How the method reads</h3>
+    <p>The design decision and the trade, said plainly.</p>
+    <a class="more" href="/scope/">Technical scope →</a></div>
+  <div class="card"><h3>How to cite</h3>
+    <p>Five deposits with their own DOI, and a concept DOI.</p>
+    <a class="more" href="/cite/">Cite →</a></div>
+  <div class="card"><h3>Talk to the person who wrote it</h3>
+    <p>No support desk in between.</p>
+    <a class="more" href="/contact/">Contact →</a></div>
+</div>
+</section>
 ::

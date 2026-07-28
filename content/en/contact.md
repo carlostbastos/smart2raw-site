@@ -3,15 +3,21 @@ title: Contact Smart2Raw — commercial licence, the advanced version, partnersh
 description: Talk to the person who wrote it. Commercial licensing, access to the advanced version, technical evaluation and investment.
 ---
 
-# Contact
+::html
+<section class="hero">
+  <p class="slogan">One person reads it, and answers.</p>
+  <h1>Contact</h1>
+  <p class="lead">There is no support desk between you and the project. What you write here reaches the person who wrote the library.</p>
+  <p class="qual">Write if you want to license Smart2Raw for a product you do not publish under AGPL, get access to the advanced edition, evaluate it with your own data, talk about investment or partnership — or report a defect, which is always welcome.</p>
+  <div class="cta">
+    <a class="btn" href="#cform">Write now</a>
+    <a class="btn ghost" href="mailto:contact@smart2raw.com">contact@smart2raw.com</a>
+    <a class="btn ghost" href="https://github.com/carlostbastos/Smart2Raw/issues">GitHub issues</a>
+  </div>
+</section>
+::
 
-There is no support desk between you and the project. What you write here reaches
-the person who wrote the library.
-
-**Write if you want to:** license Smart2Raw for a product you do not publish
-under AGPL · get access to the advanced version · evaluate it on your own data
-and want a hand · discuss investment or partnership · report a defect, which is
-always welcome.
+**Write if you want to:** license Smart2Raw for a product you do not publish under AGPL · get access to the advanced version · evaluate it on your own data and want a hand · discuss investment or partnership · report a defect, which is always welcome.
 
 ::html
 <div class="panel" style="margin-top:8px">
@@ -84,3 +90,20 @@ The details are on the [privacy page](/privacy/), which is short.
 
 - **Defects and questions about the code:** [GitHub issues](https://github.com/carlostbastos/Smart2Raw/issues) — public, and the fastest.
 - **Citation and academic use:** everything is on the [cite page](/cite/).
+
+::html
+<section class="next">
+<h2>Before you write, if it helps</h2>
+<div class="cards">
+  <div class="card"><h3>Find out whether AGPL is enough</h3>
+    <p>A table by situation, and the line that decides.</p>
+    <a class="more" href="/license/">Licensing →</a></div>
+  <div class="card"><h3>Test it first</h3>
+    <p>The open edition is complete. The demonstration runs in your browser.</p>
+    <a class="more" href="/start/">Get started →</a></div>
+  <div class="card"><h3>See what is published</h3>
+    <p>The trade, said plainly, before any commercial conversation.</p>
+    <a class="more" href="/scope/">Technical scope →</a></div>
+</div>
+</section>
+::

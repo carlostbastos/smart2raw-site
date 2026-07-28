@@ -3,13 +3,25 @@ title: Smart2Raw performance — measured numbers, with the command that reprodu
 description: The same column in every format, measured on 4 million elements, with an assertion checked before each row is printed. Plus the query timings, and how to run all of it yourself.
 ---
 
-# Performance
-
-Every number on this page came out of a program in the repository, and every one
-of them can be reproduced by a command you can run. Where a number could be
-checked against a naive loop, the program checks it and aborts on a
-disagreement — a benchmark that prints a pretty number it cannot defend is
-worse than no benchmark.
+::html
+<section class="hero">
+  <p class="slogan">Measured, not estimated.</p>
+  <h1>Performance</h1>
+  <p class="lead">Every number on this page came out of a program in the repository, and every one of them can be reproduced by a command you can run. Where a number could be checked against a naive loop, the program checks it and aborts on a disagreement — a benchmark that prints a pretty number it cannot defend is worse than no benchmark.</p>
+  <p class="qual">Seven column shapes, 4 million elements each, the query timings, and the command behind every table. Including the rows where Smart2Raw does not win — they are here for the same reason as the rest.</p>
+  <div class="cta">
+    <a class="btn" href="/#s2rdemo">Measure in your browser</a>
+    <a class="btn ghost" href="https://github.com/carlostbastos/Smart2Raw">Run it yourself</a>
+    <a class="btn ghost" href="/scope/">Technical scope</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>4231×</b><small>range counting on a u8 column with the cumulative index — two 2 KB reads</small></div>
+    <div class="kpi"><b>0.000034 ms</b><small>count_gt(220) on a column that stops at 200: the zone summary answers without reading payload</small></div>
+    <div class="kpi"><b>31</b><small>test suites, 0 failures, clean under ASan and UBSan</small></div>
+    <div class="kpi"><b>100,950</b><small>differential fuzz checks against a naive reference, with fixed seeds</small></div>
+  </div>
+</section>
+::
 
 ## The same column in every format
 
@@ -89,3 +101,20 @@ That fuzz suite exists because of a real defect it found: an unsigned column
 crossing 2^63 used to return truncated values in the block-wise layer, with no
 error, no warning and a valid CRC. Twenty-five suites of chosen cases missed it.
 It is fixed, and the minimal case `{1, UINT64_MAX}` is now a fixed test.
+
+::html
+<section class="next">
+<h2>Where to go next</h2>
+<div class="cards">
+  <div class="card"><h3>Where the trade is</h3>
+    <p>The regime where the dictionary wins, stated plainly, with the number.</p>
+    <a class="more" href="/scope/">Technical scope →</a></div>
+  <div class="card"><h3>Reproduce all of it</h3>
+    <p>One clone and one command. The fuzz seeds are fixed on purpose.</p>
+    <a class="more" href="/cite/">How to cite and reproduce →</a></div>
+  <div class="card"><h3>Measure your data</h3>
+    <p>The demonstration times the same queries on your column.</p>
+    <a class="more" href="/#s2rdemo">Go to the demonstration →</a></div>
+</div>
+</section>
+::

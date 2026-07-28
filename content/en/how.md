@@ -3,11 +3,25 @@ title: How Smart2Raw works — classification, not compression
 description: Three steps: measure the real range, pick the smallest native class that holds it, and operate on the stored bytes directly. No dictionary, no bit-packing, no decode step.
 ---
 
-# How it works
-
-Smart2Raw is not a compressor. A compressor turns your data into something else
-and hands it back when you ask. Smart2Raw does the opposite: it decides, once,
-how wide the data actually needs to be — and then leaves it alone.
+::html
+<section class="hero">
+  <p class="slogan">Your data does not become something else.</p>
+  <h1>How it works</h1>
+  <p class="lead">Smart2Raw is not a compressor. A compressor turns your data into something else and hands it back when you ask. Smart2Raw does the opposite: it decides, once, how wide the data actually needs to be — and then leaves it alone.</p>
+  <p class="qual">Three steps: measure the real range, pick the smallest native class that holds it, and operate directly on the stored bytes. The third one is what separates the approach from everything that encodes — there is no decode step to pay for.</p>
+  <div class="cta">
+    <a class="btn" href="/#s2rdemo">See it run in your browser</a>
+    <a class="btn ghost" href="/start/">Get started</a>
+    <a class="btn ghost" href="/scope/">Technical scope</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>3</b><small>steps: measure the range, store in the native class, operate without materialising</small></div>
+    <div class="kpi"><b>3</b><small>shapes — flat pool, affine and block-wise — chosen by measurement, not by guess</small></div>
+    <div class="kpi"><b>3.8 MB</b><small>4 million elements between 0 and 200 that took 30.5 MB — no dictionary and no bit packing</small></div>
+    <div class="kpi"><b>0</b><small>decode steps: the stored bytes are native integers</small></div>
+  </div>
+</section>
+::
 
 ## Step 1 · Measure the real range
 
@@ -90,3 +104,20 @@ Format 3 is emitted **only** when some block actually has a stride above 1, so a
 column with no common step is byte-for-byte the file version 3.4.0 wrote — and a
 3.4.0 build opens it. When a stride is present, the file is `fmt = 3` and older
 builds correctly refuse it rather than misreading it.
+
+::html
+<section class="next">
+<h2>Where to go next</h2>
+<div class="cards">
+  <div class="card"><h3>See the numbers</h3>
+    <p>The same column in seven formats, and the query timings.</p>
+    <a class="more" href="/benchmarks/">Performance →</a></div>
+  <div class="card"><h3>Where the trade is</h3>
+    <p>The smallest native class is 8 bits. Everything that buys, and what it costs.</p>
+    <a class="more" href="/scope/">Technical scope →</a></div>
+  <div class="card"><h3>Write the three lines</h3>
+    <p>One header, no build system, no configuration.</p>
+    <a class="more" href="/start/">Get started →</a></div>
+</div>
+</section>
+::

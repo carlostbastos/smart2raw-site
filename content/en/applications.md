@@ -3,14 +3,25 @@ title: Where Smart2Raw fits — databases, operating systems, telemetry, AI, emb
 description: Every one of these systems already has an integer column inside it. Seven places where classifying by range and keeping the bytes native changes what the system costs to run.
 ---
 
-# Where it fits
-
-The question is always the same one: **where is the integer column?** Once you
-start looking, it is almost everywhere — and almost always eight bytes wide
-because nobody measured it.
-
-Each section below says three things: the column that already exists in that
-system, what changes when it is classified, and where to start.
+::html
+<section class="hero">
+  <p class="slogan">Every system on this list already has an integer column inside it.</p>
+  <h1>Where it fits</h1>
+  <p class="lead">The question is always the same one: <strong>where is the integer column?</strong> Once you start looking, it is almost everywhere — and almost always eight bytes wide because nobody measured it. Each section below says three things: the column that already exists in that system, what changes when it is classified, and where to start.</p>
+  <p class="qual">Seven areas, and the list is not exhaustive — it is just where the column is easiest to find. If yours is not here, the test is the same: paste the column into the demonstration and see which class it asks for.</p>
+  <div class="cta">
+    <a class="btn" href="/#s2rdemo">Test with your column</a>
+    <a class="btn ghost" href="/how-it-works/">How it works</a>
+    <a class="btn ghost" href="/benchmarks/">Performance</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>7</b><small>areas where the integer column is already there, eight bytes wide, because nobody measured</small></div>
+    <div class="kpi"><b>8×</b><small>fewer bytes on a 0..200 telemetry column — 30.52 MB becomes 3.81 MB</small></div>
+    <div class="kpi"><b>4.11 MB</b><small>against 15.26 MB on 4 million timestamps: the right shape against the obvious one</small></div>
+    <div class="kpi"><b>0</b><small>dependencies. One C11 header drops into a daemon, into firmware, into someone else's build</small></div>
+  </div>
+</section>
+::
 
 ## Databases and columnar engines
 
@@ -159,3 +170,20 @@ into a build that already has strong opinions about its own toolchain.
 The fastest way to know whether your column is one of these is to
 [paste it into the demonstration](/) — it runs in your browser, on your machine,
 and nothing you paste leaves it.
+
+::html
+<section class="next">
+<h2>Where to go next</h2>
+<div class="cards">
+  <div class="card"><h3>See the mechanism</h3>
+    <p>The three shapes, and why there is no decode step.</p>
+    <a class="more" href="/how-it-works/">How it works →</a></div>
+  <div class="card"><h3>See the numbers</h3>
+    <p>The same column in seven formats, with the command that reproduces each row.</p>
+    <a class="more" href="/benchmarks/">Performance →</a></div>
+  <div class="card"><h3>Test with your data</h3>
+    <p>Paste a column into the demonstration. It runs in your browser and nothing leaves it.</p>
+    <a class="more" href="/#s2rdemo">Go to the demonstration →</a></div>
+</div>
+</section>
+::

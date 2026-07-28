@@ -3,11 +3,24 @@ title: Smart2Raw Premium — beyond the open version, under commercial licence
 description: The open version is what you can verify. Premium goes further in how far the data compacts and in what you can ask of it, and comes with the right to build it into a closed product.
 ---
 
-# Smart2Raw Premium
-
-The version published on this site is complete, auditable and yours to test —
-that is the point of it. **Premium** is the version that is not published, and it
-is licensed rather than downloaded.
+::html
+<section class="hero">
+  <p class="slogan">The proof is the open edition.</p>
+  <h1>Smart2Raw Premium</h1>
+  <p class="lead">The version published on this site is complete, auditable and yours to test — that is the point of it. <strong>Premium</strong> is the version that is not published, and it is licensed rather than downloaded.</p>
+  <p class="qual">Two fair questions follow from that: what exactly it adds, and why the part that is not published deserves any credit. This page answers both with what can already be checked today.</p>
+  <div class="cta">
+    <a class="btn" href="/contact/">Start the conversation</a>
+    <a class="btn ghost" href="/license/">Licensing</a>
+    <a class="btn ghost" href="/scope/">What the open edition already does</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>5</b><small>versions deposited with their own DOI, timestamped by a third party</small></div>
+    <div class="kpi"><b>31</b><small>test suites in the open edition, 0 failures — what can be checked, is checked</small></div>
+    <div class="kpi"><b>2</b><small>defects published with the minimal case that reproduces each, instead of buried</small></div>
+  </div>
+</section>
+::
 
 ## What Premium adds
 
@@ -30,7 +43,7 @@ is licensed rather than downloaded.
 
 That is a fair question, and there is a concrete answer rather than a promise.
 
-Everything this project *has* published can be checked line by line: three
+Everything this project *has* published can be checked line by line: five
 versions deposited with their own DOI, 31 test suites with zero failures, every
 benchmark shipping with the command that reproduces it and an assertion that
 runs before each number is printed.
@@ -76,4 +89,21 @@ not, you will be told so.
 ::html
 <div class="cta"><a class="btn" href="/contact/">Talk to us</a>
 <a class="btn ghost" href="/license/">How the licensing works</a></div>
+::
+
+::html
+<section class="next">
+<h2>Where to go next</h2>
+<div class="cards">
+  <div class="card"><h3>See where the open edition stops</h3>
+    <p>The regimes where it loses, named precisely and with the number.</p>
+    <a class="more" href="/scope/">Technical scope →</a></div>
+  <div class="card"><h3>Understand the licence</h3>
+    <p>AGPL is what makes an open edition possible without giving up the commercial right.</p>
+    <a class="more" href="/license/">Licensing →</a></div>
+  <div class="card"><h3>Tell us about your column</h3>
+    <p>How many elements, what the range looks like, what you need to ask of it.</p>
+    <a class="more" href="/contact/">Contact →</a></div>
+</div>
+</section>
 ::

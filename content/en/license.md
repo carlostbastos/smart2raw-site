@@ -3,10 +3,19 @@ title: Licensing — AGPL-3.0 or commercial
 description: Smart2Raw is dual-licensed. The published version is AGPL-3.0-or-later; building it into something you do not publish under the same terms needs a commercial licence.
 ---
 
-# Licensing
-
-Smart2Raw is **dual-licensed**. The copyright is held by one person, which is
-what makes the second option possible.
+::html
+<section class="hero">
+  <p class="slogan">Open to inspect, commercial to embed.</p>
+  <h1>Licensing</h1>
+  <p class="lead">Smart2Raw is <strong>dual-licensed</strong>. The copyright is held by one person, which is what makes the second option possible.</p>
+  <p class="qual">The question that decides which side you are on is a single one: does what you build reach anyone else? There is a table by situation below, and it answers directly — no lawyer in between.</p>
+  <div class="cta">
+    <a class="btn" href="/contact/">Contact</a>
+    <a class="btn ghost" href="https://github.com/carlostbastos/Smart2Raw">The code, under AGPL</a>
+    <a class="btn ghost" href="/premium/">Smart2Raw Premium</a>
+  </div>
+</section>
+::
 
 ::html
 <div class="cards">
@@ -56,3 +65,20 @@ conversation and it costs nothing.
 Copyright © 2026 Carlos Alberto Terêncio de Bastos.
 SPDX identifier: `AGPL-3.0-or-later`. The full text ships in `LICENSE` and the
 dual-licensing terms in `LICENSING.md`, both in the repository.
+
+::html
+<section class="next">
+<h2>Where to go next</h2>
+<div class="cards">
+  <div class="card"><h3>Not sure which side you are on?</h3>
+    <p>It is a short conversation and it costs nothing. Say how your software reaches the user.</p>
+    <a class="more" href="/contact/">Contact →</a></div>
+  <div class="card"><h3>What comes with the commercial licence</h3>
+    <p>Beyond the right to embed: support, priority, and the advanced edition.</p>
+    <a class="more" href="/premium/">Smart2Raw Premium →</a></div>
+  <div class="card"><h3>Evaluate before deciding</h3>
+    <p>The open edition is complete. Test it with your data first.</p>
+    <a class="more" href="/start/">Get started →</a></div>
+</div>
+</section>
+::
