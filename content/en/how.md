@@ -1,0 +1,92 @@
+---
+title: How Smart2Raw works — classification, not compression
+description: Three steps: measure the real range, pick the smallest native class that holds it, and operate on the stored bytes directly. No dictionary, no bit-packing, no decode step.
+---
+
+# How it works
+
+Smart2Raw is not a compressor. A compressor turns your data into something else
+and hands it back when you ask. Smart2Raw does the opposite: it decides, once,
+how wide the data actually needs to be — and then leaves it alone.
+
+## Step 1 · Measure the real range
+
+An `int64` column is 8 bytes per element whether it holds nanosecond timestamps
+or a sensor reading between 0 and 200. The first thing the library does is look:
+
+```c
+int8_t cls = s2r_classify_array(values, n);   /* one pass, no allocation */
+```
+
+For 0..200 the answer is `S2R_8`. For −500..500 it is `S2R_I16`. The class is
+the *width in bits*, and its sign is the *signedness* — so `abs(size) >> 3` is
+the number of bytes per element and `size < 0` means signed. That one trick
+removes a whole table from the library.
+
+## Step 2 · Store in that class, natively
+
+```c
+S2RPool p;
+s2r_pool_init(&p, cls, n);
+for (size_t i = 0; i < n; i++) s2r_push(&p, values[i]);
+```
+
+The elements are now `uint8_t` in memory. Not "8-bit codes" — actual `uint8_t`.
+A column of 0..200 with 4 million elements goes from 30.5 MB to 3.8 MB, and the
+bytes at `p.data` are an array a C compiler already knows how to read.
+
+## Step 3 · Operate without materialising
+
+This is the part that separates the approach from dictionary encoding. Because
+the stored bytes are native integers, a predicate runs on them **as they are**:
+
+```c
+size_t k = s2r_count_gt_fast(&p, 100);
+```
+
+There is no decode step, no dictionary lookup, no intermediate buffer. Reading
+one quarter of the bytes means one quarter of the memory traffic, and memory
+traffic is what a scan costs.
+
+## Three shapes, chosen by measurement
+
+| shape | what it does | when it wins |
+|---|---|---|
+| **flat pool** | every element in the smallest class that fits the whole column | uniform columns; the default entry point |
+| **affine** | `v = base + stride·i` — the common step is divided out, exactly | fixed sampling intervals, fixed-point money, quantisation steps |
+| **block-wise** | each block is stored relative to its own minimum, with metadata that answers queries without touching the payload | time-partitioned data, anything where local range is much narrower than global range |
+
+`s2r_recommend()` measures all three and tells you which one your column wants —
+because the obvious entry point is often the worst one. And
+`s2r_blocked_plan()` prices every candidate block size from a **single pass**
+over the data, so the block size is classified rather than guessed.
+
+## Why it can never expand your data
+
+Every classical alternative has a regime where the output is larger than the
+input. Dictionary encoding of a high-cardinality column stores a dictionary the
+size of the data. RLE on unordered data stores one run per value. A bitmap only
+exists when there are two distinct values.
+
+Smart2Raw classifies by **range**, and the widest class it has *is* the `int64`
+input. So its worst case is "the range needs 64 bits", which is exactly the
+baseline. This is not luck or tuning — it is a structural consequence of the
+design, and `benchmarks/format_matrix.c` asserts the bound before printing each
+row.
+
+## The `.s2r` file
+
+A serialised column is a small, fixed header followed by the payload, in
+canonical little-endian so the bytes are identical on any host, with a CRC32 at
+the end.
+
+| `fmt` | what it is |
+|---|---|
+| 1 | flat pool |
+| 2 | block-wise |
+| 3 | block-wise with a per-block stride |
+
+Format 3 is emitted **only** when some block actually has a stride above 1, so a
+column with no common step is byte-for-byte the file version 3.4.0 wrote — and a
+3.4.0 build opens it. When a stride is present, the file is `fmt = 3` and older
+builds correctly refuse it rather than misreading it.
