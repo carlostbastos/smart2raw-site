@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+out_*.s2r
+shot_*.png
+vis_*.png
+
+# saida do gerador: o Cloudflare Pages reconstroi a cada push
+site/
