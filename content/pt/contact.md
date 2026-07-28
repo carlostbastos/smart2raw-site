@@ -50,10 +50,11 @@ que é sempre bem-vindo.
   </div>
 </form>
 </div>
+<p class="dim small" style="margin-top:10px">Prefere e-mail direto? Escreva para <a href="mailto:contato@smart2raw.com">contato@smart2raw.com</a> — chega na mesma pessoa.</p>
 <script>
 (function(){
   var f=document.getElementById('cform'), k=f.access_key.value,
-      st=document.getElementById('cstat'), MAIL='smart2raw@gmail.com';
+      st=document.getElementById('cstat'), MAIL='contato@smart2raw.com';
   if(k.indexOf('S2R_WEB3FORMS')===0){
     document.getElementById('csend').disabled=true;
     st.innerHTML='O formulário ainda não está ligado — escreva para <a href="mailto:'+MAIL+'">'+MAIL+'</a>.';
