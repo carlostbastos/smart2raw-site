@@ -1,16 +1,20 @@
 ---
-title: Smart2Raw — classify once, operate forever in the smallest native format
-description: A header-only C library that stores integer columns in the smallest native class their real range needs, keeping the bytes directly executable. Try it on your own data, in your browser.
+title: Smart2Raw — the server you don't have to buy
+description: Integer columns stored in the smallest native class their real range needs — up to 8× fewer bytes, with no decode step, because the stored bytes are native integers. Try it on your own data, in your browser.
 ---
 
 ::html
 <section class="hero">
   <p class="slogan">The intelligence is in the classification. What comes out is raw bytes.</p>
-  <h1>Your integer column is 8 bytes wide because nobody asked how big it really is.</h1>
-  <p class="lead">Smart2Raw asks. It measures the real range of a column and stores it in the
-  smallest native integer class that range needs — 8, 16, 32 or 64 bits, signed or not. No
-  dictionary, no bit-packing, no decode step: the stored bytes <em>are</em> native integers,
-  so every operation runs on them directly.</p>
+  <h1>The server you don't have to buy.</h1>
+  <p class="lead">Your integer column is 8 bytes wide because nobody asked how big it really
+  is. Smart2Raw asks. It measures the real range and stores the column in the smallest native
+  class that range needs — 8, 16, 32 or 64 bits, signed or not. No dictionary, no bit-packing,
+  no decode step: the stored bytes <em>are</em> native integers, so every operation runs on
+  them directly.</p>
+  <p class="qual">Up to 8× fewer bytes on the same machine, when the column's range allows it —
+  and the same machine then holds 8× the working set. The demonstration below measures that on
+  <b>your</b> data, in your own browser, in about 30 seconds.</p>
   <div class="cta">
     <a class="btn" href="#s2rdemo">Try it on your own column</a>
     <a class="btn ghost" href="/start/">Get started</a>
@@ -32,6 +36,50 @@ description: A header-only C library that stores integer columns in the smallest
 {{DEMO}}
 
 ::html
+</section>
+::
+
+::html
+<section class="why">
+<h2>Why this matters now</h2>
+<p class="whysub">These three numbers are not ours. They come from third parties, and each one
+carries its source. The numbers we measure are above, and you reproduce every one of them right
+here — we keep the two apart on purpose.</p>
+<div class="mk">
+
+  <div class="mkc">
+    <p class="mkn">3.0× <i>against</i> 1.6×</p>
+    <p class="mkt">The bottleneck stopped being arithmetic</p>
+    <p>Over 20 years, peak hardware compute grew 3.0× every 2 years. DRAM bandwidth grew 1.6×;
+    interconnect bandwidth, 1.4×. The gap widens every year.</p>
+    <p class="mkso">IEEE Micro · <a href="https://arxiv.org/abs/2403.14123">arXiv:2403.14123</a></p>
+    <p class="arrow">→ Adding FLOPs stopped fixing it. Reading fewer bytes, with no decode step
+    to pay for, attacks exactly the side that got narrow.</p>
+  </div>
+
+  <div class="mkc">
+    <p class="mkn">+58% to 63%</p>
+    <p class="mkt">In a single quarter</p>
+    <p>That is how much DRAM contract prices rose in Q2 2026, in the worst supply shortage in
+    nearly 15 years. A single AI server uses 8 to 10 times the memory of a conventional one.</p>
+    <p class="mkso">TrendForce, April 2026</p>
+    <p class="arrow">→ A byte you never store is money you never spend — and memory left over
+    for something else.</p>
+  </div>
+
+  <div class="mkc">
+    <p class="mkn">945 TWh</p>
+    <p class="mkt">Data centres in 2030</p>
+    <p>Global data centre electricity demand is projected to more than double by 2030, reaching
+    around 945 TWh, with AI as the main driver.</p>
+    <p class="mkso">International Energy Agency</p>
+    <p class="arrow">→ Moving fewer bytes is spending less energy per query. That is not a
+    slogan: it is the same arithmetic, seen from the other side.</p>
+  </div>
+
+</div>
+<p class="note">A library that asks you to trust a measurement should be the first to say which
+numbers are its own. Ours are above, and reproducible. These are other people's, and linked.</p>
 </section>
 ::
 
