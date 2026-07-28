@@ -52,21 +52,23 @@ a linha de base.
 
 ## A prova que já existe
 
-::html
-<div class="kpis">
-  <div class="kpi"><b>3</b><small>versões depositadas no Zenodo com DOI citável, estabelecendo uma data de prioridade</small></div>
-  <div class="kpi"><b>31</b><small>suítes de teste, 0 falhas, incluindo 100.950 checagens de fuzz diferencial com sementes fixas</small></div>
-  <div class="kpi"><b>7</b><small>alvos de hardware: x86, ARM NEON e SVE2, RISC-V RVV, big-endian, MCU, WebAssembly</small></div>
-  <div class="kpi"><b>0</b><small>dependências — um header C11, que é o que torna a adoção barata</small></div>
-</div>
-::
+Os quatro números no topo desta página são contagens, e contagem qualquer um
+produz. Há uma evidência que pesa mais, e ela aparece **duas vezes** no histórico
+deste projeto.
 
-Há mais uma evidência, e ela pesa mais que as contagens. Um defeito numa versão
-já depositada devolvia valores truncados sem erro e com CRC válido; a própria
-suíte de fuzz do projeto encontrou, foi corrigido, e então o defeito, o caso
-mínimo que o reproduz e a razão de vinte e cinco suítes não o terem pegado foram
-todos publicados. Disciplina de engenharia é difícil de avaliar de fora. É assim
-que ela se parece por dentro.
+A primeira: um defeito numa versão já depositada devolvia valores truncados sem
+erro e com CRC válido. A própria suíte de fuzz do projeto encontrou, foi
+corrigido, e então o defeito, o caso mínimo que o reproduz e a razão de vinte e
+cinco suítes não o terem pegado foram todos publicados.
+
+A segunda, meses depois: um arquivo `.s2r` construído de má-fé — 64 bytes,
+internamente consistente, com CRC correto — fazia o leitor alocar dezesseis bytes
+e copiar quatro megabytes para dentro. Foi encontrado lendo o carregador contra a
+própria aritmética, corrigido na 3.5.1, e publicado com o arquivo hostil virando
+teste fixo.
+
+Nenhum dos dois precisava ter sido contado a ninguém. Disciplina de engenharia é
+difícil de avaliar de fora; é assim que ela se parece por dentro.
 
 ## Por que é defensável
 
