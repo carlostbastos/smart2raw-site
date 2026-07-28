@@ -16,7 +16,7 @@ que é sempre bem-vindo.
 ::html
 <div class="panel" style="margin-top:8px">
 <form id="cform" action="https://api.web3forms.com/submit" method="POST">
-  <input type="hidden" name="access_key" value="S2R_WEB3FORMS_KEY">
+  <input type="hidden" name="access_key" value="4cdfa100-6d7a-4481-a8f4-01c510dbe166">
   <input type="hidden" name="subject" value="Smart2Raw — contato pelo site">
   <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
   <div class="frow"><label>Nome<input type="text" name="name" required></label>
