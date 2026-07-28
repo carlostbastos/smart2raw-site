@@ -51,21 +51,23 @@ baseline. Smart2Raw's worst case ties the baseline, because its widest class
 
 ## The proof that already exists
 
-::html
-<div class="kpis">
-  <div class="kpi"><b>3</b><small>versions deposited on Zenodo with citable DOIs, establishing a dated priority</small></div>
-  <div class="kpi"><b>31</b><small>test suites, 0 failures, including 100,950 differential fuzz checks with fixed seeds</small></div>
-  <div class="kpi"><b>7</b><small>hardware targets: x86, ARM NEON and SVE2, RISC-V RVV, big-endian, MCU, WebAssembly</small></div>
-  <div class="kpi"><b>0</b><small>dependencies — one C11 header, which is what makes adoption cheap</small></div>
-</div>
-::
+The four numbers at the top of this page are counts, and anyone can produce a
+count. There is one piece of evidence that matters more, and it appears **twice**
+in this project's record.
 
-There is one more piece of evidence that matters more than the counts. A defect
-in an already-deposited release returned truncated values with no error and a
-valid CRC; the project's own fuzz suite found it, it was fixed, and the defect,
-its minimal reproducing case and the reason twenty-five suites had missed it were
-all published. Engineering discipline is hard to assess from outside. That is
-what it looks like from inside.
+The first: a defect in an already-deposited release returned truncated values
+with no error and a valid CRC. The project's own fuzz suite found it, it was
+fixed, and the defect, its minimal reproducing case and the reason twenty-five
+suites had missed it were all published.
+
+The second, months later: a `.s2r` file built in bad faith — 64 bytes, internally
+consistent, with a correct CRC — made the reader allocate sixteen bytes and copy
+four megabytes into them. It was found by reading the loader against its own
+arithmetic, fixed in 3.5.1, and published with the hostile file becoming a
+permanent test.
+
+Neither one had to be told to anyone. Engineering discipline is hard to assess
+from outside; that is what it looks like from inside.
 
 ## Why it is defensible
 
