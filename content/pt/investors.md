@@ -3,12 +3,25 @@ title: Investimento e parceria — Smart2Raw
 description: Uma coluna de inteiros custa oito bytes por elemento porque ninguém mediu. O Smart2Raw mede, e mantém os bytes executáveis. Aberto a conversas com investidores e parceiros.
 ---
 
-# Investimento & parcerias
-
-O Smart2Raw está aberto a conversas — com investidores, e com empresas que
-colocariam a tecnologia em produção. Não há rodada anunciada nem número nesta
-página; há uma tecnologia com histórico verificável e um fundador que responde o
-próprio e-mail.
+::html
+<section class="hero">
+  <p class="slogan">Prioridade datada, prova conferível, um fundador.</p>
+  <h1>Investimento &amp; parcerias</h1>
+  <p class="lead">O Smart2Raw está aberto a conversas — com investidores, e com empresas que colocariam a tecnologia em produção. Não há rodada anunciada nem número nesta página; há uma tecnologia com histórico verificável e um fundador que responde o próprio e-mail.</p>
+  <p class="qual">O que existe é conferível hoje: cinco depósitos com DOI carimbados por um terceiro, 31 suítes com zero falhas, e dois defeitos publicados com o caso mínimo que reproduz cada um. A prova técnica vem antes da conversa comercial.</p>
+  <div class="cta">
+    <a class="btn" href="/pt/contato/">Fale conosco</a>
+    <a class="btn ghost" href="/pt/desempenho/">Os números medidos</a>
+    <a class="btn ghost" href="/pt/aplicacoes/">O mercado endereçável</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>5</b><small>versões depositadas no Zenodo com DOI citável, estabelecendo uma data de prioridade</small></div>
+    <div class="kpi"><b>31</b><small>suítes de teste, 0 falhas, incluindo 100.950 checagens de fuzz com sementes fixas</small></div>
+    <div class="kpi"><b>7</b><small>alvos de hardware: x86, ARM NEON e SVE2, RISC-V RVV, big-endian, MCU, WebAssembly</small></div>
+    <div class="kpi"><b>0</b><small>dependências — um header C11, que é o que torna a adoção barata</small></div>
+  </div>
+</section>
+::
 
 ## O problema, em dinheiro
 
@@ -57,7 +70,7 @@ que ela se parece por dentro.
 
 ## Por que é defensável
 
-- **Uma prioridade datada e citável.** Três depósitos com DOI, carimbados por um
+- **Uma prioridade datada e citável.** Cinco depósitos com DOI, carimbados por um
   terceiro, descrevendo o método por inteiro.
 - **Uma versão avançada que não é publicada.** A versão aberta é a prova; a
   [Premium](/pt/premium/) é o produto.
@@ -69,7 +82,7 @@ que ela se parece por dentro.
 
 ## Onde está hoje, honestamente
 
-Um fundador, uma biblioteca publicada na versão 3.5.0, um formato `.s2r` com
+Um fundador, uma biblioteca publicada na versão 3.5.1, um formato `.s2r` com
 compatibilidade medida entre versões, uma versão avançada em desenvolvimento, e
 nenhum capital externo. O que se procura é a conversa certa — capital,
 distribuição, ou uma primeira implantação séria — e não um cheque específico.
@@ -84,4 +97,21 @@ dado, leia o [escopo técnico](/pt/escopo/) e reproduza os
 ::html
 <div class="cta"><a class="btn" href="/pt/contato/">Começar uma conversa</a>
 <a class="btn ghost" href="/pt/sobre/">Sobre o fundador</a></div>
+::
+
+::html
+<section class="next">
+<h2>Por onde seguir</h2>
+<div class="cards">
+  <div class="card"><h3>A prova técnica</h3>
+    <p>Todo número com o programa que o produziu, e uma asserção antes de imprimir.</p>
+    <a class="more" href="/pt/desempenho/">Desempenho →</a></div>
+  <div class="card"><h3>O que é vendido</h3>
+    <p>A versão aberta é o funil. A Premium é o produto.</p>
+    <a class="more" href="/pt/premium/">Smart2Raw Premium →</a></div>
+  <div class="card"><h3>Comece a conversa</h3>
+    <p>Um e-mail chega em quem escreveu o código.</p>
+    <a class="more" href="/pt/contato/">Fale conosco →</a></div>
+</div>
+</section>
 ::

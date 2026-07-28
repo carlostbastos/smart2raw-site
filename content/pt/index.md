@@ -23,8 +23,8 @@ description: Colunas de inteiros guardadas na menor classe nativa que a amplitud
   <div class="kpis">
     <div class="kpi"><b>8×</b><small>menor que int64 numa coluna de telemetria de 0..200 — medido, e reproduzível aqui embaixo</small></div>
     <div class="kpi"><b>0</b><small>dependências. Um header, C11, sem sistema de build</small></div>
-    <div class="kpi"><b>31</b><small>suítes de teste, 0 falhas, em x86, ARM, RISC-V e big-endian</small></div>
-    <div class="kpi"><b>3</b><small>versões depositadas com DOI citável</small></div>
+    <div class="kpi"><b>31</b><small>suítes de teste, 0 falhas — x86, ARM e big-endian reais, RVV e SVE2 varridos em vários comprimentos de vetor</small></div>
+    <div class="kpi"><b>5</b><small>versões depositadas com DOI citável, carimbadas por um terceiro</small></div>
   </div>
 </section>
 ::
@@ -134,7 +134,7 @@ divergência acende um selo vermelho em vez de imprimir um número bonito.
 ::html
 <div class="cards" style="margin-top:22px">
   <div class="card"><h3>Depositado e citável</h3>
-    <p>Três versões com DOI próprio no Zenodo, e um DOI que cobre todas elas.
+    <p>Cinco versões com DOI próprio no Zenodo, e um DOI que cobre todas elas.
     <a href="/pt/citar/">Como citar</a>.</p></div>
   <div class="card"><h3>Aberto, sob AGPL-3.0</h3>
     <p>A versão publicada é software livre. Embutir em produto fechado exige

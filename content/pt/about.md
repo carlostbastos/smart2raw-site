@@ -3,12 +3,24 @@ title: Sobre o Smart2Raw e seu autor — Carlos Alberto Terêncio de Bastos
 description: Quem está por trás da biblioteca, como o projeto é conduzido, e a trilha de versões depositadas que documenta isso.
 ---
 
-# Sobre
-
-O Smart2Raw é escrito e mantido por **Carlos Alberto Terêncio de Bastos**, que
-detém o direito autoral — e é isso que torna possível a licença dupla deste site.
-Não há uma empresa entre você e o projeto: o que você escrever na
-[página de contato](/pt/contato/) chega em quem escreveu o código.
+::html
+<section class="hero">
+  <p class="slogan">O método está datado por terceiros, não afirmado aqui.</p>
+  <h1>Sobre</h1>
+  <p class="lead">O Smart2Raw é escrito e mantido por <strong>Carlos Alberto Terêncio de Bastos</strong>, que detém o direito autoral — e é isso que torna possível a licença dupla deste site. Não há uma empresa entre você e o projeto: o que você escrever na <a href="/pt/contato/">página de contato</a> chega em quem escreveu o código.</p>
+  <p class="qual">Abaixo estão os três hábitos que conduzem o projeto — todos verificáveis no repositório, não declarados aqui — e a trilha de versões depositadas que os documenta.</p>
+  <div class="cta">
+    <a class="btn" href="/pt/contato/">Contato</a>
+    <a class="btn ghost" href="https://github.com/carlostbastos/Smart2Raw">O código</a>
+    <a class="btn ghost" href="/pt/escopo/">Escopo técnico</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>5</b><small>versões depositadas, cada uma um registro do método datado por um terceiro</small></div>
+    <div class="kpi"><b>2</b><small>defeitos publicados com o caso mínimo que reproduz cada um, em vez de enterrados</small></div>
+    <div class="kpi"><b>31</b><small>suítes de teste, 0 falhas — e a suíte de fuzz existe porque achou um deles</small></div>
+  </div>
+</section>
+::
 
 ## A ideia, em um parágrafo
 
@@ -36,16 +48,20 @@ cuidadosamente escolhidos não pegaram.
 **Defeito se publica, não se enterra.** Quando a versão 3.4.0 se revelou capaz de
 devolver valores truncados em colunas sem sinal que cruzam 2^63 — sem erro e com
 CRC válido — a correção veio com o caso mínimo que reproduz, a explicação e um
-aviso de atualização no topo da release. Isso está na página de
-[escopo técnico](/pt/escopo/) hoje, onde qualquer um que avalie o projeto vai
-ler.
+aviso de atualização no topo da release. E aconteceu de novo na 3.5.1, com um
+defeito de outra natureza: um `.s2r` construído de má-fé, com CRC correto e tudo
+internamente consistente, fazia o leitor escrever fora do heap. Os dois estão na
+página de [escopo técnico](/pt/escopo/) hoje, onde qualquer um que avalie o
+projeto vai ler.
 
 ## A trilha
 
 | versão | depositada | o que trouxe |
 |---|---|---|
+| 3.5.1 | depósito em processamento | a correção de segurança no leitor em blocos, e o arquivo hostil virando teste fixo |
 | [3.5.0](https://doi.org/10.5281/zenodo.21623772) | 2026 | fatoração afim, o planejador de blocos, o índice cumulativo, e a correção do defeito acima |
 | [3.4.0](https://doi.org/10.5281/zenodo.21614309) | 2026 | quadro de referência por bloco, predicados SIMD, o contrato do `.s2r` fechado |
+| [3.3.7](https://doi.org/10.5281/zenodo.20619276) · [3.3.6](https://doi.org/10.5281/zenodo.20613701) · [3.3.x](https://doi.org/10.5281/zenodo.20477235) | 2026 | os depósitos anteriores, cada um com DOI próprio |
 | [DOI do projeto](https://doi.org/10.5281/zenodo.20477234) | — | aponta sempre para a versão mais recente |
 
 Cada depósito é um registro do método datado e carimbado por um terceiro, o que
@@ -60,4 +76,21 @@ também é o que dá ao projeto uma data de prioridade.
   {{LINKEDIN}}
   <a class="btn" href="/pt/contato/">Contato</a>
 </div>
+::
+
+::html
+<section class="next">
+<h2>Por onde seguir</h2>
+<div class="cards">
+  <div class="card"><h3>Como o método se lê</h3>
+    <p>A decisão de projeto e a troca, ditas sem rodeio.</p>
+    <a class="more" href="/pt/escopo/">Escopo técnico →</a></div>
+  <div class="card"><h3>Como citar</h3>
+    <p>Cinco depósitos com DOI próprio, e um DOI do projeto.</p>
+    <a class="more" href="/pt/citar/">Citar →</a></div>
+  <div class="card"><h3>Falar com quem escreveu</h3>
+    <p>Sem balcão de suporte no meio.</p>
+    <a class="more" href="/pt/contato/">Contato →</a></div>
+</div>
+</section>
 ::

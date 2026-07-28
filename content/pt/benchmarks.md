@@ -3,13 +3,25 @@ title: Desempenho do Smart2Raw — números medidos, com o comando que os reprod
 description: A mesma coluna em todos os formatos, medida em 4 milhões de elementos, com uma asserção conferida antes de cada linha impressa. Mais os tempos de consulta, e como rodar tudo você mesmo.
 ---
 
-# Desempenho
-
-Todo número desta página saiu de um programa que está no repositório, e todos
-podem ser reproduzidos por um comando que você roda. Onde um número podia ser
-conferido contra um laço ingênuo, o programa confere e aborta se houver
-divergência — um benchmark que imprime um número bonito que não sabe defender é
-pior que benchmark nenhum.
+::html
+<section class="hero">
+  <p class="slogan">Medido, não estimado.</p>
+  <h1>Desempenho</h1>
+  <p class="lead">Todo número desta página saiu de um programa que está no repositório, e todos podem ser reproduzidos por um comando que você roda. Onde um número podia ser conferido contra um laço ingênuo, o programa confere e aborta se houver divergência — um benchmark que imprime um número bonito que não sabe defender é pior que benchmark nenhum.</p>
+  <p class="qual">Sete formas de coluna, 4 milhões de elementos cada, os tempos de consulta, e o comando de cada tabela. Inclusive as linhas em que o Smart2Raw não ganha — elas estão aqui pelo mesmo motivo que as outras.</p>
+  <div class="cta">
+    <a class="btn" href="/pt/#s2rdemo">Meça no seu navegador</a>
+    <a class="btn ghost" href="https://github.com/carlostbastos/Smart2Raw">Rodar você mesmo</a>
+    <a class="btn ghost" href="/pt/escopo/">Escopo técnico</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>4231×</b><small>contagem por faixa numa coluna u8, com o índice cumulativo — duas leituras de 2 KB</small></div>
+    <div class="kpi"><b>0,000034 ms</b><small>count_gt(220) numa coluna que para em 200: o resumo de zona responde sem ler payload</small></div>
+    <div class="kpi"><b>31</b><small>suítes de teste, 0 falhas, limpo sob ASan e UBSan</small></div>
+    <div class="kpi"><b>100.950</b><small>checagens de fuzz diferencial contra uma referência ingênua, com sementes fixas</small></div>
+  </div>
+</section>
+::
 
 ## A mesma coluna em todos os formatos
 
@@ -79,7 +91,10 @@ um quarto do tempo. Aumente o número de elementos e a diferença aparece.
   checagens contra uma referência ingênua, com sementes fixas.
 - Limpo sob ASan e UBSan.
 - O mesmo código rodado em x86-64 com SSE2 e AVX2, ARM com NEON e SVE2, RISC-V
-  com RVV, big-endian, e em modo enxuto sem stdio, sem mmap e sem SIMD.
+  com RVV, big-endian, e em modo enxuto sem stdio, sem mmap e sem SIMD. ARM64 e
+  big-endian a CI repete em máquina real via QEMU; os núcleos RVV e SVE2 rodam
+  contra referência escalar com o comprimento de vetor varrido de 128 a 1024
+  bits, que é mais do que uma placa só daria.
 - Compatibilidade de arquivo medida nas **duas** direções entre versões.
 
 ```sh
@@ -91,3 +106,20 @@ coluna sem sinal que cruzava 2^63 devolvia valores truncados na camada em blocos
 sem erro, sem aviso e com CRC válido. Vinte e cinco suítes de casos escolhidos
 não pegaram. Está corrigido, e o caso mínimo `{1, UINT64_MAX}` hoje é um teste
 fixo.
+
+::html
+<section class="next">
+<h2>Por onde seguir</h2>
+<div class="cards">
+  <div class="card"><h3>Onde a troca está</h3>
+    <p>A linha em que o dicionário ganha, dita sem rodeio, com o número.</p>
+    <a class="more" href="/pt/escopo/">Escopo técnico →</a></div>
+  <div class="card"><h3>Reproduza tudo</h3>
+    <p>Um clone e um comando. As sementes do fuzz são fixas de propósito.</p>
+    <a class="more" href="/pt/citar/">Como citar e reproduzir →</a></div>
+  <div class="card"><h3>Meça o seu dado</h3>
+    <p>A demonstração cronometra as mesmas consultas na sua coluna.</p>
+    <a class="more" href="/pt/#s2rdemo">Ir para a demonstração →</a></div>
+</div>
+</section>
+::

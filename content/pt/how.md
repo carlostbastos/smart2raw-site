@@ -3,11 +3,25 @@ title: Como o Smart2Raw funciona — classificação, não compressão
 description: Três passos: medir a amplitude real, escolher a menor classe nativa que a contém, e operar direto nos bytes guardados. Sem dicionário, sem empacotamento de bits, sem passo de decodificação.
 ---
 
-# Como funciona
-
-O Smart2Raw não é um compressor. Um compressor transforma o seu dado em outra
-coisa e devolve quando você pede. O Smart2Raw faz o contrário: ele decide, uma
-vez, de quanto o dado realmente precisa — e depois deixa o dado em paz.
+::html
+<section class="hero">
+  <p class="slogan">O seu dado não vira outra coisa.</p>
+  <h1>Como funciona</h1>
+  <p class="lead">O Smart2Raw não é um compressor. Um compressor transforma o seu dado em outra coisa e devolve quando você pede. O Smart2Raw faz o contrário: ele decide, uma vez, de quanto o dado realmente precisa — e depois deixa o dado em paz.</p>
+  <p class="qual">Três passos: medir a amplitude real, escolher a menor classe nativa que a contém, e operar direto nos bytes guardados. É o terceiro que separa a abordagem de tudo o que codifica — não há passo de decodificação para pagar.</p>
+  <div class="cta">
+    <a class="btn" href="/pt/#s2rdemo">Veja rodando no navegador</a>
+    <a class="btn ghost" href="/pt/comece/">Comece</a>
+    <a class="btn ghost" href="/pt/escopo/">Escopo técnico</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>3</b><small>passos: medir a amplitude, guardar na classe nativa, operar sem materializar</small></div>
+    <div class="kpi"><b>3</b><small>formas — pool plano, afim e em blocos — escolhidas por medição, não por palpite</small></div>
+    <div class="kpi"><b>3,8 MB</b><small>4 milhões de elementos entre 0 e 200 que ocupavam 30,5 MB — sem dicionário e sem empacotar bits</small></div>
+    <div class="kpi"><b>0</b><small>passos de decodificação: os bytes guardados são inteiros nativos</small></div>
+  </div>
+</section>
+::
 
 ## Passo 1 · Medir a amplitude real
 
@@ -93,3 +107,20 @@ O formato 3 só é emitido **quando** algum bloco de fato tem passo maior que 1 
 então uma coluna sem passo comum é byte a byte o arquivo que a versão 3.4.0
 escrevia, e uma build 3.4.0 abre esse arquivo. Quando há passo, o arquivo é
 `fmt = 3` e as versões antigas o recusam corretamente, em vez de lerem errado.
+
+::html
+<section class="next">
+<h2>Por onde seguir</h2>
+<div class="cards">
+  <div class="card"><h3>Veja os números</h3>
+    <p>A mesma coluna em sete formatos, e os tempos de consulta.</p>
+    <a class="more" href="/pt/desempenho/">Desempenho →</a></div>
+  <div class="card"><h3>Onde a troca está</h3>
+    <p>A menor classe nativa tem 8 bits. Tudo o que isso compra, e o que custa.</p>
+    <a class="more" href="/pt/escopo/">Escopo técnico →</a></div>
+  <div class="card"><h3>Escreva as três linhas</h3>
+    <p>Um header, sem sistema de build, sem configuração.</p>
+    <a class="more" href="/pt/comece/">Comece →</a></div>
+</div>
+</section>
+::

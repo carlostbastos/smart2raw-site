@@ -3,15 +3,21 @@ title: Contato Smart2Raw — licença comercial, versão avançada, parcerias
 description: Fale com quem escreveu. Licenciamento comercial, acesso à versão avançada, avaliação técnica e investimento.
 ---
 
-# Contato
+::html
+<section class="hero">
+  <p class="slogan">Uma pessoa lê, e responde.</p>
+  <h1>Contato</h1>
+  <p class="lead">Não há um balcão de suporte entre você e o projeto. O que você escrever aqui chega em quem escreveu a biblioteca.</p>
+  <p class="qual">Escreva se você quer licenciar o Smart2Raw para um produto que não publica sob AGPL, ter acesso à versão avançada, avaliar com o seu próprio dado, conversar sobre investimento ou parceria — ou relatar um defeito, que é sempre bem-vindo.</p>
+  <div class="cta">
+    <a class="btn" href="#cform">Escrever agora</a>
+    <a class="btn ghost" href="mailto:contato@smart2raw.com">contato@smart2raw.com</a>
+    <a class="btn ghost" href="https://github.com/carlostbastos/Smart2Raw/issues">Issues no GitHub</a>
+  </div>
+</section>
+::
 
-Não há um balcão de suporte entre você e o projeto. O que você escrever aqui
-chega em quem escreveu a biblioteca.
-
-**Escreva se você quer:** licenciar o Smart2Raw para um produto que você não
-publica sob AGPL · ter acesso à versão avançada · avaliar com o seu próprio dado
-e quer uma mão · conversar sobre investimento ou parceria · relatar um defeito,
-que é sempre bem-vindo.
+**Escreva se você quer:** licenciar o Smart2Raw para um produto que você não publica sob AGPL · ter acesso à versão avançada · avaliar com o seu próprio dado e quer uma mão · conversar sobre investimento ou parceria · relatar um defeito, que é sempre bem-vindo.
 
 ::html
 <div class="panel" style="margin-top:8px">
@@ -85,3 +91,20 @@ curta.
 
 - **Defeitos e dúvidas sobre o código:** [issues no GitHub](https://github.com/carlostbastos/Smart2Raw/issues) — público, e o mais rápido.
 - **Citação e uso acadêmico:** está tudo na [página de citar](/pt/citar/).
+
+::html
+<section class="next">
+<h2>Antes de escrever, se ajudar</h2>
+<div class="cards">
+  <div class="card"><h3>Descubra se a AGPL basta</h3>
+    <p>Uma tabela por situação, e a linha que decide.</p>
+    <a class="more" href="/pt/licenciamento/">Licenciamento →</a></div>
+  <div class="card"><h3>Teste primeiro</h3>
+    <p>A versão aberta é completa. A demonstração roda no seu navegador.</p>
+    <a class="more" href="/pt/comece/">Comece →</a></div>
+  <div class="card"><h3>Veja o que está publicado</h3>
+    <p>A troca, dita sem rodeio, antes de qualquer conversa comercial.</p>
+    <a class="more" href="/pt/escopo/">Escopo técnico →</a></div>
+</div>
+</section>
+::

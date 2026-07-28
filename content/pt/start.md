@@ -3,10 +3,25 @@ title: Comece a usar o Smart2Raw — um header, três linhas
 description: Copie um header para o seu projeto e classifique uma coluna em três linhas de C. Downloads da biblioteca, da demonstração em arquivo único e de um executável de Windows sem dependência.
 ---
 
-# Comece
-
-Não há o que instalar. O Smart2Raw é um único header C11, sem dependência, sem
-sistema de build e sem configuração.
+::html
+<section class="hero">
+  <p class="slogan">O passo de instalação é copiar um arquivo.</p>
+  <h1>Comece</h1>
+  <p class="lead">Não há o que instalar. O Smart2Raw é um único header C11, sem dependência, sem sistema de build e sem configuração.</p>
+  <p class="qual">Copie o header para o seu projeto e classifique uma coluna em três linhas de C. Se preferir não escrever código ainda, há a demonstração em arquivo único e um executável de Windows sem instalador, os dois logo abaixo.</p>
+  <div class="cta">
+    <a class="btn" href="https://github.com/carlostbastos/Smart2Raw">Baixar do GitHub</a>
+    <a class="btn ghost" href="/assets/smart2raw-live-pt.html" download>A demonstração em um arquivo</a>
+    <a class="btn ghost" href="/assets/s2r-probe.exe" download>Executável de Windows</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>1</b><small>arquivo: smart2raw.h, C11, sem sistema de build e sem configuração</small></div>
+    <div class="kpi"><b>3</b><small>linhas para classificar, guardar e operar</small></div>
+    <div class="kpi"><b>0</b><small>dependências — nem para compilar, nem em tempo de execução</small></div>
+    <div class="kpi"><b>7</b><small>alvos de hardware com a mesma suíte passando, do Xeon ao microcontrolador</small></div>
+  </div>
+</section>
+::
 
 ## Três linhas
 
@@ -53,9 +68,9 @@ um byte corrompido é pego na carga em vez de ser devolvido como dado.
 ::html
 <div class="cards">
   <div class="card"><h3>A biblioteca</h3>
-    <p>Código-fonte, 31 suítes de teste, benchmarks, exemplos e ports para outras linguagens.</p>
+    <p>Código-fonte, 31 suítes de teste, benchmarks, exemplos e ports para outras linguagens. O GitHub traz a <b>3.5.1</b>, que é uma correção de segurança sobre a 3.5.0 sem mudança de API nem de formato.</p>
     <a class="more" href="https://github.com/carlostbastos/Smart2Raw">GitHub →</a><br>
-    <a class="more" href="https://doi.org/10.5281/zenodo.21623772">Zenodo, versão 3.5.0 →</a></div>
+    <a class="more" href="https://doi.org/10.5281/zenodo.21623772">Zenodo, DOI da 3.5.0 →</a></div>
   <div class="card"><h3>A demonstração, em arquivo único</h3>
     <p>A biblioteca inteira como WebAssembly dentro de um HTML só. Funciona sem internet, por
     <code>file://</code>, sem servidor. Nada do que você colar nela sai da sua máquina.</p>
@@ -82,9 +97,35 @@ NEON e SVE2, RISC-V com RVV, máquinas big-endian, e microcontroladores em modo
 enxuto (`-DS2R_NO_STDIO -DS2R_NO_MMAP -DS2R_NO_SIMD`). E, a partir deste site, em
 WebAssembly e num PE de Windows ligado sem runtime de C.
 
+Vale dizer como cada um é verificado, porque não é a mesma coisa. **ARM64 e
+big-endian a integração contínua repete em máquina real**, via QEMU, a cada
+commit. Os núcleos **RVV e SVE2 rodam de verdade** — o código vetorial que vai
+para o hardware, não uma reimplementação — conferidos elemento a elemento contra
+uma referência escalar, com o **comprimento de vetor varrido de 128 a 1024 bits**
+e com as bordas de tira e as caudas exercitadas explicitamente. Uma placa real
+teria dado um comprimento só; a varredura cobre a família inteira, que é
+exatamente o que um kernel agnóstico de comprimento precisa provar.
+
 ## Licença
 
 A versão publicada está sob **AGPL-3.0-or-later**. Se você pretende embutir o
 Smart2Raw em algo que não vai publicar sob a mesma licença, isso exige uma
 [licença comercial](/pt/licenciamento/) — que é também o caminho para a versão
 avançada.
+
+::html
+<section class="next">
+<h2>Por onde seguir</h2>
+<div class="cards">
+  <div class="card"><h3>Entenda o que acabou de rodar</h3>
+    <p>Os três passos, e por que não há decodificação no meio.</p>
+    <a class="more" href="/pt/como-funciona/">Como funciona →</a></div>
+  <div class="card"><h3>Compare com o seu formato atual</h3>
+    <p>A mesma coluna em sete formatos, com o comando de cada linha.</p>
+    <a class="more" href="/pt/desempenho/">Desempenho →</a></div>
+  <div class="card"><h3>Antes de embutir em produto</h3>
+    <p>A versão publicada é AGPL. Produto fechado pede outra conversa.</p>
+    <a class="more" href="/pt/licenciamento/">Licenciamento →</a></div>
+</div>
+</section>
+::

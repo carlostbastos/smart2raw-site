@@ -3,10 +3,19 @@ title: Licenciamento — AGPL-3.0 ou comercial
 description: O Smart2Raw tem licença dupla. A versão publicada é AGPL-3.0-or-later; embutir em algo que você não publica sob os mesmos termos exige licença comercial.
 ---
 
-# Licenciamento
-
-O Smart2Raw tem **licença dupla**. O direito autoral está com uma pessoa, e é
-isso que torna a segunda opção possível.
+::html
+<section class="hero">
+  <p class="slogan">Aberta para conferir, comercial para embutir.</p>
+  <h1>Licenciamento</h1>
+  <p class="lead">O Smart2Raw tem <strong>licença dupla</strong>. O direito autoral está com uma pessoa, e é isso que torna a segunda opção possível.</p>
+  <p class="qual">A pergunta que decide de que lado você está é uma só: o que você constrói chega a mais alguém? Abaixo há uma tabela por situação, e ela responde direto — sem advogado no meio.</p>
+  <div class="cta">
+    <a class="btn" href="/pt/contato/">Fale conosco</a>
+    <a class="btn ghost" href="https://github.com/carlostbastos/Smart2Raw">O código, sob AGPL</a>
+    <a class="btn ghost" href="/pt/premium/">Smart2Raw Premium</a>
+  </div>
+</section>
+::
 
 ::html
 <div class="cards">
@@ -57,3 +66,20 @@ e não custa nada.
 Copyright © 2026 Carlos Alberto Terêncio de Bastos.
 Identificador SPDX: `AGPL-3.0-or-later`. O texto integral vai no `LICENSE` e os
 termos de licença dupla no `LICENSING.md`, ambos no repositório.
+
+::html
+<section class="next">
+<h2>Por onde seguir</h2>
+<div class="cards">
+  <div class="card"><h3>Não sabe de que lado está?</h3>
+    <p>É uma conversa curta e não custa nada. Diga como o seu software chega ao usuário.</p>
+    <a class="more" href="/pt/contato/">Fale conosco →</a></div>
+  <div class="card"><h3>O que vem junto da comercial</h3>
+    <p>Além do direito de embutir: suporte, prioridade, e a versão avançada.</p>
+    <a class="more" href="/pt/premium/">Smart2Raw Premium →</a></div>
+  <div class="card"><h3>Avalie antes de decidir</h3>
+    <p>A versão aberta é completa. Teste com o seu dado primeiro.</p>
+    <a class="more" href="/pt/comece/">Comece →</a></div>
+</div>
+</section>
+::

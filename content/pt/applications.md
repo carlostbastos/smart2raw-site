@@ -3,14 +3,25 @@ title: Onde o Smart2Raw se encaixa — bancos de dados, sistemas operacionais, t
 description: Todos esses sistemas já têm uma coluna de inteiros dentro. Sete lugares onde classificar por amplitude e manter os bytes nativos muda o que o sistema custa para rodar.
 ---
 
-# Onde isso se encaixa
-
-A pergunta é sempre a mesma: **onde está a coluna de inteiros?** Quando você
-começa a procurar, ela está em quase tudo — e quase sempre com oito bytes,
-porque ninguém mediu.
-
-Cada seção abaixo diz três coisas: a coluna que já existe naquele sistema, o que
-muda quando ela é classificada, e por onde começar.
+::html
+<section class="hero">
+  <p class="slogan">Todo sistema desta lista já tem uma coluna de inteiros dentro.</p>
+  <h1>Onde isso se encaixa</h1>
+  <p class="lead">A pergunta é sempre a mesma: <strong>onde está a coluna de inteiros?</strong> Quando você começa a procurar, ela está em quase tudo — e quase sempre com oito bytes, porque ninguém mediu. Cada seção abaixo diz três coisas: a coluna que já existe naquele sistema, o que muda quando ela é classificada, e por onde começar.</p>
+  <p class="qual">Sete áreas, e a lista não é exaustiva — é só onde a coluna é mais fácil de achar. Se a sua não estiver aqui, o teste é o mesmo: cole a coluna na demonstração e veja qual classe ela pede.</p>
+  <div class="cta">
+    <a class="btn" href="/pt/#s2rdemo">Teste com a sua coluna</a>
+    <a class="btn ghost" href="/pt/como-funciona/">Como funciona</a>
+    <a class="btn ghost" href="/pt/desempenho/">Desempenho</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>7</b><small>áreas em que a coluna de inteiros já está lá, com oito bytes, porque ninguém mediu</small></div>
+    <div class="kpi"><b>8×</b><small>menos bytes numa coluna de telemetria de 0..200 — 30,52 MB viram 3,81 MB</small></div>
+    <div class="kpi"><b>4,11 MB</b><small>contra 15,26 MB em 4 milhões de timestamps: a forma certa contra a forma óbvia</small></div>
+    <div class="kpi"><b>0</b><small>dependências. Um header C11 entra em daemon, em firmware e em build alheio</small></div>
+  </div>
+</section>
+::
 
 ## Bancos de dados e mecanismos colunares
 
@@ -162,3 +173,20 @@ que já tem opinião formada sobre a própria toolchain.
 O jeito mais rápido de saber se a sua coluna é uma dessas é
 [colar ela na demonstração](/pt/) — ela roda no seu navegador, na sua máquina, e
 nada do que você colar sai de lá.
+
+::html
+<section class="next">
+<h2>Por onde seguir</h2>
+<div class="cards">
+  <div class="card"><h3>Veja o mecanismo</h3>
+    <p>As três formas e por que não existe passo de decodificação.</p>
+    <a class="more" href="/pt/como-funciona/">Como funciona →</a></div>
+  <div class="card"><h3>Veja os números</h3>
+    <p>A mesma coluna em sete formatos, com o comando que reproduz cada linha.</p>
+    <a class="more" href="/pt/desempenho/">Desempenho →</a></div>
+  <div class="card"><h3>Teste com o seu dado</h3>
+    <p>Cole uma coluna na demonstração. Ela roda no seu navegador e nada sai de lá.</p>
+    <a class="more" href="/pt/#s2rdemo">Ir para a demonstração →</a></div>
+</div>
+</section>
+::

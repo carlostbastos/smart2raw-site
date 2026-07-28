@@ -3,11 +3,24 @@ title: Smart2Raw Premium — além da versão aberta, sob licença comercial
 description: A versão aberta é a que você pode conferir. A Premium vai além no quanto o dado compacta e no que dá para perguntar a ele, e vem com o direito de embutir em produto fechado.
 ---
 
-# Smart2Raw Premium
-
-A versão publicada neste site é completa, auditável e sua para testar — é para
-isso que ela existe. A **Premium** é a versão que não é publicada, e ela é
-licenciada, não baixada.
+::html
+<section class="hero">
+  <p class="slogan">A prova é a versão aberta.</p>
+  <h1>Smart2Raw Premium</h1>
+  <p class="lead">A versão publicada neste site é completa, auditável e sua para testar — é para isso que ela existe. A <strong>Premium</strong> é a versão que não é publicada, e ela é licenciada, não baixada.</p>
+  <p class="qual">Duas perguntas justas seguem daí: o que exatamente ela acrescenta, e por que a parte que não é publicada merece crédito. Esta página responde as duas com o que já dá para conferir hoje.</p>
+  <div class="cta">
+    <a class="btn" href="/pt/contato/">Comece a conversa</a>
+    <a class="btn ghost" href="/pt/licenciamento/">Licenciamento</a>
+    <a class="btn ghost" href="/pt/escopo/">O que a versão aberta já faz</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b>5</b><small>versões depositadas com DOI próprio, carimbadas por um terceiro</small></div>
+    <div class="kpi"><b>31</b><small>suítes de teste na versão aberta, 0 falhas — o que dá para conferir, está conferido</small></div>
+    <div class="kpi"><b>2</b><small>defeitos publicados com o caso mínimo que reproduz cada um, em vez de enterrados</small></div>
+  </div>
+</section>
+::
 
 ## O que a Premium acrescenta
 
@@ -30,7 +43,7 @@ licenciada, não baixada.
 
 A pergunta é justa, e a resposta é concreta em vez de promessa.
 
-Tudo o que este projeto *já* publicou pode ser conferido linha a linha: três
+Tudo o que este projeto *já* publicou pode ser conferido linha a linha: cinco
 versões depositadas com DOI próprio, 31 suítes de teste com zero falhas, e todo
 benchmark acompanhado do comando que o reproduz e de uma asserção que roda antes
 de cada número ser impresso.
@@ -42,8 +55,15 @@ o defeito, o caso mínimo que o reproduz e a razão de vinte e cinco suítes de
 casos escolhidos não o terem pegado. Isso está na página de
 [escopo técnico](/pt/escopo/) agora, onde um comprador vai ler.
 
-Um projeto que documenta o próprio pior momento é um projeto cujas afirmações dá
-para precificar. A Premium é feita pelas mesmas mãos, com a mesma disciplina.
+E não foi uma vez só. A 3.5.0 tinha um segundo defeito, de outra natureza: um
+arquivo `.s2r` construído de má-fé — 64 bytes, CRC correto, tudo internamente
+consistente — fazia o leitor alocar dezesseis bytes e copiar quatro megabytes
+para dentro. Foi encontrado lendo o carregador contra a própria aritmética,
+corrigido na 3.5.1, e publicado com o arquivo hostil virando teste fixo.
+
+Um projeto que documenta o próprio pior momento duas vezes é um projeto cujas
+afirmações dá para precificar. A Premium é feita pelas mesmas mãos, com a mesma
+disciplina.
 
 ## Para quem ela é
 
@@ -75,4 +95,21 @@ vai ouvir isso.
 ::html
 <div class="cta"><a class="btn" href="/pt/contato/">Fale conosco</a>
 <a class="btn ghost" href="/pt/licenciamento/">Como funciona o licenciamento</a></div>
+::
+
+::html
+<section class="next">
+<h2>Por onde seguir</h2>
+<div class="cards">
+  <div class="card"><h3>Veja a linha onde a aberta para</h3>
+    <p>Os regimes em que ela perde, nomeados com precisão e com o número.</p>
+    <a class="more" href="/pt/escopo/">Escopo técnico →</a></div>
+  <div class="card"><h3>Entenda a licença</h3>
+    <p>A AGPL é o que torna possível uma versão aberta sem abrir mão do direito comercial.</p>
+    <a class="more" href="/pt/licenciamento/">Licenciamento →</a></div>
+  <div class="card"><h3>Diga qual é a sua coluna</h3>
+    <p>Quantos elementos, como é a amplitude, o que você precisa perguntar.</p>
+    <a class="more" href="/pt/contato/">Fale conosco →</a></div>
+</div>
+</section>
 ::
