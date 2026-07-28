@@ -12,7 +12,7 @@ estático. O idioma inglês fica na raiz, o português em /pt/.
 Smart2Raw - Copyright (C) 2026 Carlos Alberto Terêncio de Bastos
 SPDX-License-Identifier: AGPL-3.0-or-later
 """
-import os, sys, shutil, re, json, html
+import os, sys, shutil, re, json, html, hashlib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import md, build_single
 
@@ -72,6 +72,13 @@ FOOTLINKS = {
  "en": ["privacy", "cite", "license", "contact"],
  "pt": ["privacy", "cite", "license", "contact"],
 }
+
+def asset_v(name):
+    """Versão pelo conteúdo: CSS/JS mudou, a URL muda, e nenhum navegador serve
+    o arquivo velho de um cache de horas atrás."""
+    p = os.path.join(ROOTDIR, "assets", name)
+    with open(p, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()[:10]
 
 def url_for(page, lang):
     slug = page[lang][0]
@@ -214,6 +221,7 @@ def build():
                 .replace("{{SHEET}}", "\n    ".join(sheet))
                 .replace("{{FOOTLINKS}}", "<br>\n      ".join(fl))
                 .replace("{{BODY}}", body)
+                .replace("{{CSSV}}", asset_v("site.css"))
                 .replace("{{ROOT}}", root)
                 .replace("{{T_SKIP}}", CHROME[lang]["skip"])
                 .replace("{{T_MENU}}", CHROME[lang]["menu"])
@@ -224,7 +232,8 @@ def build():
                 .replace("{{T_FOOT_CONCEPT}}", CHROME[lang]["concept"])
                 .replace("{{T_OR_COMMERCIAL}}", CHROME[lang]["orcom"])
                 .replace("{{EXTRA_JS}}",
-                         '<script src="%sassets/demo.js"></script>' % root if has_demo else ""))
+                         '<script src="%sassets/demo.js?v=%s"></script>' % (root, asset_v("demo.js"))
+                         if has_demo else ""))
 
             rel = url_for(page, lang).strip("/")
             d = os.path.join(out, rel) if rel else out
