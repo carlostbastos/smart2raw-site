@@ -12,7 +12,7 @@ estático. O idioma inglês fica na raiz, o português em /pt/.
 Smart2Raw - Copyright (C) 2026 Carlos Alberto Terêncio de Bastos
 SPDX-License-Identifier: AGPL-3.0-or-later
 """
-import os, sys, shutil, re
+import os, sys, shutil, re, json, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import md, build_single
 
@@ -39,13 +39,34 @@ PAGES = [
     dict(id="privacy",      en=("privacy",      None),            pt=("privacidade",   None)),
 ]
 
+# O topo: 4 links diretos, 2 grupos, e o contato como botão. Onze itens em cinza
+# numa fita só é o mesmo que esconder o menu.
+NAV_PRIMARY = ["applications", "how", "benchmarks", "start"]
+NAV_GROUPS = [
+    dict(key="commercial", items=["premium", "license", "investors"]),
+    dict(key="more",       items=["scope", "cite", "about"]),
+]
+# subtítulo opcional dentro do menu suspenso
+SUBS = {
+ "en": {"premium": "the version that is not published",
+        "license": "AGPL or a commercial licence",
+        "investors": "we are looking for investors"},
+ "pt": {"premium": "a versão que não é publicada",
+        "license": "AGPL ou licença comercial",
+        "investors": "procuramos investidores"},
+}
+
 CHROME = {
  "en": dict(skip="Skip to content", foot_tag="Classify once, operate forever in the "
             "smallest native format.", concept="Concept DOI (all versions)",
-            orcom="or commercial licence"),
+            orcom="or commercial licence", menu="Menu", contact="Get in touch",
+            navlabel="Main", commercial="Commercial", more="More", home="Home",
+            ogalt="Smart2Raw — classify once, operate forever in the smallest native format"),
  "pt": dict(skip="Ir para o conteúdo", foot_tag="Classifique uma vez, opere para sempre "
             "no menor formato nativo.", concept="DOI do projeto (todas as versões)",
-            orcom="ou licença comercial"),
+            orcom="ou licença comercial", menu="Menu", contact="Fale conosco",
+            navlabel="Principal", commercial="Comercial", more="Mais", home="Início",
+            ogalt="Smart2Raw — classifique uma vez, opere para sempre no menor formato nativo"),
 }
 FOOTLINKS = {
  "en": ["privacy", "cite", "license", "contact"],
@@ -84,6 +105,9 @@ def build():
     by_id = {p["id"]: p for p in PAGES}
     made = []
 
+    def exists(pid, lang):
+        return os.path.exists(os.path.join(ROOTDIR, "content", lang, pid + ".md"))
+
     for page in PAGES:
         for lang in ("en", "pt"):
             src = os.path.join(ROOTDIR, "content", lang, page["id"] + ".md")
@@ -92,6 +116,7 @@ def build():
             meta, body_md = md.parse(open(src, encoding="utf-8").read())
             root = "../" * depth_of(page, lang)
             has_demo = "{{DEMO}}" in body_md
+            here = page["id"]
 
             body = md.render(body_md)
             body = body.replace("{{LINKEDIN}}",
@@ -102,15 +127,42 @@ def build():
                 # md.render escapou o marcador dentro de um <p>; limpa o invólucro
                 body = body.replace("<p>{{DEMO}}</p>", "").replace("<p></p>", "")
 
-            nav = []
-            for q in PAGES:
-                label = q[lang][1]
-                if not label:
+            # ---- topo: links diretos, grupos suspensos, e o painel de celular ----
+            nav, sheet = [], []
+            # no celular o painel abre com o Início, como qualquer app
+            home_on = ' class="on"' if here == "index" else ''
+            sheet.append('<a href="%s"%s>%s</a>' % (
+                url_for(by_id["index"], lang), home_on, CHROME[lang]["home"]))
+            for pid in NAV_PRIMARY:
+                if not exists(pid, lang):
                     continue
-                if not os.path.exists(os.path.join(ROOTDIR, "content", lang, q["id"] + ".md")):
+                q = by_id[pid]
+                on = ' class="on"' if pid == here else ''
+                nav.append('<a href="%s"%s>%s</a>' % (url_for(q, lang), on, q[lang][1]))
+                sheet.append('<a href="%s"%s>%s</a>' % (url_for(q, lang), on, q[lang][1]))
+            for g in NAV_GROUPS:
+                items = [pid for pid in g["items"] if exists(pid, lang)]
+                if not items:
                     continue
-                on = " class=\"on\"" if q["id"] == page["id"] else ""
-                nav.append('<a href="%s"%s>%s</a>' % (url_for(q, lang), on, label))
+                label = CHROME[lang][g["key"]]
+                has_on = " has-on" if here in items else ""
+                inner = []
+                for pid in items:
+                    q = by_id[pid]
+                    on = ' class="on"' if pid == here else ''
+                    sub = SUBS[lang].get(pid)
+                    inner.append('<a href="%s"%s>%s%s</a>' % (
+                        url_for(q, lang), on, q[lang][1],
+                        ("<small>%s</small>" % sub) if sub else ""))
+                    sheet_on = ' class="on"' if pid == here else ''
+                nav.append('<details class="navdrop%s"><summary>%s</summary>'
+                           '<div class="menu">%s</div></details>'
+                           % (has_on, label, "".join(inner)))
+                sheet.append('<p class="sgroup">%s</p>' % label)
+                for pid in items:
+                    q = by_id[pid]
+                    on = ' class="on"' if pid == here else ''
+                    sheet.append('<a href="%s"%s>%s</a>' % (url_for(q, lang), on, q[lang][1]))
 
             fl = []
             for pid in FOOTLINKS[lang]:
@@ -118,24 +170,56 @@ def build():
                 lab = q[lang][1] or (
                     "Privacy" if lang == "en" and pid == "privacy" else
                     "Privacidade" if pid == "privacy" else pid)
-                if os.path.exists(os.path.join(ROOTDIR, "content", lang, pid + ".md")):
+                if exists(pid, lang):
                     fl.append('<a href="%s">%s</a>' % (url_for(q, lang), lab))
 
-            html = (tpl
+            canonical = SITE_URL + url_for(page, lang)
+            if page["id"] == "index":
+                ld = {"@context": "https://schema.org", "@type": "SoftwareSourceCode",
+                      "name": "Smart2Raw",
+                      "description": meta.get("description", ""),
+                      "url": canonical,
+                      "codeRepository": "https://github.com/carlostbastos/Smart2Raw",
+                      "programmingLanguage": "C",
+                      "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+                      "identifier": "https://doi.org/10.5281/zenodo.20477234",
+                      "inLanguage": "en" if lang == "en" else "pt-BR",
+                      "author": {"@type": "Person",
+                                 "name": "Carlos Alberto Terêncio de Bastos"}}
+            else:
+                ld = {"@context": "https://schema.org", "@type": "WebPage",
+                      "name": meta.get("title", "Smart2Raw"),
+                      "description": meta.get("description", ""),
+                      "url": canonical,
+                      "inLanguage": "en" if lang == "en" else "pt-BR",
+                      "isPartOf": {"@type": "WebSite", "name": "Smart2Raw",
+                                   "url": SITE_URL + "/"}}
+
+            html_out = (tpl
                 .replace("{{HTMLLANG}}", "en" if lang == "en" else "pt-BR")
                 .replace("{{TITLE}}", meta.get("title", "Smart2Raw"))
                 .replace("{{DESC}}", meta.get("description", ""))
-                .replace("{{CANONICAL}}", SITE_URL + url_for(page, lang))
+                .replace("{{CANONICAL}}", canonical)
+                .replace("{{SITEURL}}", SITE_URL)
+                .replace("{{OGLOCALE}}", "en_US" if lang == "en" else "pt_BR")
+                .replace("{{OGIMG}}", "og.png" if lang == "en" else "og-pt.png")
+                .replace("{{JSONLD}}", json.dumps(ld, ensure_ascii=False))
                 .replace("{{HREF_EN}}", SITE_URL + url_for(page, "en"))
                 .replace("{{HREF_PT}}", SITE_URL + url_for(page, "pt"))
                 .replace("{{EN_ACTIVE}}", "on" if lang == "en" else "")
                 .replace("{{PT_ACTIVE}}", "on" if lang == "pt" else "")
                 .replace("{{HOME}}", url_for(by_id["index"], lang))
+                .replace("{{CONTACTURL}}", url_for(by_id["contact"], lang))
                 .replace("{{NAV}}", "\n      ".join(nav))
+                .replace("{{SHEET}}", "\n    ".join(sheet))
                 .replace("{{FOOTLINKS}}", "<br>\n      ".join(fl))
                 .replace("{{BODY}}", body)
                 .replace("{{ROOT}}", root)
                 .replace("{{T_SKIP}}", CHROME[lang]["skip"])
+                .replace("{{T_MENU}}", CHROME[lang]["menu"])
+                .replace("{{T_CONTACT}}", CHROME[lang]["contact"])
+                .replace("{{T_NAVLABEL}}", CHROME[lang]["navlabel"])
+                .replace("{{T_OGALT}}", CHROME[lang]["ogalt"])
                 .replace("{{T_FOOT_TAG}}", CHROME[lang]["foot_tag"])
                 .replace("{{T_FOOT_CONCEPT}}", CHROME[lang]["concept"])
                 .replace("{{T_OR_COMMERCIAL}}", CHROME[lang]["orcom"])
@@ -145,7 +229,7 @@ def build():
             rel = url_for(page, lang).strip("/")
             d = os.path.join(out, rel) if rel else out
             os.makedirs(d, exist_ok=True)
-            open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(html)
+            open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(html_out)
             made.append(url_for(page, lang))
 
     shutil.copytree(os.path.join(ROOTDIR, "assets"), os.path.join(out, "assets"),

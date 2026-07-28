@@ -37,20 +37,27 @@ function pages(dir, base=''){
       lang:document.documentElement.lang,
       h1:document.querySelectorAll('h1').length,
       nav:document.querySelectorAll('.nav a').length,
+      sheet:document.querySelectorAll('#sheet a').length,
       form:!!document.getElementById('cform'),
       formMsg:(document.getElementById('cstat')||{}).textContent||'',
-      formDisabled:(document.getElementById('csend')||{}).disabled
+      formDisabled:(document.getElementById('csend')||{}).disabled,
+      formKey:((document.querySelector('#cform [name=access_key]')||{}).value||'')
     }));
     const probs=[];
     if(!m.title||m.title.length<15) probs.push('título curto/ausente');
     if(!m.desc||m.desc.length<50) probs.push('description curta/ausente');
     if(m.alts<3) probs.push('hreflang incompleto');
     if(m.h1!==1) probs.push('h1='+m.h1);
-    if(m.nav<8) probs.push('menu com '+m.nav);
-    if(m.form && !m.formDisabled) probs.push('formulário ativo sem chave');
+    if(m.nav<8) probs.push('menu do topo com '+m.nav);
+    if(m.sheet<12) probs.push('painel de celular com '+m.sheet);
+    if(m.form){
+      const semChave = m.formKey.indexOf('S2R_WEB3FORMS')===0;
+      if(semChave && !m.formDisabled) probs.push('formulário ativo sem chave');
+      if(!semChave && m.formDisabled) probs.push('formulário desativado apesar da chave');
+    }
     if(errs.length) probs.push('console: '+errs.slice(0,2).join(' | '));
     console.log((probs.length?'FALHA ':'ok    ')+u.padEnd(22)+' lang='+m.lang.padEnd(5)
-                +' nav='+String(m.nav).padEnd(3)+(m.form?' [form]':'')
+                +' nav='+String(m.nav).padEnd(3)+' painel='+String(m.sheet).padEnd(3)+(m.form?' [form]':'')
                 +(probs.length?'  << '+probs.join('; '):''));
     if(probs.length) bad++;
     await pg.close();

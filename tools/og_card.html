@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- Fonte da imagem de compartilhamento (1200x630). Para regerar:
+     python3 tools/make_og.py    (precisa de playwright + chromium; roda fora do build)
+     O PNG resultante fica em assets/og.png e assets/og-pt.png e é versionado,
+     para que o build do site continue sem nenhuma dependência externa.
+     Smart2Raw - Copyright (C) 2026 Carlos Alberto Terêncio de Bastos
+     SPDX-License-Identifier: AGPL-3.0-or-later -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @page{size:1200px 630px;margin:0}
+  *{box-sizing:border-box;margin:0}
+  body{width:1200px;height:630px;overflow:hidden;
+    background:#0d1117;color:#e6edf3;
+    font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .card{position:relative;width:1200px;height:630px;padding:58px 64px;
+    display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+  .glow{position:absolute;left:-8%;top:-58%;width:116%;height:660px;
+    background:radial-gradient(52% 100% at 50% 0,rgba(78,161,255,.30),transparent 70%)}
+  .glow2{position:absolute;right:-16%;bottom:-30%;width:58%;height:430px;
+    background:radial-gradient(50% 100% at 50% 50%,rgba(126,224,192,.14),transparent 70%)}
+  .card>*{position:relative}
+  .card>.glow,.card>.glow2{position:absolute}
+  .brand{font:700 30px/1 sans-serif;letter-spacing:-.8px}
+  .brand span{color:#4ea1ff}
+  .slogan{color:#7ee0c0;font:600 20px/1.4 sans-serif;margin-top:10px}
+  h1{font:700 60px/1.06 sans-serif;letter-spacing:-2.2px;max-width:20ch;
+    background:linear-gradient(180deg,#fff,#a9bccd);-webkit-background-clip:text;
+    background-clip:text;color:transparent}
+  .sub{color:#9fb0c0;font-size:22px;line-height:1.45;max-width:52ch;margin-top:16px}
+  .strip{display:flex;align-items:center;gap:14px;margin-top:6px}
+  .blk{height:34px;border-radius:6px;border:1px solid #2f4a68;
+    background:linear-gradient(180deg,rgba(78,161,255,.30),rgba(78,161,255,.10))}
+  .b8{width:250px}
+  .b1{width:31px;background:linear-gradient(180deg,rgba(126,224,192,.55),rgba(126,224,192,.16));
+      border-color:#2f6b5c}
+  .lab{font:15px ui-monospace,Menlo,Consolas,monospace;color:#8b98a5;white-space:nowrap}
+  .arw{font:20px sans-serif;color:#4ea1ff}
+  .foot{display:flex;align-items:center;justify-content:space-between;
+    border-top:1px solid #26313d;padding-top:20px;
+    font:16px ui-monospace,Menlo,Consolas,monospace;color:#8b98a5}
+  .foot b{color:#e6edf3;font-weight:600}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="glow"></div><div class="glow2"></div>
+
+  <div>
+    <div class="brand">Smart<span>2</span>Raw</div>
+    <div class="slogan" id="slogan">The intelligence is in the classification.
+      What comes out is raw bytes.</div>
+  </div>
+
+  <div>
+    <h1 id="head">The server you don't have to buy.</h1>
+    <p class="sub" id="sub">An integer column stored in the smallest native class its real
+      range needs — up to 8× fewer bytes, and no decode step, because the stored bytes
+      <i>are</i> native integers.</p>
+    <div class="strip">
+      <span class="lab">int64</span>
+      <span class="blk b8"></span>
+      <span class="arw">→</span>
+      <span class="blk b1"></span>
+      <span class="lab">uint8 · <b style="color:#7ee0c0">8×</b></span>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span><b>smart2raw.com</b> &nbsp;·&nbsp; header-only C11, zero dependencies</span>
+    <span>AGPL-3.0 &nbsp;·&nbsp; DOI 10.5281/zenodo.20477234</span>
+  </div>
+</div>
+</body>
+</html>
