@@ -1,0 +1,111 @@
+<div id="s2rdemo" data-wasm="{{ROOT}}assets/s2r.wasm" data-single="{{ROOT}}assets/smart2raw-live-{{LANG}}.html">
+
+<div class="demo-head">
+  <h2 data-t="d_title"></h2>
+  <p class="lead" data-t="d_sub"></p>
+  <span class="badge a" id="d_ver">wasm</span>
+  <span class="badge g" data-t="d_local"></span>
+</div>
+
+<div class="panel dstep">
+  <h4 data-t="d_s1"></h4>
+  <div class="row">
+    <select id="preset">
+      <option value="" data-t="p_pick"></option>
+      <option value="telemetry" data-t="p_telemetry"></option>
+      <option value="ts" data-t="p_ts"></option>
+      <option value="money" data-t="p_money"></option>
+      <option value="cat" data-t="p_cat"></option>
+      <option value="ids" data-t="p_ids"></option>
+      <option value="bool" data-t="p_bool"></option>
+      <option value="rand" data-t="p_rand"></option>
+      <option value="hash" data-t="p_hash"></option>
+      <option value="const" data-t="p_const"></option>
+      <option value="sensor" data-t="p_sensor"></option>
+    </select>
+    <input type="number" id="npreset" value="200000" min="1" max="4000000" step="10000">
+    <span class="dim small" data-t="d_elements"></span>
+    <button class="btn ghost" id="gen" data-t="d_generate"></button>
+  </div>
+  <div class="drop" id="drop"><span data-t="d_drop"></span>
+    <input type="file" id="file" hidden accept=".csv,.txt,.tsv,.dat">
+  </div>
+  <div class="row hidden" id="colrow">
+    <span class="dim small" data-t="d_column"></span>
+    <select id="colsel"></select>
+  </div>
+  <p class="dim small" data-t="d_paste"></p>
+  <textarea id="src" spellcheck="false" placeholder="1700000000&#10;1700000060&#10;1700000120"></textarea>
+  <div class="row">
+    <button class="btn" id="run" data-t="d_classify"></button>
+    <span class="dim small" id="status"></span>
+  </div>
+</div>
+
+<div id="out" class="hidden">
+
+  <div class="panel dstep">
+    <h4 data-t="d_s2"></h4>
+    <div class="kpis">
+      <div class="kpi"><b id="k_cls">—</b><small data-t="k_cls_l"></small></div>
+      <div class="kpi"><b id="k_ratio">—</b><small data-t="k_ratio_l"></small></div>
+      <div class="kpi"><b id="k_form">—</b><small data-t="k_form_l"></small></div>
+      <div class="kpi"><b id="k_dist">—</b><small data-t="k_dist_l"></small></div>
+    </div>
+    <p class="dim small" id="verdict"></p>
+    <div>
+      <span class="badge" id="b_verified"></span>
+      <span class="badge" id="b_expand"></span>
+      <span class="badge" id="b_round"></span>
+      <span class="badge" id="b_sorted"></span>
+    </div>
+  </div>
+
+  <div class="panel dstep">
+    <h4 data-t="d_s3"></h4>
+    <div class="tw"><table id="t_sizes"><thead><tr>
+      <th data-t="th_repr"></th><th class="r" data-t="th_bytes"></th>
+      <th class="r" data-t="th_vs"></th><th style="width:30%">&nbsp;</th>
+      <th data-t="th_what"></th>
+    </tr></thead><tbody></tbody></table></div>
+    <p class="dim small" data-t="d_sizes_note"></p>
+  </div>
+
+  <div class="panel dstep">
+    <h4 data-t="d_s4"></h4>
+    <div class="row">
+      <span class="dim small" data-t="d_countgt"></span>
+      <input type="text" id="thr">
+      <span class="dim small" data-t="d_inrange"></span>
+      <input type="text" id="lo"><span class="dim small">…</span><input type="text" id="hi">
+      <button class="btn ghost" id="bench" data-t="d_measure"></button>
+      <span class="dim small" id="bstat"></span>
+    </div>
+    <div class="tw"><table id="t_bench" class="hidden"><thead><tr>
+      <th data-t="th_path"></th><th class="r" data-t="th_result"></th>
+      <th class="r" data-t="th_ms"></th><th class="r" data-t="th_gain"></th>
+    </tr></thead><tbody></tbody></table></div>
+    <p class="dim small" id="benchnote"></p>
+    <p class="dim small" data-t="d_bench_note"></p>
+  </div>
+
+  <div class="panel dstep">
+    <h4 data-t="d_s5"></h4>
+    <div class="tw"><table id="t_plan"><thead><tr>
+      <th data-t="th_block"></th><th class="r" data-t="th_predicted"></th>
+      <th class="r" data-t="th_vsbest"></th><th style="width:40%">&nbsp;</th>
+    </tr></thead><tbody></tbody></table></div>
+    <p class="dim small" data-t="d_plan_note"></p>
+  </div>
+
+  <div class="panel dstep">
+    <h4 data-t="d_s6"></h4>
+    <div class="row">
+      <button class="btn ghost" id="dl" data-t="d_download"></button>
+      <span class="dim small" id="fileinfo"></span>
+    </div>
+    <p class="dim small" data-t="d_file_note"></p>
+  </div>
+
+</div>
+</div>

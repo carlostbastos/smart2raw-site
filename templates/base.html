@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="{{HTMLLANG}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESC}}">
+<link rel="canonical" href="{{CANONICAL}}">
+<link rel="alternate" hreflang="en" href="{{HREF_EN}}">
+<link rel="alternate" hreflang="pt-BR" href="{{HREF_PT}}">
+<link rel="alternate" hreflang="x-default" href="{{HREF_EN}}">
+<meta property="og:title" content="{{TITLE}}">
+<meta property="og:description" content="{{DESC}}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{CANONICAL}}">
+<link rel="stylesheet" href="{{ROOT}}assets/site.css">
+<link rel="icon" href="{{ROOT}}assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<a class="skip" href="#main">{{T_SKIP}}</a>
+
+<header class="top">
+  <div class="topbar">
+    <a class="brand" href="{{HOME}}">Smart<span>2</span>Raw</a>
+    <nav class="nav" id="nav">{{NAV}}</nav>
+    <div class="langs">
+      <a href="{{HREF_EN}}" class="{{EN_ACTIVE}}" hreflang="en">EN</a>
+      <a href="{{HREF_PT}}" class="{{PT_ACTIVE}}" hreflang="pt-BR">PT</a>
+    </div>
+    <button class="burger" id="burger" aria-label="menu">≡</button>
+  </div>
+</header>
+
+<main id="main">
+{{BODY}}
+</main>
+
+<footer class="foot">
+  <div class="fgrid">
+    <div>
+      <b>Smart2Raw</b><br>
+      {{T_FOOT_TAG}}
+    </div>
+    <div>
+      <a href="https://github.com/carlostbastos/Smart2Raw">GitHub</a><br>
+      <a href="https://doi.org/10.5281/zenodo.21623772">DOI 10.5281/zenodo.21623772</a><br>
+      <a href="https://doi.org/10.5281/zenodo.20477234">{{T_FOOT_CONCEPT}}</a>
+    </div>
+    <div>
+      {{FOOTLINKS}}
+    </div>
+  </div>
+  <div class="fbot">
+    Copyright © 2026 Carlos Alberto Terêncio de Bastos ·
+    AGPL-3.0-or-later {{T_OR_COMMERCIAL}}
+  </div>
+</footer>
+
+<script>
+document.getElementById('burger').onclick = function(){
+  document.getElementById('nav').classList.toggle('open');
+};
+</script>
+{{EXTRA_JS}}
+</body>
+</html>
