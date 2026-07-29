@@ -70,7 +70,7 @@ and a corrupted byte is caught on load rather than returned as data.
   <div class="card"><h3>The library</h3>
     <p>Source, 31 test suites, benchmarks, examples and language bindings.</p>
     <a class="more" href="https://github.com/carlostbastos/Smart2Raw">GitHub →</a><br>
-    <a class="more" href="https://doi.org/10.5281/zenodo.21623772">Zenodo, version 3.5.0 →</a></div>
+    <a class="more" href="https://doi.org/10.5281/zenodo.21676456">Zenodo, DOI for 3.5.1 →</a></div>
   <div class="card"><h3>The demo, as a single file</h3>
     <p>The whole library as WebAssembly inside one HTML file. Works offline, over
     <code>file://</code>, with no server. Nothing you paste into it leaves your machine.</p>

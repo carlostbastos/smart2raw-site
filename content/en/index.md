@@ -24,7 +24,7 @@ description: Integer columns stored in the smallest native class their real rang
     <div class="kpi"><b>8×</b><small>smaller than int64 on a telemetry column of 0..200 — measured, and reproducible below</small></div>
     <div class="kpi"><b>0</b><small>dependencies. One header, C11, no build system</small></div>
     <div class="kpi"><b>31</b><small>test suites, 0 failures — real x86, ARM and big-endian, with RVV and SVE2 swept across vector lengths</small></div>
-    <div class="kpi"><b>5</b><small>versions deposited with a citable DOI, stamped by a third party</small></div>
+    <div class="kpi"><b>6</b><small>versions deposited with a citable DOI, stamped by a third party</small></div>
   </div>
 </section>
 ::
@@ -131,7 +131,7 @@ printing a pretty number.
 ::html
 <div class="cards" style="margin-top:22px">
   <div class="card"><h3>Deposited and citable</h3>
-    <p>Five versions with their own DOI on Zenodo, with a concept DOI covering all of them.
+    <p>Six versions with their own DOI on Zenodo, with a concept DOI covering all of them.
     <a href="/cite/">How to cite</a>.</p></div>
   <div class="card"><h3>Open, under AGPL-3.0</h3>
     <p>The published version is free software. Building it into a closed product needs a

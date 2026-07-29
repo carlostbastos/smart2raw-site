@@ -69,7 +69,7 @@ high-cardinality column.
 
 | version | DOI | note |
 |---|---|---|
-| 3.5.1 | deposit in progress | **current** — security fix in the block-wise reader |
+| 3.5.1 | [10.5281/zenodo.21676456](https://doi.org/10.5281/zenodo.21676456) | **current** — security fix in the block-wise reader |
 | 3.5.0 | [10.5281/zenodo.21623772](https://doi.org/10.5281/zenodo.21623772) | **a hostile `.s2r` could write outside the heap** — upgrade |
 | 3.4.0 | [10.5281/zenodo.21614309](https://doi.org/10.5281/zenodo.21614309) | **silent corruption on unsigned columns above 2^63** — upgrade |
 | all versions | [10.5281/zenodo.20477234](https://doi.org/10.5281/zenodo.20477234) | concept DOI |

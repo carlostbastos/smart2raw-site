@@ -15,7 +15,7 @@ description: The open version is what you can verify. Premium goes further in ho
     <a class="btn ghost" href="/scope/">What the open edition already does</a>
   </div>
   <div class="kpis">
-    <div class="kpi"><b>5</b><small>versions deposited with their own DOI, timestamped by a third party</small></div>
+    <div class="kpi"><b>6</b><small>versions deposited with their own DOI, timestamped by a third party</small></div>
     <div class="kpi"><b>31</b><small>test suites in the open edition, 0 failures — what can be checked, is checked</small></div>
     <div class="kpi"><b>2</b><small>defects published with the minimal case that reproduces each, instead of buried</small></div>
   </div>
@@ -43,7 +43,7 @@ description: The open version is what you can verify. Premium goes further in ho
 
 That is a fair question, and there is a concrete answer rather than a promise.
 
-Everything this project *has* published can be checked line by line: five
+Everything this project *has* published can be checked line by line: six
 versions deposited with their own DOI, 31 test suites with zero failures, every
 benchmark shipping with the command that reproduces it and an assertion that
 runs before each number is printed.

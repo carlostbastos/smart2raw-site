@@ -15,7 +15,7 @@ description: Who is behind the library, how the project is run, and the trail of
     <a class="btn ghost" href="/scope/">Technical scope</a>
   </div>
   <div class="kpis">
-    <div class="kpi"><b>5</b><small>deposited versions, each a record of the method dated by a third party</small></div>
+    <div class="kpi"><b>6</b><small>deposited versions, each a record of the method dated by a third party</small></div>
     <div class="kpi"><b>2</b><small>defects published with the minimal case that reproduces each, instead of buried</small></div>
     <div class="kpi"><b>31</b><small>test suites, 0 failures — and the fuzz suite exists because it found one of them</small></div>
   </div>
@@ -81,7 +81,7 @@ also what gives the project a priority date.
     <p>The design decision and the trade, said plainly.</p>
     <a class="more" href="/scope/">Technical scope →</a></div>
   <div class="card"><h3>How to cite</h3>
-    <p>Five deposits with their own DOI, and a concept DOI.</p>
+    <p>Six deposits with their own DOI, and a concept DOI.</p>
     <a class="more" href="/cite/">Cite →</a></div>
   <div class="card"><h3>Talk to the person who wrote it</h3>
     <p>No support desk in between.</p>

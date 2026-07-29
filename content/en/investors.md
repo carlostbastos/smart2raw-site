@@ -8,14 +8,14 @@ description: An integer column costs eight bytes per element because nobody meas
   <p class="slogan">A dated priority, checkable proof, one founder.</p>
   <h1>Investment &amp; partnership</h1>
   <p class="lead">Smart2Raw is open to conversations — with investors, and with companies that would put the technology into production. There is no round being announced and no number on this page; there is a technology with a verifiable track record and a founder who answers his own e-mail.</p>
-  <p class="qual">What does exist is checkable today: five DOI deposits stamped by a third party, 31 suites with zero failures, and two defects published with the minimal case that reproduces each. The technical proof comes before the commercial conversation.</p>
+  <p class="qual">What does exist is checkable today: six DOI deposits stamped by a third party, 31 suites with zero failures, and two defects published with the minimal case that reproduces each. The technical proof comes before the commercial conversation.</p>
   <div class="cta">
     <a class="btn" href="/contact/">Contact</a>
     <a class="btn ghost" href="/benchmarks/">The measured numbers</a>
     <a class="btn ghost" href="/applications/">The addressable surface</a>
   </div>
   <div class="kpis">
-    <div class="kpi"><b>5</b><small>versions deposited on Zenodo with a citable DOI, establishing a priority date</small></div>
+    <div class="kpi"><b>6</b><small>versions deposited on Zenodo with a citable DOI, establishing a priority date</small></div>
     <div class="kpi"><b>31</b><small>test suites, 0 failures, including 100,950 fuzz checks with fixed seeds</small></div>
     <div class="kpi"><b>7</b><small>hardware targets: x86, ARM NEON and SVE2, RISC-V RVV, big-endian, MCU, WebAssembly</small></div>
     <div class="kpi"><b>0</b><small>dependencies — one C11 header, which is what makes adoption cheap</small></div>
@@ -71,7 +71,7 @@ from outside; that is what it looks like from inside.
 
 ## Why it is defensible
 
-- **A dated, citable priority.** Five deposits with DOIs, timestamped by a third
+- **A dated, citable priority.** Six deposits with DOIs, timestamped by a third
   party, describing the method in full.
 - **An advanced version that is not published.** The open version is the proof;
   [Premium](/premium/) is the product.
