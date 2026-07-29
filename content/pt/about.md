@@ -15,7 +15,7 @@ description: Quem está por trás da biblioteca, como o projeto é conduzido, e 
     <a class="btn ghost" href="/pt/escopo/">Escopo técnico</a>
   </div>
   <div class="kpis">
-    <div class="kpi"><b>5</b><small>versões depositadas, cada uma um registro do método datado por um terceiro</small></div>
+    <div class="kpi"><b>6</b><small>versões depositadas, cada uma um registro do método datado por um terceiro</small></div>
     <div class="kpi"><b>2</b><small>defeitos publicados com o caso mínimo que reproduz cada um, em vez de enterrados</small></div>
     <div class="kpi"><b>31</b><small>suítes de teste, 0 falhas — e a suíte de fuzz existe porque achou um deles</small></div>
   </div>
@@ -58,7 +58,7 @@ projeto vai ler.
 
 | versão | depositada | o que trouxe |
 |---|---|---|
-| 3.5.1 | depósito em processamento | a correção de segurança no leitor em blocos, e o arquivo hostil virando teste fixo |
+| [3.5.1](https://doi.org/10.5281/zenodo.21676456) | 2026 | a correção de segurança no leitor em blocos, e o arquivo hostil virando teste fixo |
 | [3.5.0](https://doi.org/10.5281/zenodo.21623772) | 2026 | fatoração afim, o planejador de blocos, o índice cumulativo, e a correção do defeito acima |
 | [3.4.0](https://doi.org/10.5281/zenodo.21614309) | 2026 | quadro de referência por bloco, predicados SIMD, o contrato do `.s2r` fechado |
 | [3.3.7](https://doi.org/10.5281/zenodo.20619276) · [3.3.6](https://doi.org/10.5281/zenodo.20613701) · [3.3.x](https://doi.org/10.5281/zenodo.20477235) | 2026 | os depósitos anteriores, cada um com DOI próprio |
@@ -86,7 +86,7 @@ também é o que dá ao projeto uma data de prioridade.
     <p>A decisão de projeto e a troca, ditas sem rodeio.</p>
     <a class="more" href="/pt/escopo/">Escopo técnico →</a></div>
   <div class="card"><h3>Como citar</h3>
-    <p>Cinco depósitos com DOI próprio, e um DOI do projeto.</p>
+    <p>Seis depósitos com DOI próprio, e um DOI do projeto.</p>
     <a class="more" href="/pt/citar/">Citar →</a></div>
   <div class="card"><h3>Falar com quem escreveu</h3>
     <p>Sem balcão de suporte no meio.</p>

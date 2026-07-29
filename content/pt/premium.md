@@ -15,7 +15,7 @@ description: A versão aberta é a que você pode conferir. A Premium vai além 
     <a class="btn ghost" href="/pt/escopo/">O que a versão aberta já faz</a>
   </div>
   <div class="kpis">
-    <div class="kpi"><b>5</b><small>versões depositadas com DOI próprio, carimbadas por um terceiro</small></div>
+    <div class="kpi"><b>6</b><small>versões depositadas com DOI próprio, carimbadas por um terceiro</small></div>
     <div class="kpi"><b>31</b><small>suítes de teste na versão aberta, 0 falhas — o que dá para conferir, está conferido</small></div>
     <div class="kpi"><b>2</b><small>defeitos publicados com o caso mínimo que reproduz cada um, em vez de enterrados</small></div>
   </div>
@@ -43,7 +43,7 @@ description: A versão aberta é a que você pode conferir. A Premium vai além 
 
 A pergunta é justa, e a resposta é concreta em vez de promessa.
 
-Tudo o que este projeto *já* publicou pode ser conferido linha a linha: cinco
+Tudo o que este projeto *já* publicou pode ser conferido linha a linha: seis
 versões depositadas com DOI próprio, 31 suítes de teste com zero falhas, e todo
 benchmark acompanhado do comando que o reproduz e de uma asserção que roda antes
 de cada número ser impresso.

@@ -8,14 +8,14 @@ description: Uma coluna de inteiros custa oito bytes por elemento porque ningué
   <p class="slogan">Prioridade datada, prova conferível, um fundador.</p>
   <h1>Investimento &amp; parcerias</h1>
   <p class="lead">O Smart2Raw está aberto a conversas — com investidores, e com empresas que colocariam a tecnologia em produção. Não há rodada anunciada nem número nesta página; há uma tecnologia com histórico verificável e um fundador que responde o próprio e-mail.</p>
-  <p class="qual">O que existe é conferível hoje: cinco depósitos com DOI carimbados por um terceiro, 31 suítes com zero falhas, e dois defeitos publicados com o caso mínimo que reproduz cada um. A prova técnica vem antes da conversa comercial.</p>
+  <p class="qual">O que existe é conferível hoje: seis depósitos com DOI carimbados por um terceiro, 31 suítes com zero falhas, e dois defeitos publicados com o caso mínimo que reproduz cada um. A prova técnica vem antes da conversa comercial.</p>
   <div class="cta">
     <a class="btn" href="/pt/contato/">Fale conosco</a>
     <a class="btn ghost" href="/pt/desempenho/">Os números medidos</a>
     <a class="btn ghost" href="/pt/aplicacoes/">O mercado endereçável</a>
   </div>
   <div class="kpis">
-    <div class="kpi"><b>5</b><small>versões depositadas no Zenodo com DOI citável, estabelecendo uma data de prioridade</small></div>
+    <div class="kpi"><b>6</b><small>versões depositadas no Zenodo com DOI citável, estabelecendo uma data de prioridade</small></div>
     <div class="kpi"><b>31</b><small>suítes de teste, 0 falhas, incluindo 100.950 checagens de fuzz com sementes fixas</small></div>
     <div class="kpi"><b>7</b><small>alvos de hardware: x86, ARM NEON e SVE2, RISC-V RVV, big-endian, MCU, WebAssembly</small></div>
     <div class="kpi"><b>0</b><small>dependências — um header C11, que é o que torna a adoção barata</small></div>
@@ -72,7 +72,7 @@ difícil de avaliar de fora; é assim que ela se parece por dentro.
 
 ## Por que é defensável
 
-- **Uma prioridade datada e citável.** Cinco depósitos com DOI, carimbados por um
+- **Uma prioridade datada e citável.** Seis depósitos com DOI, carimbados por um
   terceiro, descrevendo o método por inteiro.
 - **Uma versão avançada que não é publicada.** A versão aberta é a prova; a
   [Premium](/pt/premium/) é o produto.

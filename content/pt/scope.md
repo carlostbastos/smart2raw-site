@@ -71,7 +71,7 @@ MB numa coluna de alta cardinalidade.
 
 | versão | DOI | nota |
 |---|---|---|
-| 3.5.1 | depósito em processamento | **atual** — correção de segurança no leitor em blocos |
+| 3.5.1 | [10.5281/zenodo.21676456](https://doi.org/10.5281/zenodo.21676456) | **atual** — correção de segurança no leitor em blocos |
 | 3.5.0 | [10.5281/zenodo.21623772](https://doi.org/10.5281/zenodo.21623772) | **um `.s2r` hostil podia escrever fora do heap** — atualize |
 | 3.4.0 | [10.5281/zenodo.21614309](https://doi.org/10.5281/zenodo.21614309) | **corrupção silenciosa em coluna sem sinal acima de 2^63** — atualize |
 | todas | [10.5281/zenodo.20477234](https://doi.org/10.5281/zenodo.20477234) | DOI do projeto |

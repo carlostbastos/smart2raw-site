@@ -68,9 +68,9 @@ um byte corrompido é pego na carga em vez de ser devolvido como dado.
 ::html
 <div class="cards">
   <div class="card"><h3>A biblioteca</h3>
-    <p>Código-fonte, 31 suítes de teste, benchmarks, exemplos e ports para outras linguagens. O GitHub traz a <b>3.5.1</b>, que é uma correção de segurança sobre a 3.5.0 sem mudança de API nem de formato.</p>
+    <p>Código-fonte, 31 suítes de teste, benchmarks, exemplos e ports para outras linguagens. A versão corrente é a <b>3.5.1</b>, uma correção de segurança sobre a 3.5.0 sem mudança de API nem de formato.</p>
     <a class="more" href="https://github.com/carlostbastos/Smart2Raw">GitHub →</a><br>
-    <a class="more" href="https://doi.org/10.5281/zenodo.21623772">Zenodo, DOI da 3.5.0 →</a></div>
+    <a class="more" href="https://doi.org/10.5281/zenodo.21676456">Zenodo, DOI da 3.5.1 →</a></div>
   <div class="card"><h3>A demonstração, em arquivo único</h3>
     <p>A biblioteca inteira como WebAssembly dentro de um HTML só. Funciona sem internet, por
     <code>file://</code>, sem servidor. Nada do que você colar nela sai da sua máquina.</p>
