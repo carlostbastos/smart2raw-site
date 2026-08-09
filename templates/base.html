@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{TITLE}}</title>
 <meta name="description" content="{{DESC}}">
+<!-- Verificação do Bing Webmaster Tools. O método por CNAME no DNS estava certo
+     (o registro resolve para verify.bing.com) mas o endpoint de verificação deles
+     devolvia erro; esta marca é o caminho que não depende do serviço deles estar
+     de pé. Não remover: ela sustenta a verificação, não só a cria. -->
+<meta name="msvalidate.01" content="236E6949F63A57F117D6F58067B91115">
 <link rel="canonical" href="{{CANONICAL}}">
 <link rel="alternate" hreflang="en" href="{{HREF_EN}}">
 <link rel="alternate" hreflang="pt-BR" href="{{HREF_PT}}">
