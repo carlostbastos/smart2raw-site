@@ -35,7 +35,8 @@ menor forma que a biblioteca sabe produzir para aquela forma de coluna.
 dicionário guarda um dicionário do tamanho do dado, e devolve 41,01 MB para os 30,52 MB que
 recebeu. O Smart2Raw não tem barra assim — a classe mais larga que ele tem <b>é</b> a entrada.
 Repare também nas linhas B, C e D, onde o clássico ganha: elas estão no gráfico pelo mesmo
-motivo que as outras.</p>
+motivo que as outras. <b>E repare no que este gráfico não mede:</b> ele conta bytes, e bytes
+são só um eixo — o outro está logo abaixo.</p>
 ::
 
 | coluna | int64 | S2R | dicionário | RLE | bitmap | forma S2R |
@@ -68,6 +69,45 @@ O Smart2Raw não tem linha assim, e não por ajuste fino: ele classifica por
 **amplitude**, e a classe mais larga que tem *é* o `int64` de entrada. A linha F
 é a prova — entropia máxima, e o resultado empata exatamente com a linha de base.
 O `assert(s <= raw)` roda dentro do laço, antes de cada linha ser impressa.
+
+## Bytes é só um eixo
+
+A tabela acima responde "quanto ocupa". Ela não responde a pergunta que vem depois,
+que é a que decide o custo de rodar: **o que dá para perguntar aos bytes sem antes
+transformá-los em outra coisa.**
+
+Este gráfico isola exatamente isso. A coluna é a mesma e os dois formatos ocupam
+praticamente o mesmo espaço — 11,44 MB contra 11,45 MB. Com os bytes empatados, o
+que sobra no desenho é só processamento.
+
+{{FIG_OPERACOES}}
+
+::html
+<p class="figcap">* Chegar a um kernel que não é SQL: um produto escalar quantizado, uma convolução,
+um matmul int8, um filtro de DSP — cada um precisa de um buffer contíguo na largura nativa.
+O formato de armazém precisa <b>produzir</b> esse buffer antes de começar. O nosso pool já é
+esse buffer.</p>
+::
+
+O par aqui não é um espantalho. O dicionário está implementado no seu melhor, com
+os valores distintos **ordenados** — e isso faz o predicado virar uma comparação
+nos próprios códigos, sem decodificar nada. É por isso que o `COUNT` dá empate, e é
+por dizer isso que as outras duas linhas merecem crédito.
+
+- **`COUNT` empata.** 1,05×, com a faixa das cinco execuções cruzando 1,00 nos dois
+  sentidos. Um dicionário ordenado não custa nada aqui — e também não compra nada.
+- **`SUM` não tem esse atalho.** Um código não é um operando que se some: o par
+  precisa histogramar os códigos e só depois dobrar o dicionário em cima. Essa
+  dispersão é estrutural, e são 17× medidos.
+- **Os 7,9 ms da terceira linha não se movem.** Não é implementação lenta — é a
+  definição do formato, e nenhum descompactador melhor remove, porque o buffer de
+  saída tem de existir em algum lugar. É a única medida deste conjunto que um par
+  mais bem implementado não consegue mudar.
+
+E onde perdemos está medido junto: numa coluna de 12 valores distintos espalhados
+por uma amplitude larga, o par com códigos de 4 bits é **4× menor e ~3,7× mais
+rápido** que nós. O relatório completo — inclusive o que foi retratado de uma versão
+anterior dele — está em `benchmarks/warehouse/WAREHOUSE_FORMAT_BENCH.md`.
 
 ## Tempos de consulta
 
