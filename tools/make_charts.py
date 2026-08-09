@@ -163,9 +163,116 @@ def svg_matriz(lang):
     return "\n".join(o)
 
 
+# ================================================================ figura 2
+# O eixo que a matriz de formatos NÃO mede.
+#
+# benchmarks/warehouse/WAREHOUSE_FORMAT_BENCH.md, regime A: coluna de status
+# 0..200, 12 milhões de elementos, um núcleo, AVX2. O par foi escolhido porque
+# ali os dois formatos ocupam PRATICAMENTE O MESMO TAMANHO — 11,44 contra
+# 11,45 MB. Com os bytes empatados, o que sobra no gráfico é só a diferença de
+# processamento, que é o ponto.
+#
+# O par está implementado no seu melhor: dicionário sobre valores distintos
+# ORDENADOS, então o predicado vira comparação nos próprios códigos, sem
+# decodificar nada. É por isso que o COUNT dá empate — e dizer isso é o que
+# torna as outras duas linhas críveis.
+BASE_A = "11,45"      # MB do par
+BASE_S = "11,44"      # MB nosso
+OPS = [
+    # rotulo_pt, rotulo_en, ms_s2r, ms_par, estrutural
+    ("COUNT(x > 100)", "COUNT(x > 100)", 0.60, 0.63, False),
+    ("SUM(x)",         "SUM(x)",         0.44, 7.52, False),
+    ("chegar a um kernel que não é SQL\u2009*",
+     "reach a non-SQL kernel\u2009*",    0.00, 7.90, True),
+]
+
+T2 = {
+ "pt": dict(
+   sub="12 milhões de elementos · os dois formatos ocupam o mesmo tamanho: 11,44 contra 11,45 MB",
+   s2r="Smart2Raw", alt="dicionário, implementado no seu melhor",
+   eixo="milissegundos, um núcleo", empate="empate",
+   zero="0,00 · já está contíguo", dec=","),
+ "en": dict(
+   sub="12 million elements · both formats take the same space: 11.44 against 11.45 MB",
+   s2r="Smart2Raw", alt="dictionary, implemented at its best",
+   eixo="milliseconds, single core", empate="parity",
+   zero="0.00 · already contiguous", dec="."),
+}
+
+def svg_operacoes(lang):
+    t = T2[lang]
+    W, LEFT, RIGHT = 760, 214, 96
+    TOP, ROW, BARH = 52, 46, 14
+    PLOTW = W - LEFT - RIGHT
+    VMAX = 8.4
+    H = TOP + len(OPS) * ROW + 50
+
+    def x(v): return LEFT + (v / VMAX) * PLOTW
+
+    o = []; a = o.append
+    a('<svg class="fig" viewBox="0 0 %d %d" width="100%%" role="img" '
+      'xmlns="http://www.w3.org/2000/svg" aria-labelledby="otit%s odesc%s">' % (W, H, lang, lang))
+    a('<title id="otit%s">%s</title>' % (lang, html.escape(t["sub"])))
+    a('<desc id="odesc%s">%s</desc>' % (lang, html.escape(t["sub"])))
+    a('<text x="0" y="14" class="fs">%s</text>' % html.escape(t["sub"]))
+
+    a('<g transform="translate(0,38)">')
+    a('<rect x="0" y="-8" width="10" height="10" rx="2" fill="%s"/>' % MINT)
+    a('<text x="16" y="0" class="fl">%s</text>' % html.escape(t["s2r"]))
+    a('<rect x="112" y="-8" width="10" height="10" rx="2" fill="%s"/>' % GREY)
+    a('<text x="128" y="0" class="fl">%s</text>' % html.escape(t["alt"]))
+    a('</g>')
+
+    for v in (0, 2, 4, 6, 8):
+        a('<line x1="%.1f" y1="%d" x2="%.1f" y2="%d" stroke="%s" stroke-width="1"/>'
+          % (x(v), TOP - 6, x(v), TOP + len(OPS) * ROW - 8, FAINT))
+        a('<text x="%.1f" y="%d" class="fa" text-anchor="middle">%d</text>'
+          % (x(v), TOP + len(OPS) * ROW + 10, v))
+    a('<text x="%.1f" y="%d" class="fa" text-anchor="middle">%s</text>'
+      % (LEFT + PLOTW / 2, TOP + len(OPS) * ROW + 30, html.escape(t["eixo"])))
+
+    for i, (rpt, ren, ms, mp, estrut) in enumerate(OPS):
+        rot = rpt if lang == "pt" else ren
+        y = TOP + i * ROW
+        a('<text x="%d" y="%.1f" class="fr" text-anchor="end">%s</text>'
+          % (LEFT - 12, y + 12, html.escape(rot)))
+
+        if ms > 0:
+            w1 = max(x(ms) - LEFT, 2)
+            a('<rect x="%d" y="%.1f" width="%.1f" height="%d" rx="3" fill="%s"/>'
+              % (LEFT, y, w1, BARH, MINT))
+            a('<text x="%.1f" y="%.1f" class="fv">%s</text>'
+              % (LEFT + w1 + 7, y + 11, num(ms, t["dec"])))
+        else:
+            # nada a desenhar: o custo é zero, e é essa a informação
+            a('<text x="%d" y="%.1f" class="fv">%s</text>'
+              % (LEFT + 2, y + 11, html.escape(t["zero"])))
+
+        cor = RED if estrut else GREY
+        w2 = max(x(mp) - LEFT, 2)
+        a('<rect x="%d" y="%.1f" width="%.1f" height="%d" rx="3" fill="%s"/>'
+          % (LEFT, y + BARH + 4, w2, BARH, cor))
+        cls = "fv fvbad" if estrut else "fv"
+        a('<text x="%.1f" y="%.1f" class="%s">%s</text>'
+          % (LEFT + w2 + 7, y + BARH + 4 + 11, cls, num(mp, t["dec"])))
+
+        if abs(mp - ms) / max(ms, 1e-9) < 0.15:
+            a('<text x="%.1f" y="%.1f" class="fn">%s</text>'
+              % (LEFT + w2 + 46, y + BARH + 4 + 11, html.escape(t["empate"])))
+
+        a('<title>%s — Smart2Raw %s ms, %s %s ms</title>'
+          % (html.escape(rot.replace("\u2009*", "")), num(ms, t["dec"]),
+             html.escape(t["alt"]), num(mp, t["dec"])))
+
+    a('</svg>')
+    return "\n".join(o)
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     for lang in ("pt", "en"):
-        p = os.path.join(OUT, "fig-matriz-%s.svg" % lang)
-        open(p, "w", encoding="utf-8").write(svg_matriz(lang))
-        print("escrito", os.path.relpath(p), len(svg_matriz(lang)), "bytes")
+        for nome, fn in (("matriz", svg_matriz), ("operacoes", svg_operacoes)):
+            p = os.path.join(OUT, "fig-%s-%s.svg" % (nome, lang))
+            conteudo = fn(lang)
+            open(p, "w", encoding="utf-8").write(conteudo)
+            print("escrito", os.path.relpath(p), len(conteudo), "bytes")

@@ -137,7 +137,7 @@ def build():
             # figuras: SVG embutido, gerado por tools/make_charts.py a partir dos
             # números do repositório. Embutido e não <img> para herdar o tema e
             # não custar uma requisição.
-            for figname in ("matriz",):
+            for figname in ("matriz", "operacoes"):
                 marca = "{{FIG_" + figname.upper() + "}}"
                 if marca in body:
                     fp = os.path.join(ROOTDIR, "assets", "fig-%s-%s.svg" % (figname, lang))

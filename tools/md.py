@@ -61,6 +61,23 @@ def _row(line):
     cells = line.strip().strip('|').split('|')
     return [c.strip() for c in cells]
 
+def _continua(lines, i, n, acc):
+    """Um item de lista continua nas linhas indentadas que vêm depois dele.
+
+    Sem isto, `- **Título.** texto que\n  segue na linha de baixo` fecha o <li>
+    na primeira linha e joga o resto num <p> solto — o item aparece cortado e o
+    resto do texto vira um parágrafo órfão, fora do marcador. Estava assim em 37
+    itens do site antes de alguém reparar.
+    """
+    while (i < n and lines[i].strip()
+           and lines[i][:1] in (" ", "\t")
+           and not re.match(r"^\s*[-*]\s+|^\s*\d+\.\s+", lines[i])
+           and not lines[i].strip().startswith(("```", "::", "|"))):
+        acc[0] += " " + lines[i].strip()
+        i += 1
+    return i
+
+
 def render(text):
     lines = text.replace('\r\n', '\n').split('\n')
     out, i, n = [], 0, len(lines)
@@ -124,14 +141,18 @@ def render(text):
         if re.match(r'^\s*[-*]\s+', ln):               # lista não ordenada
             items = []
             while i < n and re.match(r'^\s*[-*]\s+', lines[i]):
-                items.append(re.sub(r'^\s*[-*]\s+', '', lines[i])); i += 1
+                cur = re.sub(r'^\s*[-*]\s+', '', lines[i]); i += 1
+                i = _continua(lines, i, n, cur_out := [cur])
+                items.append(cur_out[0])
             out.append('<ul>' + ''.join('<li>%s</li>' % inline(x) for x in items) + '</ul>')
             continue
 
         if re.match(r'^\s*\d+\.\s+', ln):              # lista ordenada
             items = []
             while i < n and re.match(r'^\s*\d+\.\s+', lines[i]):
-                items.append(re.sub(r'^\s*\d+\.\s+', '', lines[i])); i += 1
+                cur = re.sub(r'^\s*\d+\.\s+', '', lines[i]); i += 1
+                i = _continua(lines, i, n, cur_out := [cur])
+                items.append(cur_out[0])
             out.append('<ol>' + ''.join('<li>%s</li>' % inline(x) for x in items) + '</ol>')
             continue
 
