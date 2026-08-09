@@ -1,6 +1,6 @@
 ---
-title: Smart2Raw Premium — além da versão aberta, sob licença comercial
-description: A versão aberta é a que você pode conferir. A Premium vai além no quanto o dado encolhe e no que dá para perguntar a ele, e vem com o direito de embutir em produto fechado.
+title: Smart2Raw Premium — além da versão aberta
+description: A versão aberta é a que você confere. A Premium vai além no quanto o dado encolhe e no que dá para perguntar a ele, sob licença comercial.
 ---
 
 ::html

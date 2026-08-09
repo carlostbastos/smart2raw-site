@@ -1,6 +1,6 @@
 ---
 title: Privacidade — o que este site coleta, e o que não coleta
-description: A demonstração roda inteiramente no seu navegador e não envia nada. O formulário de contato é o único lugar deste site que recebe informação sua.
+description: A demonstração roda inteira no seu navegador e não envia nada. O formulário de contato é o único lugar daqui que recebe alguma coisa sua.
 ---
 
 # Privacidade

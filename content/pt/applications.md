@@ -1,6 +1,6 @@
 ---
-title: Onde o Smart2Raw se encaixa — bancos de dados, sistemas operacionais, telemetria, IA, embarcado
-description: Todos esses sistemas já têm uma coluna de inteiros dentro. Sete lugares onde classificar por amplitude e manter os bytes nativos muda o que o sistema custa para rodar.
+title: Onde o Smart2Raw entra — banco, telemetria, IoT, IA, embarcado
+description: Sete tipos de sistema que já carregam uma coluna de inteiros dentro deles, e o que muda quando essa coluna deixa de ter 64 bits por hábito.
 ---
 
 ::html
@@ -21,6 +21,15 @@ description: Todos esses sistemas já têm uma coluna de inteiros dentro. Sete l
     <div class="kpi"><b>0</b><small>dependências. Um header C11 entra em daemon, em firmware e em build alheio</small></div>
   </div>
 </section>
+::
+
+
+::html
+<p class="note">Sete áreas, e elas não têm o mesmo lastro. Onde existe um exemplo que
+<b>roda e imprime números</b>, ele está linkado na seção. Onde o encaixe é <b>argumentado</b> —
+o mecanismo se aplica, mas ainda não há um exemplo medido no repositório — a seção diz isso.
+A diferença importa: uma coisa é a medição, outra é a dedução, e misturar as duas é o começo de
+todo exagero.</p>
 ::
 
 ## Bancos de dados e mecanismos colunares
@@ -45,6 +54,11 @@ coluna de timestamps de alta cardinalidade produz **41,01 MB contra uma linha de
 base `int64` de 30,52 MB**. O pior caso do Smart2Raw empata com a linha de base,
 nunca fica acima dela.
 
+
+::html
+<p class="prov ok">Exemplo que roda: <a href="https://github.com/carlostbastos/Smart2Raw/blob/main/examples/analytics.c"><code>examples/analytics.c</code></a></p>
+::
+
 **Por onde começar.** A coluna quente de uma tabela. Classifique, mantenha o pool
 residente e rode o seu predicado mais pesado nos dois caminhos — as respostas
 têm de bater, e a demonstração da página inicial faz exatamente essa comparação
@@ -63,6 +77,11 @@ de outra pessoa não pode arrastar junto uma biblioteca de compressão, um runti
 e um sistema de build. O Smart2Raw é **um header C11 sem dependência**, e tem um
 modo enxuto (`-DS2R_NO_STDIO -DS2R_NO_MMAP -DS2R_NO_SIMD`) que compila onde
 quase não há nada.
+
+
+::html
+<p class="prov arg">Encaixe argumentado — o mecanismo se aplica, mas ainda não há exemplo medido no repositório para esta área.</p>
+::
 
 **Por onde começar.** Um buffer de métricas dentro de um daemon. Copie o header,
 troque o anel de `uint64_t*` por um pool classificado, e meça a memória
@@ -87,6 +106,14 @@ um bloco já decidem o bloco inteiro, o payload não é lido. Numa coluna que pa
 em 200, o `count_gt(220)` sai de **0,1435 ms para 0,000034 ms** — porque não foi
 preciso olhar para nada.
 
+
+::html
+<p class="prov ok">Exemplo que roda: <a href="https://github.com/carlostbastos/Smart2Raw/blob/main/examples/telemetry.c"><code>examples/telemetry.c</code></a></p>
+::
+::html
+<p class="prov ok">Exemplo que roda: <a href="https://github.com/carlostbastos/Smart2Raw/blob/main/examples/iot_edge.c"><code>examples/iot_edge.c</code></a></p>
+::
+
 **Por onde começar.** Sua janela de retenção. Pegue um dia de uma métrica, rode o
 `s2r_recommend()` e compare com o que você guarda hoje.
 
@@ -106,6 +133,14 @@ escolhida a partir da amplitude real e nada é arredondado. E como os bytes
 guardados são inteiros nativos, eles entram direto em quem os lê — não há passo
 de desquantização para pagar na entrada.
 
+
+::html
+<p class="prov ok">Exemplo que roda: <a href="https://github.com/carlostbastos/Smart2Raw/blob/main/examples/ai_kv_cache.c"><code>examples/ai_kv_cache.c</code></a></p>
+::
+::html
+<p class="prov ok">Exemplo que roda: <a href="https://github.com/carlostbastos/Smart2Raw/blob/main/examples/ai_zeropoint.c"><code>examples/ai_zeropoint.c</code></a></p>
+::
+
 **Por onde começar.** Os vetores de token id de um dataset, ou as listas de
 vizinhos de um índice vetorial. Os dois são grandes, os dois são inteiros, e os
 dois quase sempre são carregados em 64 bits.
@@ -122,6 +157,11 @@ não se aplica aqui: não exige alocador, não exige stdio, não exige sistema d
 arquivos, não exige SIMD, não exige sistema de build. O modo enxuto não é uma
 promessa, é uma das suítes de teste.
 
+
+::html
+<p class="prov ok">Exemplo que roda: <a href="https://github.com/carlostbastos/Smart2Raw/blob/main/tests/mcu_core.c"><code>tests/mcu_core.c</code></a></p>
+::
+
 **Por onde começar.** O buffer de amostras. Classifique uma vez, na amplitude que
 o seu sensor de fato produz.
 
@@ -137,6 +177,11 @@ timestamp com passo, id de amplitude pequena, e volumes muito mais estreitos que
 MB e 1,033 ms para 11,44 MB e 0,468 ms** — metade do espaço e metade do tempo,
 por dividir um passo que já estava no dado.
 
+
+::html
+<p class="prov arg">Encaixe argumentado — o mecanismo se aplica, mas ainda não há exemplo medido no repositório para esta área.</p>
+::
+
 **Por onde começar.** Um instrumento, um dia. O passo é detectado numa única
 passagem, então em segundos você sabe se o seu dado tem um.
 
@@ -149,6 +194,11 @@ profiling — o interior de todo compilador, linker, depurador e formato binári
 **O que muda.** São exatamente as colunas em que a amplitude é conhecida no
 projeto e ignorada mesmo assim. E um header único sem dependência entra num build
 que já tem opinião formada sobre a própria toolchain.
+
+
+::html
+<p class="prov arg">Encaixe argumentado — o mecanismo se aplica, mas ainda não há exemplo medido no repositório para esta área.</p>
+::
 
 **Por onde começar.** A tabela de offsets do formato que você já lê.
 

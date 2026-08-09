@@ -1,6 +1,6 @@
 ---
-title: Contato Smart2Raw — licença comercial, versão avançada, parcerias
-description: Fale com quem escreveu. Licenciamento comercial, acesso à versão avançada, avaliação técnica e investimento.
+title: Contato — licença comercial, Premium, parcerias
+description: Fale com quem escreveu: licenciamento comercial, acesso à versão avançada, avaliação técnica e investimento.
 ---
 
 ::html

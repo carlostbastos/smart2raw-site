@@ -1,6 +1,6 @@
 ---
-title: Smart2Raw — biblioteca C que guarda coluna de inteiros na menor classe nativa
-description: Um header C11, sem dependência, para bancos de dados, telemetria, IoT, IA e embarcado. Guarda a coluna na menor classe nativa que a amplitude exige e opera direto nos bytes — sem passo de decodificação, porque não há nada codificado. Teste com o seu dado, no navegador.
+title: Smart2Raw — inteiros na largura nativa, sem decodificar
+description: Um header C11 sem dependência que guarda a coluna de inteiros na menor classe nativa que a amplitude exige, e roda SUM, COUNT e filtros nesses bytes.
 ---
 
 ::html
@@ -158,6 +158,10 @@ Python aqui é só o maestro: usa a biblioteca padrão para o SQLite e chama os 
 C reais por `ctypes`. Colunas que de fato precisam de 64 bits, ou que são ponto
 flutuante, aparecem com **0%** de propósito — porque isso é escolher o tipo nativo
 certo, não comprimir.
+
+::html
+<p class="morep"><a class="more" href="/pt/desempenho/#contra-um-banco-de-verdade-o-sqlite">A tabela completa, o que os 161× não são, e a linha de 1,18× em que quase não ganhamos →</a></p>
+::
 
 ## Por que isso importa agora
 

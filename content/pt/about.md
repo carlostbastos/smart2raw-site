@@ -1,6 +1,6 @@
 ---
-title: Sobre o Smart2Raw e seu autor — Carlos Alberto Terêncio de Bastos
-description: Quem está por trás da biblioteca, como o projeto é conduzido, e a trilha de versões depositadas que documenta isso.
+title: Sobre o Smart2Raw — o projeto e quem está por trás
+description: Quem escreveu a biblioteca, como o projeto é tocado, e a trilha de versões depositadas que documenta isso lançamento a lançamento.
 ---
 
 ::html

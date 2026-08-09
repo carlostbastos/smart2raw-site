@@ -1,6 +1,6 @@
 ---
 title: Investimento e parceria — Smart2Raw
-description: Uma coluna de inteiros custa oito bytes por elemento porque ninguém mediu. O Smart2Raw mede, e mantém os bytes executáveis. Aberto a conversas com investidores e parceiros.
+description: Uma coluna de inteiros custa oito bytes por elemento porque ninguém mediu. O Smart2Raw mede, e mantém os bytes executáveis. Aberto a conversar.
 ---
 
 ::html

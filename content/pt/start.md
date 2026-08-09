@@ -1,6 +1,6 @@
 ---
 title: Comece a usar o Smart2Raw — um header, três linhas
-description: Copie um header para o seu projeto e classifique uma coluna em três linhas de C. Downloads da biblioteca, da demonstração em arquivo único e de um executável de Windows sem dependência.
+description: Copie um header para o seu projeto e classifique uma coluna em três linhas de C. Com ferramentas de linha de comando, demo no navegador e um .exe.
 ---
 
 ::html
@@ -62,6 +62,30 @@ s2r_blocked_save(&b, "coluna.s2r");
 
 O arquivo é little-endian canônico com CRC32: é idêntico em qualquer máquina, e
 um byte corrompido é pego na carga em vez de ser devolvido como dado.
+
+## Sem escrever C: as ferramentas de linha de comando
+
+Se você quer avaliar antes de escrever código, o repositório traz três programas.
+Um `make` dentro de `tools/` compila os três, e eles não pedem nada além do `gcc`.
+
+```sh
+s2r pack   dados.txt coluna.s2r          # texto → .s2r, classificando
+s2r info   coluna.s2r                    # a classe escolhida, a contagem, o tamanho
+s2r agg    coluna.s2r count-gt 100       # a consulta, direto no arquivo
+s2r verify coluna.s2r                    # magia, classe, contagem e CRC32
+```
+
+O `s2r_verify` existe separado por um motivo: ele sai com **código 0 quando o
+arquivo está íntegro** e diferente de zero quando não está, então serve dentro de
+script e de CI sem precisar interpretar saída. E o `s2r_convert` fecha o ciclo —
+converte, processa na forma compacta e desconverte — com um teto de estouro que
+**recusa** em vez de promover além dele:
+
+```sh
+s2r_convert dados.txt saida.txt --op mul --by 3 --cap 32
+```
+
+São 19 checagens em `tools/test_cli.sh`, e elas rodam junto com o resto.
 
 ## Downloads
 

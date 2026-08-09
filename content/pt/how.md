@@ -1,6 +1,6 @@
 ---
 title: Como o Smart2Raw funciona — classificação, não compressão
-description: Três passos: medir a amplitude real, escolher a menor classe nativa que a contém, e operar direto nos bytes guardados. Sem dicionário, sem empacotamento de bits, sem passo de decodificação.
+description: Medir a amplitude real, escolher a menor classe nativa que a comporta, operar nos bytes guardados. Sem dicionário, sem bit-packing, sem decodificar.
 ---
 
 ::html

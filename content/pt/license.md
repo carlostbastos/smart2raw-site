@@ -1,6 +1,6 @@
 ---
-title: Licenciamento — AGPL-3.0 ou comercial
-description: O Smart2Raw tem licença dupla. A versão publicada é AGPL-3.0-or-later; embutir em algo que você não publica sob os mesmos termos exige licença comercial.
+title: Licenciamento — AGPL-3.0 ou licença comercial
+description: O Smart2Raw tem licença dupla. A versão publicada é AGPL-3.0-or-later; embutir em algo que você não publica do mesmo jeito exige licença comercial.
 ---
 
 ::html

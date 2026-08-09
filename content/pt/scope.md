@@ -1,6 +1,6 @@
 ---
 title: Escopo técnico — o que o Smart2Raw é, e onde está a troca
-description: A decisão de projeto por trás da biblioteca dita sem rodeio: a menor classe nativa tem 8 bits, e tudo o que a abordagem compra vem daí.
+description: A decisão de projeto dita sem rodeio: a menor classe nativa tem 8 bits, e tudo que a abordagem compra — e abre mão — decorre disso.
 ---
 
 ::html
