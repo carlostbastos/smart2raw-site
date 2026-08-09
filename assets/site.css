@@ -10,7 +10,10 @@
   --pad:clamp(16px,4vw,20px);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+/* A barra do topo é sticky e tem 60px. Sem isto, todo link com âncora joga o
+   título exatamente atrás dela, e quem clicou cai no meio do parágrafo seguinte
+   achando que errou o link. */
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:76px}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);
      -webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:var(--acc);text-decoration:none}
@@ -211,6 +214,16 @@ tbody tr:hover td{background:rgba(78,161,255,.04)}
 .step pre code{font-size:12px}
 
 /* ---- a faixa de procedência: uma linha, sem virar cartaz ---- */
+/* ---- lastro: exemplo que roda contra encaixe argumentado ----
+ * Duas marcas visualmente distintas, porque a diferença entre medir e deduzir é
+ * exatamente o que esta página promete não borrar. */
+.prov{font:12.8px/1.5 var(--sans);margin:0 0 14px;padding:7px 12px 7px 11px;
+  border-left:2px solid var(--line2);border-radius:0 7px 7px 0;background:var(--panel2)}
+.prov code{font-size:12px;background:none;border:0;padding:0}
+.prov.ok{border-left-color:var(--acc2);color:var(--soft)}
+.prov.ok a{color:var(--acc2)}
+.prov.arg{border-left-color:var(--warn);color:var(--dim)}
+
 /* um link de continuação solto encostava no h2 seguinte */
 .morep{margin:0 0 30px}
 .morep .more{font-size:14.5px}
