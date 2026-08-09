@@ -1,0 +1,40 @@
+<svg class="fig" viewBox="0 0 760 240" width="100%" role="img" xmlns="http://www.w3.org/2000/svg" aria-labelledby="otiten odescen">
+<title id="otiten">12 million elements · both formats take the same space: 11.44 against 11.45 MB</title>
+<desc id="odescen">12 million elements · both formats take the same space: 11.44 against 11.45 MB</desc>
+<text x="0" y="14" class="fs">12 million elements · both formats take the same space: 11.44 against 11.45 MB</text>
+<g transform="translate(0,38)">
+<rect x="0" y="-8" width="10" height="10" rx="2" fill="#5cc4a7"/>
+<text x="16" y="0" class="fl">Smart2Raw</text>
+<rect x="112" y="-8" width="10" height="10" rx="2" fill="#6b7a89"/>
+<text x="128" y="0" class="fl">dictionary, implemented at its best</text>
+</g>
+<line x1="214.0" y1="46" x2="214.0" y2="182" stroke="#26313d" stroke-width="1"/>
+<text x="214.0" y="200" class="fa" text-anchor="middle">0</text>
+<line x1="321.1" y1="46" x2="321.1" y2="182" stroke="#26313d" stroke-width="1"/>
+<text x="321.1" y="200" class="fa" text-anchor="middle">2</text>
+<line x1="428.3" y1="46" x2="428.3" y2="182" stroke="#26313d" stroke-width="1"/>
+<text x="428.3" y="200" class="fa" text-anchor="middle">4</text>
+<line x1="535.4" y1="46" x2="535.4" y2="182" stroke="#26313d" stroke-width="1"/>
+<text x="535.4" y="200" class="fa" text-anchor="middle">6</text>
+<line x1="642.6" y1="46" x2="642.6" y2="182" stroke="#26313d" stroke-width="1"/>
+<text x="642.6" y="200" class="fa" text-anchor="middle">8</text>
+<text x="439.0" y="220" class="fa" text-anchor="middle">milliseconds, single core</text>
+<text x="202" y="64.0" class="fr" text-anchor="end">COUNT(x &gt; 100)</text>
+<rect x="214" y="52.0" width="32.1" height="14" rx="3" fill="#5cc4a7"/>
+<text x="253.1" y="63.0" class="fv">0.60</text>
+<rect x="214" y="70.0" width="33.8" height="14" rx="3" fill="#6b7a89"/>
+<text x="254.8" y="81.0" class="fv">0.63</text>
+<text x="293.8" y="81.0" class="fn">parity</text>
+<title>COUNT(x &gt; 100) — Smart2Raw 0.60 ms, dictionary, implemented at its best 0.63 ms</title>
+<text x="202" y="110.0" class="fr" text-anchor="end">SUM(x)</text>
+<rect x="214" y="98.0" width="23.6" height="14" rx="3" fill="#5cc4a7"/>
+<text x="244.6" y="109.0" class="fv">0.44</text>
+<rect x="214" y="116.0" width="402.9" height="14" rx="3" fill="#6b7a89"/>
+<text x="623.9" y="127.0" class="fv">7.52</text>
+<title>SUM(x) — Smart2Raw 0.44 ms, dictionary, implemented at its best 7.52 ms</title>
+<text x="202" y="156.0" class="fr" text-anchor="end">reach a non-SQL kernel *</text>
+<text x="216" y="155.0" class="fv">0.00 · already contiguous</text>
+<rect x="214" y="162.0" width="423.2" height="14" rx="3" fill="#d9534a"/>
+<text x="644.2" y="173.0" class="fv fvbad">7.90</text>
+<title>reach a non-SQL kernel — Smart2Raw 0.00 ms, dictionary, implemented at its best 7.90 ms</title>
+</svg>
