@@ -12,7 +12,7 @@ estático. O idioma inglês fica na raiz, o português em /pt/.
 Smart2Raw - Copyright (C) 2026 Carlos Alberto Terêncio de Bastos
 SPDX-License-Identifier: AGPL-3.0-or-later
 """
-import os, sys, shutil, re, json, html, hashlib
+import os, time, sys, shutil, re, json, html, hashlib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import md, build_single
 
@@ -134,6 +134,18 @@ def build():
                 # md.render escapou o marcador dentro de um <p>; limpa o invólucro
                 body = body.replace("<p>{{DEMO}}</p>", "").replace("<p></p>", "")
 
+            # figuras: SVG embutido, gerado por tools/make_charts.py a partir dos
+            # números do repositório. Embutido e não <img> para herdar o tema e
+            # não custar uma requisição.
+            for figname in ("matriz",):
+                marca = "{{FIG_" + figname.upper() + "}}"
+                if marca in body:
+                    fp = os.path.join(ROOTDIR, "assets", "fig-%s-%s.svg" % (figname, lang))
+                    svg = open(fp, encoding="utf-8").read()
+                    body = body.replace("<p>" + marca + "</p>",
+                                        '<div class="figwrap">%s</div>' % svg)
+                    body = body.replace(marca, '<div class="figwrap">%s</div>' % svg)
+
             # ---- topo: links diretos, grupos suspensos, e o painel de celular ----
             nav, sheet = [], []
             # no celular o painel abre com o Início, como qualquer app
@@ -245,7 +257,21 @@ def build():
                     dirs_exist_ok=True)
 
     # sitemap e robots
-    urls = "".join("  <url><loc>%s%s</loc></url>\n" % (SITE_URL, u) for u in made)
+    # lastmod: a data do arquivo de conteúdo mais recente de cada página. Sem isso
+    # o buscador não sabe o que mudou e revisita tudo na mesma cadência.
+    def lastmod_de(u):
+        cands = [os.path.join(ROOTDIR, "templates", "base.html"),
+                 os.path.join(ROOTDIR, "assets", "site.css")]
+        for pg in PAGES:
+            for lg in ("en", "pt"):
+                if url_for(pg, lg) == u:
+                    c = os.path.join(ROOTDIR, "content", lg, pg["id"] + ".md")
+                    if os.path.exists(c):
+                        cands.append(c)
+        return time.strftime("%Y-%m-%d", time.gmtime(max(os.path.getmtime(c) for c in cands)))
+
+    urls = "".join("  <url><loc>%s%s</loc><lastmod>%s</lastmod></url>\n"
+                   % (SITE_URL, u, lastmod_de(u)) for u in made)
     open(os.path.join(out, "sitemap.xml"), "w", encoding="utf-8").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s</urlset>\n' % urls)
