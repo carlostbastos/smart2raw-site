@@ -28,6 +28,16 @@ description: A mesma coluna em todos os formatos, medida em 4 milhões de elemen
 Sete formas de coluna, 4 milhões de elementos cada, tamanhos em MB. `S2R` é a
 menor forma que a biblioteca sabe produzir para aquela forma de coluna.
 
+{{FIG_MATRIZ}}
+
+::html
+<p class="figcap">As duas barras vermelhas passaram da entrada: numa coluna de alta cardinalidade o
+dicionário guarda um dicionário do tamanho do dado, e devolve 41,01 MB para os 30,52 MB que
+recebeu. O Smart2Raw não tem barra assim — a classe mais larga que ele tem <b>é</b> a entrada.
+Repare também nas linhas B, C e D, onde o clássico ganha: elas estão no gráfico pelo mesmo
+motivo que as outras.</p>
+::
+
 | coluna | int64 | S2R | dicionário | RLE | bitmap | forma S2R |
 |---|---:|---:|---:|---:|---:|---|
 | A · uniforme 0..200 (telemetria) | 30,52 | **3,81** | 3,82 | 30,37 | — | pool plano |

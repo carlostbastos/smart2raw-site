@@ -20,7 +20,7 @@ description: Colunas de inteiros guardadas na menor classe nativa que a amplitud
     <a class="btn ghost" href="/pt/comece/">Comece</a>
     <a class="btn ghost" href="https://github.com/carlostbastos/Smart2Raw">GitHub</a>
   </div>
-  <div class="kpis">
+  <div class="kpis kpicount">
     <div class="kpi"><b>8×</b><small>menor que int64 numa coluna de telemetria de 0..200 — medido, e reproduzível aqui embaixo</small></div>
     <div class="kpi"><b>0</b><small>dependências. Um header, C11, sem sistema de build</small></div>
     <div class="kpi"><b>31</b><small>suítes de teste, 0 falhas — x86, ARM e big-endian reais, RVV e SVE2 varridos em vários comprimentos de vetor</small></div>
