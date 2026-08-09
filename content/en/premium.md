@@ -1,6 +1,6 @@
 ---
 title: Smart2Raw Premium — beyond the open version, under commercial licence
-description: The open version is what you can verify. Premium goes further in how far the data compacts and in what you can ask of it, and comes with the right to build it into a closed product.
+description: The open version is what you can verify. Premium goes further in how far the data shrinks and in what you can ask of it, and comes with the right to build it into a closed product.
 ---
 
 ::html
@@ -26,7 +26,7 @@ description: The open version is what you can verify. Premium goes further in ho
 
 ::html
 <div class="cards">
-  <div class="card"><h3>It compacts further</h3>
+  <div class="card"><h3>It shrinks further</h3>
     <p>Beyond what the smallest native class can do on its own — including the regimes where,
     in the open version, a dictionary still wins. The <a href="/scope/">technical scope</a> page
     names those regimes precisely; Premium is where they stop being a trade.</p></div>
@@ -73,7 +73,7 @@ price. Premium is built by the same hands, under the same discipline.
 |---|---|---|
 | Classification by range, three shapes, native predicates | yes | yes |
 | The `.s2r` format, portability, the full test battery | yes | yes |
-| Compaction beyond the smallest native class | — | yes |
+| Shrinking beyond the smallest native class | — | yes |
 | Composite and multi-column operations | write it yourself | yes |
 | Right to build into software not published under AGPL | — | yes |
 | Support and priority on corrections | community | yes |

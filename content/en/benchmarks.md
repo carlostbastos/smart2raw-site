@@ -104,10 +104,16 @@ so is what earns the other two rows their credit.
   buffer has to exist somewhere. It is the one measurement here that a
   better-implemented peer cannot change.
 
-And where we lose is measured alongside: on a column of 12 distinct values spread
-across a wide range, the peer with 4-bit codes is **4x smaller and ~3.7x faster**
-than we are. The full report — including what was retracted from an earlier version
-of it — is in `benchmarks/warehouse/WAREHOUSE_FORMAT_BENCH.md`.
+And where we lose is measured alongside. On a column of 12 distinct values spread
+across a wide range, the peer with 4-bit codes wins: **11.44 MB against 5.72 MB and
+0.468 ms against 0.326 ms** — 2x larger and 1.44x slower on our side. The floor is
+arithmetic: 12 distinct values need log₂(12) = 3.58 bits, the peer uses 4, and the
+smallest native class here is 8. That absence is the decision that buys the 7.9 ms
+in the row above, not an oversight.
+
+The full report — including what was retracted from an earlier version of it — is in
+`benchmarks/warehouse/WAREHOUSE_FORMAT_BENCH.md`. It measures 3.4.0, when the same
+loss was 4x and 3.2x; the affine factoring in 3.5.0 is what reduced it.
 
 ## Query timings
 

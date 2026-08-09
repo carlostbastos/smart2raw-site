@@ -17,7 +17,7 @@ description: An integer column costs eight bytes per element because nobody meas
   <div class="kpis">
     <div class="kpi"><b>6</b><small>versions deposited on Zenodo with a citable DOI, establishing a priority date</small></div>
     <div class="kpi"><b>31</b><small>test suites, 0 failures, including 100,950 fuzz checks with fixed seeds</small></div>
-    <div class="kpi"><b>7</b><small>hardware targets: x86, ARM NEON and SVE2, RISC-V RVV, big-endian, MCU, WebAssembly</small></div>
+    <div class="kpi"><b>4</b><small>targets with the suite passing on real hardware: x86-64, ARM64 with NEON, big-endian and MCU. RVV and SVE2 run through a vector-length sweep, not on a board</small></div>
     <div class="kpi"><b>0</b><small>dependencies — one C11 header, which is what makes adoption cheap</small></div>
   </div>
 </section>

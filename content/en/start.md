@@ -18,7 +18,7 @@ description: Copy one header into your project and classify a column in three li
     <div class="kpi"><b>1</b><small>file: smart2raw.h, C11, no build system and no configuration</small></div>
     <div class="kpi"><b>3</b><small>lines to classify, store and operate</small></div>
     <div class="kpi"><b>0</b><small>dependencies — neither to compile nor at runtime</small></div>
-    <div class="kpi"><b>7</b><small>hardware targets with the same suite passing, from Xeon to microcontroller</small></div>
+    <div class="kpi"><b>4</b><small>targets with the suite passing on real hardware — x86-64, ARM64 with NEON, big-endian and microcontroller. RVV and SVE2 are experimental</small></div>
   </div>
 </section>
 ::
