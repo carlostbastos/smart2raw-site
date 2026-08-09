@@ -34,7 +34,9 @@ form the library can produce for that shape.
 <p class="figcap">The two red bars crossed the input: on a high-cardinality column the dictionary
 stores a dictionary the size of the data, and hands back 41.01 MB for the 30.52 MB it was given.
 Smart2Raw has no such bar — the widest class it has <b>is</b> the input. Look at rows B, C and D
-too, where the classical format wins: they are in the chart for the same reason as the rest.</p>
+too, where the classical format wins: they are in the chart for the same reason as the rest.
+<b>And note what this chart does not measure:</b> it counts bytes, and bytes are only one
+axis — the other one is just below.</p>
 ::
 
 | column | int64 | S2R | dictionary | RLE | bitmap | S2R form |
@@ -67,6 +69,45 @@ Smart2Raw has no such row, and not by tuning: it classifies by **range**, and it
 widest class *is* the `int64` input. Row F is the proof — maximum entropy, and
 the result ties the baseline exactly. `assert(s <= raw)` runs inside the loop
 before each line is printed.
+
+## Bytes are only one axis
+
+The table above answers "how much space". It does not answer the question that comes
+next, and that one decides what it costs to run: **what you can ask of the bytes
+without first turning them into something else.**
+
+This chart isolates exactly that. The column is the same one, and both formats take
+practically the same space — 11.44 MB against 11.45 MB. With the bytes tied, what is
+left in the drawing is processing alone.
+
+{{FIG_OPERACOES}}
+
+::html
+<p class="figcap">* Reaching a non-SQL kernel: a quantized dot product, a convolution, an int8
+matmul, a DSP filter — each needs a contiguous native-width buffer. The warehouse format has to
+<b>produce</b> that buffer before it can start. Our pool already is that buffer.</p>
+::
+
+The peer here is not a straw man. The dictionary is implemented at its best, over
+**sorted** distinct values — which makes the predicate a comparison on the codes
+themselves, with nothing to decode. That is why `COUNT` comes out level, and saying
+so is what earns the other two rows their credit.
+
+- **`COUNT` is parity.** 1.05x, with the range over five runs straddling 1.00 in
+  both directions. A sorted dictionary costs the peer nothing here — and buys it
+  nothing either.
+- **`SUM` has no such shortcut.** A code is not an addable operand: the peer must
+  histogram over codes and fold the dictionary in afterwards. That scatter is
+  structural, and it measures 17x.
+- **The 7.9 ms in the third row do not move.** It is not a slow implementation — it
+  is the format's definition, and no better unpacker removes it, because the output
+  buffer has to exist somewhere. It is the one measurement here that a
+  better-implemented peer cannot change.
+
+And where we lose is measured alongside: on a column of 12 distinct values spread
+across a wide range, the peer with 4-bit codes is **4x smaller and ~3.7x faster**
+than we are. The full report — including what was retracted from an earlier version
+of it — is in `benchmarks/warehouse/WAREHOUSE_FORMAT_BENCH.md`.
 
 ## Query timings
 
