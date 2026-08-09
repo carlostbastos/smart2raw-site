@@ -196,6 +196,30 @@ tbody tr:hover td{background:rgba(78,161,255,.04)}
 .note{margin-top:20px;font-size:13.5px;color:var(--dim);border-left:2px solid var(--acc2);
   padding-left:13px;max-width:80ch}
 
+/* ---- os três passos, na home ---- */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:16px;margin:0 0 22px}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;
+  position:relative;transition:transform .15s,border-color .15s}
+.step:hover{transform:translateY(-2px);border-color:var(--line2)}
+.step>b{display:block;font:600 13px/1 var(--mono);color:var(--acc2);letter-spacing:.16em;
+  margin:0 0 12px}
+.step>b::after{content:"";display:block;width:26px;height:2px;background:var(--acc2);
+  opacity:.45;margin-top:7px}
+.step h3{margin:0 0 7px;font-size:16px}
+.step p{color:var(--dim);font-size:14.3px;margin:0 0 12px}
+.step pre{margin:0;padding:10px 12px;font-size:12px}
+.step pre code{font-size:12px}
+
+/* ---- a faixa de procedência: uma linha, sem virar cartaz ---- */
+/* um link de continuação solto encostava no h2 seguinte */
+.morep{margin:0 0 30px}
+.morep .more{font-size:14.5px}
+
+.cred{font-size:13.6px;color:var(--dim);border:1px solid var(--line);border-radius:10px;
+  background:var(--panel2);padding:13px 16px;margin:22px 0 6px;line-height:1.75}
+.cred b{color:var(--soft);font-family:var(--mono);font-weight:600}
+.cred span{color:#3d4a58;padding:0 3px}
+
 /* ---- revelar ao rolar ----
  * O estado inicial só é aplicado por JS (classe .rv), então quem estiver sem
  * JavaScript vê a página inteira normalmente em vez de uma tela em branco. */
