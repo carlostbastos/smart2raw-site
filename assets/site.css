@@ -196,6 +196,31 @@ tbody tr:hover td{background:rgba(78,161,255,.04)}
 .note{margin-top:20px;font-size:13.5px;color:var(--dim);border-left:2px solid var(--acc2);
   padding-left:13px;max-width:80ch}
 
+/* ---- revelar ao rolar ----
+ * O estado inicial só é aplicado por JS (classe .rv), então quem estiver sem
+ * JavaScript vê a página inteira normalmente em vez de uma tela em branco. */
+.rv{opacity:0;transform:translateY(12px);
+  transition:opacity .5s cubic-bezier(.22,.61,.36,1),transform .5s cubic-bezier(.22,.61,.36,1)}
+.rv-in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){ .rv{opacity:1;transform:none} }
+
+/* ---- figuras: SVG gerado a partir do dado do repositório ----
+ * O texto de um SVG encolhe junto com o desenho, então abaixo de ~620px ele
+ * viraria letra de 7px. Mesma solução que a das tabelas: rola de lado. */
+.figwrap{overflow-x:auto;margin:0 0 10px;-webkit-overflow-scrolling:touch}
+.fig{display:block;min-width:620px;width:100%;height:auto}
+.ft{fill:var(--ink);font:600 17px var(--sans)}
+.fs{fill:var(--dim);font:13px var(--sans)}
+.fl{fill:var(--soft);font:12.5px var(--sans)}
+.fa{fill:#6c7c8c;font:11px var(--mono)}
+.fb{fill:#8fa3b5;font:11px var(--mono)}
+.fr{fill:var(--soft);font:12.5px var(--sans)}
+.fn{fill:var(--dim);font:11px var(--sans)}
+.fv{fill:var(--soft);font:600 11.5px var(--mono)}
+.fvbad{fill:#ffd9d5}
+.fmono{font-family:var(--mono)}
+.figcap{font-size:13.2px;color:var(--dim);margin:0 0 20px;max-width:82ch}
+
 /* ---- o fecho de cada página: para onde ir depois ---- */
 .next{margin-top:52px;padding-top:34px;border-top:1px solid var(--line)}
 .next h2{font-size:clamp(18px,2.2vw,21px);color:var(--soft);letter-spacing:-.2px;margin:0 0 16px}
