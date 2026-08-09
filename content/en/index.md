@@ -20,7 +20,7 @@ description: Integer columns stored in the smallest native class their real rang
     <a class="btn ghost" href="/start/">Get started</a>
     <a class="btn ghost" href="https://github.com/carlostbastos/Smart2Raw">GitHub</a>
   </div>
-  <div class="kpis">
+  <div class="kpis kpicount">
     <div class="kpi"><b>8×</b><small>smaller than int64 on a telemetry column of 0..200 — measured, and reproducible below</small></div>
     <div class="kpi"><b>0</b><small>dependencies. One header, C11, no build system</small></div>
     <div class="kpi"><b>31</b><small>test suites, 0 failures — real x86, ARM and big-endian, with RVV and SVE2 swept across vector lengths</small></div>

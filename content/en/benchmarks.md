@@ -28,6 +28,15 @@ description: The same column in every format, measured on 4 million elements, wi
 Seven column shapes, 4 million elements each, sizes in MB. `S2R` is the smallest
 form the library can produce for that shape.
 
+{{FIG_MATRIZ}}
+
+::html
+<p class="figcap">The two red bars crossed the input: on a high-cardinality column the dictionary
+stores a dictionary the size of the data, and hands back 41.01 MB for the 30.52 MB it was given.
+Smart2Raw has no such bar — the widest class it has <b>is</b> the input. Look at rows B, C and D
+too, where the classical format wins: they are in the chart for the same reason as the rest.</p>
+::
+
 | column | int64 | S2R | dictionary | RLE | bitmap | S2R form |
 |---|---:|---:|---:|---:|---:|---|
 | A · uniform 0..200 (telemetry) | 30.52 | **3.81** | 3.82 | 30.37 | — | flat pool |
