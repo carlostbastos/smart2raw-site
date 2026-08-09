@@ -1,6 +1,6 @@
 ---
-title: Smart2Raw Premium — beyond the open version, under commercial licence
-description: The open version is what you can verify. Premium goes further in how far the data shrinks and in what you can ask of it, and comes with the right to build it into a closed product.
+title: Smart2Raw Premium — beyond the open version
+description: The open version is what you can verify. Premium goes further in how far the data shrinks and in what you can ask of it, under a commercial licence.
 ---
 
 ::html

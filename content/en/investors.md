@@ -1,6 +1,6 @@
 ---
 title: Investment and partnership — Smart2Raw
-description: An integer column costs eight bytes per element because nobody measured it. Smart2Raw measures it, and keeps the bytes executable. Open to conversations with investors and partners.
+description: An integer column costs eight bytes per element because nobody measured it. Smart2Raw measures it, and keeps the bytes executable. Open to talking.
 ---
 
 ::html

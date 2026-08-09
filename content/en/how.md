@@ -1,6 +1,6 @@
 ---
 title: How Smart2Raw works — classification, not compression
-description: Three steps: measure the real range, pick the smallest native class that holds it, and operate on the stored bytes directly. No dictionary, no bit-packing, no decode step.
+description: Measure the real range, pick the smallest native class that holds it, operate on the stored bytes. No dictionary, no bit-packing, no decode step.
 ---
 
 ::html

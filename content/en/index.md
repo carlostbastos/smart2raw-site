@@ -1,6 +1,6 @@
 ---
-title: Smart2Raw — C library that stores integer columns in the smallest native class
-description: One C11 header, no dependencies, for databases, telemetry, IoT, AI and embedded. Stores the column in the smallest native class the range needs and operates directly on the bytes — no decode step, because nothing was encoded. Test it with your own data, in the browser.
+title: Smart2Raw — integer columns at native width, no decode step
+description: A dependency-free C11 header that stores an integer column in the smallest native class its range needs, and runs SUM, COUNT and filters on those bytes.
 ---
 
 ::html
@@ -161,6 +161,10 @@ Python here is only the conductor: it uses the standard library for SQLite and c
 the real C kernels through `ctypes`. Columns that genuinely need 64 bits, or that are
 floating point, show **0%** on purpose — because this is choosing the right native
 type, not compressing.
+
+::html
+<p class="morep"><a class="more" href="/benchmarks/#against-a-real-database-sqlite">The full table, what the 161× is not, and the 1.18× row where we barely win →</a></p>
+::
 
 ## Why this matters now
 

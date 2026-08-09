@@ -1,6 +1,6 @@
 ---
-title: Where Smart2Raw fits — databases, operating systems, telemetry, AI, embedded
-description: Every one of these systems already has an integer column inside it. Seven places where classifying by range and keeping the bytes native changes what the system costs to run.
+title: Where Smart2Raw fits — databases, telemetry, IoT, AI, embedded
+description: Seven kinds of system that already carry an integer column inside them, and what changes when that column stops being 64 bits wide by default.
 ---
 
 ::html
@@ -23,6 +23,15 @@ description: Every one of these systems already has an integer column inside it.
 </section>
 ::
 
+
+::html
+<p class="note">Seven areas, and they do not carry the same weight of evidence. Where an example
+<b>runs and prints numbers</b>, it is linked in the section. Where the fit is <b>reasoned</b> —
+the mechanism applies, but there is no measured example in the repository yet — the section says
+so. The difference matters: measuring is one thing, deducing is another, and blurring them is
+where every overstatement starts.</p>
+::
+
 ## Databases and columnar engines
 
 **The column that is already there.** Primary keys, foreign keys, status codes,
@@ -43,6 +52,11 @@ where it grows the input: measured on 4 million elements, dictionary encoding of
 a high-cardinality timestamp column produces **41.01 MB against a 30.52 MB
 `int64` baseline**. Smart2Raw's worst case is equal to the baseline, never above.
 
+
+::html
+<p class="prov ok">Example that runs: <a href="https://github.com/carlostbastos/Smart2Raw/blob/main/examples/analytics.c"><code>examples/analytics.c</code></a></p>
+::
+
 **Where to start.** The hot column of one table. Classify it, keep the pool
 resident, and run your heaviest predicate against both paths — the answers have
 to match, and the demonstration on the home page does exactly that comparison for
@@ -61,6 +75,11 @@ machine cannot drag a compression library, a runtime and a build system with it.
 Smart2Raw is **one C11 header with no dependencies**, and it has a lean mode
 (`-DS2R_NO_STDIO -DS2R_NO_MMAP -DS2R_NO_SIMD`) that compiles where there is
 almost nothing.
+
+
+::html
+<p class="prov arg">Reasoned fit — the mechanism applies, but there is no measured example in the repository for this area yet.</p>
+::
 
 **Where to start.** A metrics buffer inside a daemon. Copy the header in, replace
 the `uint64_t*` ring with a classified pool, and measure the resident set.
@@ -84,6 +103,14 @@ metadata already decides the whole block, the payload is never read at all. On a
 column that stops at 200, `count_gt(220)` goes from **0.1435 ms to 0.000034 ms** —
 because nothing had to be looked at.
 
+
+::html
+<p class="prov ok">Example that runs: <a href="https://github.com/carlostbastos/Smart2Raw/blob/main/examples/telemetry.c"><code>examples/telemetry.c</code></a></p>
+::
+::html
+<p class="prov ok">Example that runs: <a href="https://github.com/carlostbastos/Smart2Raw/blob/main/examples/iot_edge.c"><code>examples/iot_edge.c</code></a></p>
+::
+
 **Where to start.** Your retention window. Take one day of one metric, run
 `s2r_recommend()`, and compare against what you store today.
 
@@ -103,6 +130,14 @@ the class is chosen from the real range and nothing is rounded. And because the
 stored bytes are native integers, they feed straight into whatever reads them —
 there is no dequantise step to pay on the way in.
 
+
+::html
+<p class="prov ok">Example that runs: <a href="https://github.com/carlostbastos/Smart2Raw/blob/main/examples/ai_kv_cache.c"><code>examples/ai_kv_cache.c</code></a></p>
+::
+::html
+<p class="prov ok">Example that runs: <a href="https://github.com/carlostbastos/Smart2Raw/blob/main/examples/ai_zeropoint.c"><code>examples/ai_zeropoint.c</code></a></p>
+::
+
 **Where to start.** The token id arrays of a dataset, or the neighbour lists of a
 vector index. Both are large, both are integers, both are almost always carried
 as 64-bit.
@@ -119,6 +154,11 @@ library on a microcontroller does not apply here: no allocator required, no
 stdio, no file system, no SIMD, no build system. The lean mode is not a claim, it
 is one of the test suites.
 
+
+::html
+<p class="prov ok">Example that runs: <a href="https://github.com/carlostbastos/Smart2Raw/blob/main/tests/mcu_core.c"><code>tests/mcu_core.c</code></a></p>
+::
+
 **Where to start.** The sample buffer. Classify it once, at the range your sensor
 actually produces.
 
@@ -134,6 +174,11 @@ bits. Measured on 12 million elements, a strided column goes from **22.89 MB and
 1.033 ms to 11.44 MB and 0.468 ms** — half the space and half the time, from
 dividing out a step that was already in the data.
 
+
+::html
+<p class="prov arg">Reasoned fit — the mechanism applies, but there is no measured example in the repository for this area yet.</p>
+::
+
 **Where to start.** One instrument, one day. The stride is detected in a single
 pass, so you find out in seconds whether your data has one.
 
@@ -146,6 +191,11 @@ of every compiler, linker, debugger and binary format.
 **What changes.** These are exactly the columns where the range is known at
 design time and ignored anyway. And a single header with no dependencies drops
 into a build that already has strong opinions about its own toolchain.
+
+
+::html
+<p class="prov arg">Reasoned fit — the mechanism applies, but there is no measured example in the repository for this area yet.</p>
+::
 
 **Where to start.** The offset table of whatever format you already parse.
 

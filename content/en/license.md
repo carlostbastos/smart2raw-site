@@ -1,6 +1,6 @@
 ---
-title: Licensing — AGPL-3.0 or commercial
-description: Smart2Raw is dual-licensed. The published version is AGPL-3.0-or-later; building it into something you do not publish under the same terms needs a commercial licence.
+title: Licensing — AGPL-3.0 or a commercial licence
+description: Smart2Raw is dual-licensed. The published version is AGPL-3.0-or-later; building it into something you do not publish the same way needs a licence.
 ---
 
 ::html

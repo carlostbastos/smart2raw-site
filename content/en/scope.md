@@ -1,6 +1,6 @@
 ---
 title: Technical scope — what Smart2Raw is, and where the trade is
-description: The design decision behind the library stated plainly: the smallest native class is 8 bits, and everything the approach buys follows from that.
+description: The design decision stated plainly: the smallest native class is 8 bits, and everything the approach buys — and gives up — follows from that.
 ---
 
 ::html

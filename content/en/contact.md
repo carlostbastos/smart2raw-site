@@ -1,6 +1,6 @@
 ---
-title: Contact Smart2Raw — commercial licence, the advanced version, partnerships
-description: Talk to the person who wrote it. Commercial licensing, access to the advanced version, technical evaluation and investment.
+title: Contact — commercial licence, Premium, partnerships
+description: Talk to the person who wrote it: commercial licensing, access to the advanced version, technical evaluation and investment.
 ---
 
 ::html

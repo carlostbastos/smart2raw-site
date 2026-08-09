@@ -1,6 +1,6 @@
 ---
-title: Cite Smart2Raw — DOI, BibTeX and versions
-description: Every release of Smart2Raw is deposited on Zenodo with its own DOI, plus a concept DOI that always resolves to the latest version.
+title: Cite Smart2Raw — DOI, BibTeX and every version
+description: Every release is deposited on Zenodo with its own DOI, plus a concept DOI that always resolves to the latest one. BibTeX ready to paste.
 ---
 
 ::html

@@ -1,6 +1,6 @@
 ---
 title: Get started with Smart2Raw — one header, three lines
-description: Copy one header into your project and classify a column in three lines of C. Downloads for the library, the single-file browser demo and a dependency-free Windows executable.
+description: Copy one header into your project and classify a column in three lines of C. Command-line tools, a browser demo and a Windows executable included.
 ---
 
 ::html
@@ -62,6 +62,30 @@ s2r_blocked_save(&b, "column.s2r");
 
 The file is canonical little-endian with a CRC32, so it is identical on any host
 and a corrupted byte is caught on load rather than returned as data.
+
+## Without writing C: the command-line tools
+
+If you want to evaluate before writing code, the repository ships three programs.
+One `make` inside `tools/` builds all three, and they need nothing beyond `gcc`.
+
+```sh
+s2r pack   data.txt column.s2r           # text → .s2r, classifying as it goes
+s2r info   column.s2r                    # the chosen class, the count, the size
+s2r agg    column.s2r count-gt 100       # the query, straight against the file
+s2r verify column.s2r                    # magic, class, count and CRC32
+```
+
+`s2r_verify` exists separately for a reason: it exits with **code 0 when the file is
+intact** and non-zero when it is not, so it drops into a script or a CI job without
+anyone having to parse output. And `s2r_convert` closes the loop — convert, process
+in the compact form, unconvert — with an overflow ceiling that **refuses** rather
+than promoting past it:
+
+```sh
+s2r_convert data.txt out.txt --op mul --by 3 --cap 32
+```
+
+There are 19 checks in `tools/test_cli.sh`, and they run with everything else.
 
 ## Downloads
 

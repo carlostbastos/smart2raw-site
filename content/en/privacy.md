@@ -1,6 +1,6 @@
 ---
 title: Privacy — what this site collects, and what it does not
-description: The demonstration runs entirely in your browser and sends nothing. The contact form is the only place on this site that receives information from you.
+description: The demonstration runs entirely in your browser and sends nothing. The contact form is the only place here that receives anything from you.
 ---
 
 # Privacy

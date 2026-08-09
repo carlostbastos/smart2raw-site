@@ -1,6 +1,6 @@
 ---
-title: Smart2Raw performance — measured numbers, with the command that reproduces them
-description: The same column in every format, measured on 4 million elements, with an assertion checked before each row is printed. Plus the query timings, and how to run all of it yourself.
+title: Smart2Raw performance — 4M elements, every number reproducible
+description: The same column in seven formats, the query timings, and the comparison against SQLite — each table with the command that prints it on your machine.
 ---
 
 ::html
@@ -129,6 +129,57 @@ The cumulative index pays for itself in **11 queries** and then costs nothing,
 because 2 KB does not grow with the column. It also refuses to answer when it is
 stale: the pool carries an epoch, every write bumps it, and the index records the
 epoch it was built at.
+
+## Against a real database: SQLite
+
+The tables above compare against formats. A format is an abstraction, and almost
+nobody runs one in production — almost everybody runs a SQLite.
+`benchmarks/maestro/` compares against it: the same input CSV, a real `.db` and a
+set of real `.s2r` files written to disk, both openable afterwards.
+
+::html
+<div class="tw"><table>
+<thead><tr><th>what</th><th>SQLite / int64</th><th>Smart2Raw</th><th>gain</th><th>kind</th></tr></thead>
+<tbody>
+<tr><td><code>SUM</code> over the 12 columns that compact</td><td>2635 µs</td><td><b>16.3 µs</b></td><td><b>161×</b></td><td>measured</td></tr>
+<tr><td><code>COUNT</code> with a filter</td><td>3900 µs</td><td><b>69.5 µs</b></td><td><b>56×</b></td><td>measured</td></tr>
+<tr><td>size on disk</td><td>412.0 KB</td><td><b>275.7 KB</b></td><td>1.49× smaller</td><td>exact</td></tr>
+<tr><td>resident memory</td><td>934.8 KB</td><td><b>342.2 KB</b></td><td>2.73×</td><td>exact</td></tr>
+<tr><td>data moved per scan</td><td>868.1 KB</td><td><b>275.4 KB</b></td><td>3.15×</td><td>exact</td></tr>
+<tr><td><code>SUM</code> throughput in SIMD</td><td>2131 Mval/s</td><td><b>7005 Mval/s</b></td><td>3.29×</td><td>measured</td></tr>
+<tr><td>range filter throughput</td><td>1416 Mval/s</td><td><b>1668 Mval/s</b></td><td>1.18×</td><td>measured</td></tr>
+</tbody></table></div>
+::
+
+```sh
+python benchmarks/maestro/smart2raw_bench.py your_data.csv
+```
+
+Python here is only the conductor: it uses the standard library for SQLite and
+calls the real C kernels through `ctypes` — the native engine is compiled from
+`s2r_shim.c` on first run. With no compiler it still prints memory, disk and data
+moved, which are exact counts, and skips the two timed sections. Columns that
+genuinely need 64 bits, or that are floating point, show **0%** on purpose.
+
+**What that 161× is not.** SQLite gives you SQL, indexes, transactions and
+durability; here it is doing one job — scanning and aggregating integer columns,
+with no index — against a column built for exactly that job. The number measures
+the distance between a general engine interpreting bytecode row by row and a SIMD
+loop over contiguous bytes. It is not a flaw in SQLite; it is the price of
+generality, and it is large precisely because of that.
+
+**And the data is small on purpose** — the demo CSV is about 670 KB, so everything
+fits in cache and what dominates is the interpreter's per-row cost. On much larger
+data the timed ratio does not hold; what holds are the three rows marked **exact**,
+because those are byte counts rather than a clock: 1.49× on disk, 2.73× in memory,
+3.15× less data moved per scan.
+
+**Look at the 1.18×.** The range filter barely improves, and the row is here for
+that reason. `SUM` on `u8` processes eight values per lane where `int64` processes
+one, and jumps to 3.29×; the filter was already cheap per element and its
+bottleneck is elsewhere. A space win does not become a time win by decree — it
+becomes one when the operation was memory-bound, and this row is the
+counterexample inside our own table.
 
 ## Measure it in your own browser
 
