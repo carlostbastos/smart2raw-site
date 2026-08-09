@@ -45,7 +45,7 @@ description: Toda versão do Smart2Raw é depositada no Zenodo com DOI próprio,
 | versão | DOI | depositada |
 |---|---|---|
 | **projeto (sempre a mais recente)** | [10.5281/zenodo.20477234](https://doi.org/10.5281/zenodo.20477234) | — |
-| 3.5.1 | [10.5281/zenodo.21676456](https://doi.org/10.5281/zenodo.21676456) | 29/07/2026 |
+| 3.5.1 | [10.5281/zenodo.21676456](https://doi.org/10.5281/zenodo.21676456) | 28/07/2026 |
 | 3.5.0 | [10.5281/zenodo.21623772](https://doi.org/10.5281/zenodo.21623772) | 27/07/2026 |
 | 3.4.0 | [10.5281/zenodo.21614309](https://doi.org/10.5281/zenodo.21614309) | 27/07/2026 |
 | 3.3.7 | [10.5281/zenodo.20619276](https://doi.org/10.5281/zenodo.20619276) | 10/06/2026 |

@@ -104,10 +104,16 @@ por dizer isso que as outras duas linhas merecem crédito.
   saída tem de existir em algum lugar. É a única medida deste conjunto que um par
   mais bem implementado não consegue mudar.
 
-E onde perdemos está medido junto: numa coluna de 12 valores distintos espalhados
-por uma amplitude larga, o par com códigos de 4 bits é **4× menor e ~3,7× mais
-rápido** que nós. O relatório completo — inclusive o que foi retratado de uma versão
-anterior dele — está em `benchmarks/warehouse/WAREHOUSE_FORMAT_BENCH.md`.
+E onde perdemos está medido junto. Numa coluna de 12 valores distintos espalhados
+por uma amplitude larga, o par com códigos de 4 bits ganha: **11,44 MB contra 5,72 MB
+e 0,468 ms contra 0,326 ms** — 2× maior e 1,44× mais lento do nosso lado. O piso é
+aritmético: 12 valores distintos precisam de log₂(12) = 3,58 bits, o par usa 4, e a
+menor classe nativa aqui é 8. Essa ausência é a decisão que compra os 7,9 ms da
+terceira linha acima, não um descuido.
+
+O relatório completo — inclusive o que foi retratado de uma versão anterior dele —
+está em `benchmarks/warehouse/WAREHOUSE_FORMAT_BENCH.md`. Ele mede a 3.4.0, quando a
+mesma perda era de 4× e 3,2×; a fatoração afim da 3.5.0 é o que a reduziu.
 
 ## Tempos de consulta
 

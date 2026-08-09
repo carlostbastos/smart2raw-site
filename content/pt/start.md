@@ -18,7 +18,7 @@ description: Copie um header para o seu projeto e classifique uma coluna em trê
     <div class="kpi"><b>1</b><small>arquivo: smart2raw.h, C11, sem sistema de build e sem configuração</small></div>
     <div class="kpi"><b>3</b><small>linhas para classificar, guardar e operar</small></div>
     <div class="kpi"><b>0</b><small>dependências — nem para compilar, nem em tempo de execução</small></div>
-    <div class="kpi"><b>7</b><small>alvos de hardware com a mesma suíte passando, do Xeon ao microcontrolador</small></div>
+    <div class="kpi"><b>4</b><small>alvos com a suíte passando em hardware real — x86-64, ARM64 com NEON, big-endian e microcontrolador. RVV e SVE2 são experimentais</small></div>
   </div>
 </section>
 ::

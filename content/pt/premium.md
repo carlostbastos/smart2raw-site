@@ -1,6 +1,6 @@
 ---
 title: Smart2Raw Premium — além da versão aberta, sob licença comercial
-description: A versão aberta é a que você pode conferir. A Premium vai além no quanto o dado compacta e no que dá para perguntar a ele, e vem com o direito de embutir em produto fechado.
+description: A versão aberta é a que você pode conferir. A Premium vai além no quanto o dado encolhe e no que dá para perguntar a ele, e vem com o direito de embutir em produto fechado.
 ---
 
 ::html
@@ -26,7 +26,7 @@ description: A versão aberta é a que você pode conferir. A Premium vai além 
 
 ::html
 <div class="cards">
-  <div class="card"><h3>Ela compacta mais</h3>
+  <div class="card"><h3>Ela encolhe mais</h3>
     <p>Além do que a menor classe nativa consegue sozinha — inclusive nos regimes em que, na
     versão aberta, o dicionário ainda ganha. A página de <a href="/pt/escopo/">escopo técnico</a>
     nomeia esses regimes com precisão; a Premium é onde eles deixam de ser uma troca.</p></div>
@@ -79,7 +79,7 @@ disciplina.
 |---|---|---|
 | Classificação por amplitude, três formas, predicados nativos | sim | sim |
 | O formato `.s2r`, portabilidade, a bateria de testes inteira | sim | sim |
-| Compactação além da menor classe nativa | — | sim |
+| Encolhimento além da menor classe nativa | — | sim |
 | Operações compostas e sobre múltiplas colunas | você escreve | sim |
 | Direito de embutir em software não publicado sob AGPL | — | sim |
 | Suporte e prioridade em correções | comunidade | sim |
