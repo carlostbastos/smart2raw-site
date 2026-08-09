@@ -95,6 +95,13 @@ def depth_of(page, lang):
     return d
 
 SW_VERSION = "3.5.1"
+# Os rastreadores de IA, e o que eles NÃO levam: o que é produto, não explicação.
+AI_BOTS = ["ClaudeBot", "GPTBot", "OAI-SearchBot", "CCBot", "Google-Extended",
+           "PerplexityBot", "Applebot-Extended", "Amazonbot", "Bytespider",
+           "meta-externalagent"]
+AI_SINAL = "search=yes,ai-input=yes,ai-train=yes"
+AI_ARTEFATOS = ["/assets/s2r.wasm", "/assets/s2r-probe.exe", "/assets/demo.js",
+                "/assets/smart2raw-live-en.html", "/assets/smart2raw-live-pt.html"]
 # O DOI de conceito: o que sempre resolve para a versão mais recente. O DOI da
 # versão específica muda a cada depósito e vive na página de citação; aqui tem de
 # ser o estável, senão a entidade muda de identidade a cada lançamento.
@@ -328,20 +335,28 @@ def build():
     open(os.path.join(out, "sitemap.xml"), "w", encoding="utf-8").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s</urlset>\n' % urls)
-    # Os robôs de IA ficam liberados, e isso está escrito em vez de ficar por
-    # omissão: um projeto novo citado por um assistente é alcance que não se
-    # compra, e o código é AGPL e público de qualquer maneira. Se um dia a
-    # decisão mudar, muda aqui — e fica registrado que foi decisão, não descuido.
+    # As páginas, sim. Os artefatos, não.
+    #
+    # Um projeto novo citado por um assistente é alcance que não se compra, e
+    # explicar o Smart2Raw é exatamente o que estas páginas existem para fazer.
+    # Já o .wasm, o demo.js, o .exe e as duas páginas de arquivo único não são
+    # explicação: são o produto. Quem quiser aquilo vem buscar aqui ou no GitHub.
+    #
+    # Sem ilusão sobre o alcance disto: robots.txt é pedido, não tranca, e o
+    # código é AGPL e está inteiro publicado. Quem protege o código é a licença.
+    # O que isto organiza é o robô que respeita — que é justamente o que cita a
+    # fonte. Se a decisão mudar, muda aqui, e fica escrito que foi decisão.
+    linhas = ["User-agent: *", "Allow: /", ""]
+    linhas += ["# Rastreadores de IA: as páginas, sim; os artefatos, não.", ""]
+    for bot in AI_BOTS:
+        linhas.append("User-agent: " + bot)
+        linhas.append("Content-Signal: " + AI_SINAL)
+        linhas.append("Allow: /")
+        linhas += ["Disallow: " + c for c in AI_ARTEFATOS]
+        linhas.append("")
+    linhas.append("Sitemap: %s/sitemap.xml" % SITE_URL)
     open(os.path.join(out, "robots.txt"), "w", encoding="utf-8").write(
-        "User-agent: *\n"
-        "Allow: /\n\n"
-        "# Rastreadores de IA: liberados de propósito.\n"
-        "User-agent: ClaudeBot\nAllow: /\n\n"
-        "User-agent: GPTBot\nAllow: /\n\n"
-        "User-agent: CCBot\nAllow: /\n\n"
-        "User-agent: Google-Extended\nAllow: /\n\n"
-        "User-agent: PerplexityBot\nAllow: /\n\n"
-        "Sitemap: %s/sitemap.xml\n" % SITE_URL)
+        "\n".join(linhas) + "\n")
 
     print("%d páginas geradas em site/" % len(made))
     for u in made:
