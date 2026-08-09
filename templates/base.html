@@ -122,7 +122,7 @@
   if (!('IntersectionObserver' in window)) return;
 
   var alvos = document.querySelectorAll(
-    '.card, .kpi, .mkc, .figwrap, .next h2, .why h2, .hero .cta, .hero .kpis');
+    '.card, .kpi, .mkc, .step, .cred, .figwrap, .next h2, .why h2, .hero .cta, .hero .kpis');
   Array.prototype.forEach.call(alvos, function(el, i){
     el.classList.add('rv');
     el.style.transitionDelay = (Math.min(i % 6, 5) * 45) + 'ms';
