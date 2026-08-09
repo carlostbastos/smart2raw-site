@@ -111,6 +111,59 @@
   });
   window.addEventListener('resize', sync); sync();
 })();
+
+/* Movimento ao rolar. Duas coisas, as duas desligadas para quem pede menos
+   movimento no sistema operacional, e as duas sem biblioteca.
+   1. Revelar: o elemento sobe 12px e aparece quando entra na tela. Uma vez só.
+   2. Contar: os números do topo da página inicial correm de 0 até o valor.
+      Só ali, porque ali é ênfase; repetido em toda página vira enfeite. */
+(function(){
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!('IntersectionObserver' in window)) return;
+
+  var alvos = document.querySelectorAll(
+    '.card, .kpi, .mkc, .figwrap, .next h2, .why h2, .hero .cta, .hero .kpis');
+  Array.prototype.forEach.call(alvos, function(el, i){
+    el.classList.add('rv');
+    el.style.transitionDelay = (Math.min(i % 6, 5) * 45) + 'ms';
+  });
+  var io = new IntersectionObserver(function(ents){
+    ents.forEach(function(e){
+      if (!e.isIntersecting) return;
+      e.target.classList.add('rv-in');
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+  Array.prototype.forEach.call(alvos, function(el){ io.observe(el); });
+  /* rede de segurança: conteúdo escondido que nunca revela é conteúdo perdido.
+     Se algo não disparou em 2,5 s, aparece assim mesmo. */
+  setTimeout(function(){
+    Array.prototype.forEach.call(alvos, function(el){ el.classList.add('rv-in'); });
+  }, 2500);
+
+  var contas = document.querySelectorAll('.kpicount b');
+  if (!contas.length) return;
+  var ioc = new IntersectionObserver(function(ents){
+    ents.forEach(function(e){
+      if (!e.isIntersecting) return;
+      ioc.unobserve(e.target);
+      var el = e.target, txt = el.textContent.trim();
+      var m = /^(\d+)(\D*)$/.exec(txt);          /* só inteiro + sufixo: 8x, 31, 0 */
+      if (!m) return;
+      var fim = parseInt(m[1], 10), suf = m[2], t0 = null, dur = 900;
+      el.style.minWidth = el.getBoundingClientRect().width + 'px';
+      function passo(t){
+        if (t0 === null) t0 = t;
+        var k = Math.min((t - t0) / dur, 1);
+        k = 1 - Math.pow(1 - k, 3);                /* desacelera no fim */
+        el.textContent = Math.round(fim * k) + suf;
+        if (k < 1) requestAnimationFrame(passo); else el.textContent = txt;
+      }
+      requestAnimationFrame(passo);
+    });
+  }, { threshold: 0.4 });
+  Array.prototype.forEach.call(contas, function(el){ ioc.observe(el); });
+})();
 </script>
 {{EXTRA_JS}}
 </body>
