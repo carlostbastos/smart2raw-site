@@ -94,6 +94,78 @@ def depth_of(page, lang):
         d += 1
     return d
 
+SW_VERSION = "3.5.1"
+# O DOI de conceito: o que sempre resolve para a versão mais recente. O DOI da
+# versão específica muda a cada depósito e vive na página de citação; aqui tem de
+# ser o estável, senão a entidade muda de identidade a cada lançamento.
+DOI_CONCEITO = "https://doi.org/10.5281/zenodo.20477234"
+GITHUB_REPO  = "https://github.com/carlostbastos/Smart2Raw"
+GITHUB_USER  = "https://github.com/carlostbastos"
+
+def jsonld(page, lang, canonical, meta, home_url):
+    """Um grafo só, com @id estável, em vez de um objeto solto por página.
+
+    O motivo é entidade, não enfeite: quando a Pessoa e o Software têm o mesmo
+    @id em todas as páginas e os dois idiomas, o buscador junta as 26 páginas
+    num projeto só, com um autor só, em vez de tratá-las como 26 coisas sem
+    relação. O `sameAs` é o que amarra essa entidade ao GitHub, ao Zenodo e ao
+    LinkedIn — é assim que um nome vira uma identidade reconhecida.
+    """
+    idioma = "en" if lang == "en" else "pt-BR"
+    site_id, autor_id, sw_id = SITE_URL + "/#site", SITE_URL + "/#autor", SITE_URL + "/#software"
+    titulo = meta.get("title", "Smart2Raw")
+    rotulo = page[lang][1] or re.split(r"\s+[—|]\s+", titulo)[0]
+
+    # As duas entidades globais têm de sair IDÊNTICAS em EN e PT: mesmo @id com
+    # conteúdo diferente é o mesmo que dizer que são duas pessoas.
+    autor = {"@type": "Person", "@id": autor_id,
+             "name": "Carlos Alberto Terêncio de Bastos",
+             "url": SITE_URL + "/about/",
+             "sameAs": [u for u in (GITHUB_USER, LINKEDIN, DOI_CONCEITO) if u]}
+    site = {"@type": "WebSite", "@id": site_id, "name": "Smart2Raw",
+            "url": SITE_URL + "/", "inLanguage": ["en", "pt-BR"],
+            "author": {"@id": autor_id}, "publisher": {"@id": autor_id}}
+    software = {
+        "@type": ["SoftwareSourceCode", "SoftwareApplication"], "@id": sw_id,
+        "name": "Smart2Raw",
+        "alternateName": ".s2r",
+        "url": SITE_URL + "/",
+        "description": ("Header-only C11 library and portable .s2r format that store "
+                        "integer arrays in the smallest native width the real range "
+                        "needs, and operate on them with no decode step."),
+        "applicationCategory": "DeveloperApplication",
+        "codeRepository": GITHUB_REPO,
+        "programmingLanguage": {"@type": "ComputerLanguage", "name": "C"},
+        "runtimePlatform": "C11",
+        "operatingSystem": "Linux, Windows, macOS, bare metal",
+        "softwareVersion": SW_VERSION,
+        "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+        "identifier": DOI_CONCEITO,
+        "sameAs": [GITHUB_REPO, DOI_CONCEITO],
+        "author": {"@id": autor_id},
+        "maintainer": {"@id": autor_id},
+        "isAccessibleForFree": True,
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD",
+                   "availability": "https://schema.org/InStock"},
+        "keywords": ("integer compression, columnar format, SIMD, header-only C, "
+                     "zero-copy, embedded, .s2r, native integer width, "
+                     "frame of reference, adaptive encoding"),
+    }
+
+    pagina = {"@type": "WebPage", "@id": canonical + "#pagina",
+              "name": titulo, "description": meta.get("description", ""),
+              "url": canonical, "inLanguage": idioma,
+              "isPartOf": {"@id": site_id}, "about": {"@id": sw_id}}
+    if page["id"] != "index":
+        pagina["breadcrumb"] = {
+            "@type": "BreadcrumbList", "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Smart2Raw",
+                 "item": SITE_URL + home_url},
+                {"@type": "ListItem", "position": 2, "name": rotulo,
+                 "item": canonical}]}
+
+    return {"@context": "https://schema.org", "@graph": [autor, site, software, pagina]}
+
 def build():
     for p, n in build_single.build():
         print("  single-file: %-42s %6.1f KB" % (os.path.relpath(p, ROOTDIR), n/1024))
@@ -193,26 +265,7 @@ def build():
                     fl.append('<a href="%s">%s</a>' % (url_for(q, lang), lab))
 
             canonical = SITE_URL + url_for(page, lang)
-            if page["id"] == "index":
-                ld = {"@context": "https://schema.org", "@type": "SoftwareSourceCode",
-                      "name": "Smart2Raw",
-                      "description": meta.get("description", ""),
-                      "url": canonical,
-                      "codeRepository": "https://github.com/carlostbastos/Smart2Raw",
-                      "programmingLanguage": "C",
-                      "license": "https://www.gnu.org/licenses/agpl-3.0.html",
-                      "identifier": "https://doi.org/10.5281/zenodo.20477234",
-                      "inLanguage": "en" if lang == "en" else "pt-BR",
-                      "author": {"@type": "Person",
-                                 "name": "Carlos Alberto Terêncio de Bastos"}}
-            else:
-                ld = {"@context": "https://schema.org", "@type": "WebPage",
-                      "name": meta.get("title", "Smart2Raw"),
-                      "description": meta.get("description", ""),
-                      "url": canonical,
-                      "inLanguage": "en" if lang == "en" else "pt-BR",
-                      "isPartOf": {"@type": "WebSite", "name": "Smart2Raw",
-                                   "url": SITE_URL + "/"}}
+            ld = jsonld(page, lang, canonical, meta, url_for(by_id["index"], lang))
 
             html_out = (tpl
                 .replace("{{HTMLLANG}}", "en" if lang == "en" else "pt-BR")
@@ -275,8 +328,20 @@ def build():
     open(os.path.join(out, "sitemap.xml"), "w", encoding="utf-8").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s</urlset>\n' % urls)
+    # Os robôs de IA ficam liberados, e isso está escrito em vez de ficar por
+    # omissão: um projeto novo citado por um assistente é alcance que não se
+    # compra, e o código é AGPL e público de qualquer maneira. Se um dia a
+    # decisão mudar, muda aqui — e fica registrado que foi decisão, não descuido.
     open(os.path.join(out, "robots.txt"), "w", encoding="utf-8").write(
-        "User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n" % SITE_URL)
+        "User-agent: *\n"
+        "Allow: /\n\n"
+        "# Rastreadores de IA: liberados de propósito.\n"
+        "User-agent: ClaudeBot\nAllow: /\n\n"
+        "User-agent: GPTBot\nAllow: /\n\n"
+        "User-agent: CCBot\nAllow: /\n\n"
+        "User-agent: Google-Extended\nAllow: /\n\n"
+        "User-agent: PerplexityBot\nAllow: /\n\n"
+        "Sitemap: %s/sitemap.xml\n" % SITE_URL)
 
     print("%d páginas geradas em site/" % len(made))
     for u in made:
