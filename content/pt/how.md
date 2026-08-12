@@ -62,8 +62,26 @@ size_t k = s2r_count_gt_fast(&p, 100);
 ```
 
 Não há passo de decodificação, não há consulta a dicionário, não há buffer
-intermediário. Ler um quarto dos bytes significa um quarto do tráfego de
-memória — e tráfego de memória é o que uma varredura custa.
+intermediário. Isso tem duas consequências, e as duas estão medidas.
+
+**A primeira é a largura.** Um registrador de 512 bits carrega **64 valores `u8`
+por instrução, contra 8 valores `int64`**. A classe estreita não é um custo pago
+na leitura: é o que destrava a vetorização. Medido, `count_gt` com sinal em `i8`
+vai de 1402 para 18833 Mval/s — **13,4×** — e a soma em `u8` com `vpsadbw` fica
+entre 2,8× e 10×, conforme o dado caiba ou não no cache.
+
+**A segunda é o que deixa de acontecer.** Compare com um par que ocupa
+praticamente o mesmo espaço — 11,44 MB contra 11,45 MB — para que os bytes saiam
+da conta e sobre só processamento. O `SUM` sai em **0,44 ms contra 7,52 ms**, 17×,
+porque um código de dicionário não é um operando que se some: é preciso
+histogramar os códigos e dobrar o dicionário em cima. E chegar a um kernel que não
+é SQL — um produto escalar quantizado, uma convolução, um matmul int8 — custa
+**7,9 ms de materialização** do lado do par e **zero** do nosso, porque o pool já
+*é* o buffer contíguo na largura nativa que esse kernel exige.
+
+Ler um quarto dos bytes significa um quarto do tráfego de memória, e tráfego de
+memória é o que uma varredura custa. Mas o ganho maior costuma ser o segundo: o
+buffer que nunca precisou existir.
 
 ## Três formas, escolhidas por medição
 

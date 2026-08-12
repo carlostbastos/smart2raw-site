@@ -44,6 +44,12 @@ por uma amplitude larga — digamos 12 valores distintos — um dicionário com
 códigos de 4 bits guarda menos. Medido em 4 milhões de elementos: dicionário 1,91
 MB contra 3,82 MB. É um fator de dois, e é real.
 
+**E o custo não é só de espaço.** Nesse mesmo regime o par também responde mais
+rápido: **0,326 ms contra 0,468 ms**, 1,44× do lado dele. Dizer que a troca custa
+bytes e parar aí seria contar metade — quando a amplitude é estreita o bastante
+para códigos de 4 bits caberem, o dicionário ganha nos dois eixos, e é honesto
+saber disso antes de escolher.
+
 Essa ausência é a decisão, não um descuido. Códigos de menos de um byte são o que
 obriga a existir um passo de decodificação, e o passo de decodificação é o que a
 abordagem inteira existe para eliminar. Manter a classe em 8 bits é o que faz os

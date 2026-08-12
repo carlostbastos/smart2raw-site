@@ -19,6 +19,7 @@ description: Uma coluna de inteiros custa oito bytes por elemento porque ningué
     <div class="kpi"><b>31</b><small>suítes de teste, 0 falhas, incluindo 100.950 checagens de fuzz com sementes fixas</small></div>
     <div class="kpi"><b>4</b><small>alvos com a suíte passando em hardware real: x86-64, ARM64 com NEON, big-endian e MCU. RVV e SVE2 rodam por varredura de comprimento de vetor, não em placa</small></div>
     <div class="kpi"><b>0</b><small>dependências — um header C11, que é o que torna a adoção barata</small></div>
+    <div class="kpi hl"><b>161×</b><small><code>SUM</code> contra o SQLite no mesmo dado, com 1,49× menos disco e 2,73× menos memória — espaço e tempo na mesma medição</small></div>
   </div>
 </section>
 ::
@@ -33,6 +34,35 @@ que foi declarado e o que é necessário é paga em RAM, em disco, em banda de
 memória e na eletricidade que move tudo isso — em todo banco de dados, todo
 pipeline de telemetria, todo servidor de inferência e todo dispositivo
 embarcado.
+
+E a diferença não é pequena nem teórica. Numa coluna de telemetria de 0 a 200
+medida em 4 milhões de elementos, **30,52 MB viram 3,81 MB**. Contra um SQLite
+rodando no mesmo dado, o `SUM` sai **161× mais rápido**, o disco cai 1,49× e a
+memória residente 2,73×. Todo número desta página tem no repositório o programa
+que o imprime.
+
+## Por que agora, e não há cinco anos
+
+Três números que não são nossos, e que explicam por que esta é a década em que
+isto passa a importar:
+
+- **3,0× contra 1,6×.** Em 20 anos o pico de computação do hardware cresceu 3,0×
+  a cada dois anos; a banda de memória DRAM cresceu 1,6×, e a de interconexão
+  1,4×. Somar FLOP parou de resolver — o lado que ficou estreito é justamente o
+  que ler menos byte, sem pagar decodificação, ataca de frente.
+  *(IEEE Micro · [arXiv:2403.14123](https://arxiv.org/abs/2403.14123))*
+- **+58% a 63% em um trimestre.** Foi quanto subiu o preço de contrato da DRAM no
+  2º trimestre de 2026, na pior escassez em quase 15 anos. Um servidor de IA usa
+  de 8 a 10 vezes a memória de um servidor comum. *(TrendForce, abril de 2026)*
+- **945 TWh até 2030.** O consumo elétrico dos data centers deve mais que dobrar
+  na década, com a IA como motor. Mover menos byte é gastar menos energia por
+  consulta — a mesma conta, vista do outro lado. *(Agência Internacional de
+  Energia)*
+
+A tese comercial cabe numa linha: **o gargalo mudou de lado, e o que sobrou
+estreito foi exatamente memória e banda.** Um formato que reduz os dois sem
+cobrar um passo de decodificação ataca o gargalo onde ele está hoje, não onde
+estava quando os formatos clássicos foram desenhados.
 
 ## A cunha
 
