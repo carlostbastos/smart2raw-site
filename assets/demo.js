@@ -34,6 +34,13 @@ pt:{
   d_classify:"classificar",
   k_cls_l:"classe escolhida", k_ratio_l:"contra a linha de base int64",
   k_form_l:"forma recomendada", k_dist_l:"valores distintos",
+  k_idx_l:"consulta por faixa, pelo índice cumulativo — duas leituras que não crescem com o dado",
+  k_idx_na:"classe larga demais para o índice cumulativo",
+  d_cross_t:"A mesma coluna, em dois tamanhos",
+  d_cross_note:"É a tese do projeto acontecendo na sua máquina. Numa coluna que cabe no cache do processador, ninguém está limitado por memória: ler 8× menos bytes não compra tempo nenhum, e o caminho compacto até perde para o laço direto. Quando o int64 deixa de caber, o gargalo passa a ser a memória — e aí ler menos é ir mais rápido. Espaço vira tempo no ponto em que o dado não cabe mais, não antes.",
+  d_cross_tile:"a sua coluna repetida até %s elementos — os mesmos valores, na mesma proporção",
+  cross_measuring:"medindo a mesma coluna em 4 milhões de elementos…",
+  cross_l:"%s elementos",
   th_repr:"representação", th_bytes:"bytes", th_vs:"× int64", th_what:"o que é",
   th_path:"caminho", th_result:"resultado", th_ms:"ms / consulta", th_gain:"ganho",
   th_block:"bloco", th_predicted:"bytes previstos", th_vsbest:"× melhor",
@@ -104,6 +111,13 @@ en:{
   d_classify:"classify",
   k_cls_l:"class chosen", k_ratio_l:"against the int64 baseline",
   k_form_l:"recommended form", k_dist_l:"distinct values",
+  k_idx_l:"range query through the cumulative index — two reads that do not grow with the data",
+  k_idx_na:"class too wide for the cumulative index",
+  d_cross_t:"The same column, at two sizes",
+  d_cross_note:"This is the project's thesis happening on your machine. On a column that fits in the processor cache nobody is memory-bound: reading 8× fewer bytes buys no time at all, and the compact path even loses to the direct loop. Once the int64 form stops fitting, memory becomes the bottleneck — and then reading less is going faster. Space turns into time at the point where the data stops fitting, not before.",
+  d_cross_tile:"your column repeated up to %s elements — the same values, in the same proportion",
+  cross_measuring:"measuring the same column at 4 million elements…",
+  cross_l:"%s elements",
   th_repr:"representation", th_bytes:"bytes", th_vs:"× int64", th_what:"what it is",
   th_path:"path", th_result:"result", th_ms:"ms / query", th_gain:"gain",
   th_block:"block", th_predicted:"predicted bytes", th_vsbest:"× best",
@@ -283,6 +297,15 @@ el('run').onclick = function(){
   el('status').textContent = T.st_class;
   setTimeout(analyze, 20);
 };
+var lastVals = null, lastSigned = 0;   /* a coluna atual, para a travessia */
+function loadInto(vals, signed){
+  var n = vals.length, ptr = X.s2r_probe_input(n);
+  if(!ptr) return 0;
+  var dv = new DataView(X.memory.buffer);
+  for(var i = 0; i < n; i++) dv.setBigUint64(ptr + i*8, vals[i] & M64, true);
+  X.s2r_probe_run(n, signed);
+  return n;
+}
 function analyze(){
   var vals, signed;
   if(pending){ vals = pending.a; signed = pending.sg; }
@@ -298,9 +321,14 @@ function analyze(){
   var t0 = performance.now();
   X.s2r_probe_run(n, signed);
   var t1 = performance.now();
+  lastVals = vals; lastSigned = signed;
+  resetMedicao();
   render();
   el('status').textContent = T.st_done(num(n), (t1-t0).toFixed(0));
   el('out').classList.remove('hidden');
+  /* Os dois eixos sao a mesma ideia, entao aparecem juntos: quem classificou ja
+     ve o tempo, sem precisar pedir. Custa fracao de segundo no tamanho padrao. */
+  setTimeout(medir, 30);
 }
 function clsName(){
   var c = Number(BigInt.asIntN(64, g(R.CLS)));
@@ -386,19 +414,84 @@ function render(){
   el('thr').value = half.toString();
   el('lo').value  = (half - quarter).toString();
   el('hi').value  = (half + quarter).toString();
+}
+/* O reset vive aqui, e nao no fim de render(): render() e chamado de novo quando
+   a travessia devolve a coluna original, e ali ele apagaria a medicao que acabou
+   de ser feita. Coluna nova comeca em analyze(), e e la que se limpa. */
+function resetMedicao(){
   el('t_bench').classList.add('hidden');
   el('benchnote').textContent = "";
+  el('cross').classList.add('hidden');
+  el('k_idx').textContent = "—";
+  el('kpi_idx').classList.remove('off');
 }
 
 /* ---------- a consulta cronometrada ----------------------------------------- */
-el('bench').onclick = function(){
+function medir(){
   var t, lo, hi;
   try { t = BigInt(el('thr').value.trim()); lo = BigInt(el('lo').value.trim());
         hi = BigInt(el('hi').value.trim()); }
   catch(e){ el('bstat').textContent = T.st_badv; return; }
   el('bstat').textContent = T.st_measuring;
   setTimeout(function(){ runBench(t, lo, hi); }, 20);
-};
+}
+el('bench').onclick = medir;
+
+/* ---------- a travessia: a mesma coluna, grande o bastante para sair do cache -
+ *
+ * O ganho de espaco so vira ganho de tempo quando a forma int64 deixa de caber
+ * no cache. Em 200 mil elementos ela cabe, e o caminho compacto PERDE - o que e
+ * verdade e estava escondido num rodape cinza. Medir os dois tamanhos lado a
+ * lado transforma o constrangimento na propria demonstracao.
+ *
+ * A coluna maior e a do visitante repetida: mesma amplitude, mesma distribuicao,
+ * mesma classe. Nada e inventado, e a legenda diz exatamente isso.            */
+var ALVO = 4000000;
+function runCrossover(thr, msPequeno, msBase){
+  if(!lastVals || lastVals.length >= ALVO/2) return;
+  /* Duas guardas, e as duas existem porque a travessia pode MENTIR.
+   *
+   * 1. So faz sentido numa coluna que de fato encolhe. Numa coluna u64 de
+   *    entropia maxima nao ha menos bytes para ler, entao nao ha o que a
+   *    largura de banda possa comprar - e mostrar dois numeros abaixo de 1,00x
+   *    sugeriria um fracasso onde na verdade nao ha aposta.
+   *
+   * 2. So aparece quando o caminho compacto PERDEU neste tamanho. Se ele ja
+   *    ganhou, nao ha nada a explicar; e numa coluna ordenada a repeticao
+   *    destroi a ordem, entao o numero grande sairia pior que o pequeno por
+   *    causa da construcao, nao do hardware. Uma demonstracao que precisa de
+   *    nota de rodape para nao enganar nao deveria estar na tela. */
+  if(gn(R.RAW) / gn(R.BEST_BYTES) < 1.05) return;
+  if(!msPequeno || msBase / msPequeno >= 1.0) return;
+  var n0 = lastVals.length, reps = Math.ceil(ALVO / n0), grande = new Array(n0*reps);
+  for(var r = 0, k = 0; r < reps; r++)
+    for(var i = 0; i < n0; i++) grande[k++] = lastVals[i];
+  el('bstat').textContent = T.cross_measuring;
+  setTimeout(function(){
+    var ok = loadInto(grande, lastSigned);
+    if(ok){
+      var cBase = X.s2r_probe_count_gt_naive(thr) >>> 0;
+      var cFlat = X.s2r_probe_count_gt_flat(thr) >>> 0;
+      if(cBase !== NA && cFlat !== NA){
+        var b = timeIt(function(d){ return X.s2r_probe_count_gt_naive(thr + BigInt(d)); });
+        var f = timeIt(function(d){ return X.s2r_probe_count_gt_flat(thr + BigInt(d)); });
+        el('cross_a_l').textContent = T.cross_l.replace('%s', num(n0));
+        el('cross_b_l').textContent = T.cross_l.replace('%s', num(grande.length));
+        pinta(el('cross_a_v'), msBase / msPequeno);
+        pinta(el('cross_b_v'), b / f);
+        el('cross_note').textContent =
+          T.d_cross_tile.replace('%s', num(grande.length)) + " · " + T.d_cross_note;
+        el('cross').classList.remove('hidden');
+      }
+    }
+    loadInto(lastVals, lastSigned);   /* devolve a coluna original ao modulo */
+    el('bstat').textContent = "";
+  }, 30);
+}
+function pinta(node, gain){
+  node.textContent = gain.toFixed(2) + "×";
+  node.className = "crossv " + (gain >= 1.05 ? "ok" : gain <= 0.95 ? "warn" : "");
+}
 function timeIt(fn){
   var i;
   for(i = 0; i < 3; i++) fn(0);
@@ -427,33 +520,51 @@ function runBench(thr, lo, hi){
                [T.p_flat,  X.s2r_probe_count_gt_flat],
                [T.p_aff,   X.s2r_probe_count_gt_affine],
                [T.p_blk,   X.s2r_probe_count_gt_blocked]];
-  var baseMs = 0, ref = null, agree = true;
+  var baseMs = 0, ref = null, agree = true, flatMs = 0;
   paths.forEach(function(p){
     var c = p[1](thr) >>> 0;
     if(c === NA) return;
     var ms = timeIt(function(d){ return p[1](thr + BigInt(d)); });
     if(ref === null){ ref = c; baseMs = ms; } else if(c !== ref) agree = false;
+    if(p[0] === T.p_flat) flatMs = ms;
     mk(p[0], c, ms, baseMs);
   });
   var rp = [[T.r_naive, X.s2r_probe_count_range_naive],
             [T.r_flat,  X.s2r_probe_count_range_flat],
             [T.r_index, X.s2r_probe_count_range_index]];
-  var rbase = 0, rref = null, ragree = true, hasIdx = false;
+  var rbase = 0, rref = null, ragree = true, hasIdx = false, idxGain = 0;
   rp.forEach(function(p){
     var c = p[1](lo, hi) >>> 0;
     if(c === NA) return;
     if(p[0] === T.r_index) hasIdx = true;
     var ms = timeIt(function(d){ return p[1](lo, hi + BigInt(d)); });
     if(rref === null){ rref = c; rbase = ms; } else if(c !== rref) ragree = false;
+    if(p[0] === T.r_index && rbase) idxGain = rbase / ms;
     mk(p[0], c, ms, rbase);
   });
   el('t_bench').classList.remove('hidden');
   el('bstat').textContent = "";
+  /* o melhor numero que o projeto produz sai da ultima linha e vira KPI */
+  var kb = el('kpi_idx'), kv = el('k_idx');
+  if(hasIdx && idxGain > 1){
+    /* Sem separador de milhar de proposito. O KPI ao lado diz "8.00x", onde o
+       ponto e decimal; escrever "3.513x" na mesma fila faria o mesmo simbolo
+       significar duas coisas a um palmo de distancia. Numero grande vai inteiro
+       e cru: 3513x nao tem como ser lido errado. */
+    kv.textContent = (idxGain >= 100 ? String(Math.round(idxGain))
+                                     : idxGain.toFixed(1)) + "×";
+    kb.classList.remove('off');
+  } else {
+    kv.textContent = "—";
+    kb.classList.add('off');
+    kb.querySelector('small').textContent = T.k_idx_na;
+  }
   var note = (agree && ragree)
     ? "<span class='ok'>" + T.bn_ok + "</span>" : "<span class='bad'>" + T.bn_no + "</span>";
   note += T.bn_meas;
   if(hasIdx) note += T.bn_idx(bytes(gn(R.IDX_BYTES)));
   el('benchnote').innerHTML = note;
+  runCrossover(thr, flatMs, baseMs);
 }
 
 el('dl').onclick = function(){
