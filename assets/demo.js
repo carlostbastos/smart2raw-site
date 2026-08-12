@@ -421,9 +421,9 @@ function render(){
 function resetMedicao(){
   el('t_bench').classList.add('hidden');
   el('benchnote').textContent = "";
-  el('cross').classList.add('hidden');
-  el('k_idx').textContent = "—";
-  el('kpi_idx').classList.remove('off');
+  if(el('cross'))   el('cross').classList.add('hidden');
+  if(el('k_idx'))   el('k_idx').textContent = "—";
+  if(el('kpi_idx')) el('kpi_idx').classList.remove('off');
 }
 
 /* ---------- a consulta cronometrada ----------------------------------------- */
@@ -448,6 +448,7 @@ el('bench').onclick = medir;
  * mesma classe. Nada e inventado, e a legenda diz exatamente isso.            */
 var ALVO = 4000000;
 function runCrossover(thr, msPequeno, msBase){
+  if(!el('cross')) return;               /* molde sem o bloco: nada a fazer */
   if(!lastVals || lastVals.length >= ALVO/2) return;
   /* Duas guardas, e as duas existem porque a travessia pode MENTIR.
    *
@@ -546,7 +547,8 @@ function runBench(thr, lo, hi){
   el('bstat').textContent = "";
   /* o melhor numero que o projeto produz sai da ultima linha e vira KPI */
   var kb = el('kpi_idx'), kv = el('k_idx');
-  if(hasIdx && idxGain > 1){
+  if(!kb || !kv){ /* molde antigo: sem KPI, o resto segue */ }
+  else if(hasIdx && idxGain > 1){
     /* Sem separador de milhar de proposito. O KPI ao lado diz "8.00x", onde o
        ponto e decimal; escrever "3.513x" na mesma fila faria o mesmo simbolo
        significar duas coisas a um palmo de distancia. Numero grande vai inteiro
@@ -557,7 +559,8 @@ function runBench(thr, lo, hi){
   } else {
     kv.textContent = "—";
     kb.classList.add('off');
-    kb.querySelector('small').textContent = T.k_idx_na;
+    var sm = kb.querySelector('small');
+    if(sm) sm.textContent = T.k_idx_na;
   }
   var note = (agree && ragree)
     ? "<span class='ok'>" + T.bn_ok + "</span>" : "<span class='bad'>" + T.bn_no + "</span>";
