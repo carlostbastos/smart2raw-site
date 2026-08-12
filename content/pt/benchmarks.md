@@ -197,8 +197,11 @@ um quarto do tempo. Aumente o número de elementos e a diferença aparece.
   checagens contra uma referência ingênua, com sementes fixas.
 - Limpo sob ASan e UBSan.
 - O mesmo código rodado em x86-64 com SSE2 e AVX2, ARM com NEON e SVE2, RISC-V
-  com RVV, big-endian, e em modo enxuto sem stdio, sem mmap e sem SIMD. ARM64 e
-  big-endian a CI repete em máquina real via QEMU; os núcleos RVV e SVE2 rodam
+  com RVV, big-endian, e em modo enxuto sem stdio, sem mmap e sem SIMD. Só o
+  x86-64 é hardware real; **ARM64 e big-endian (s390x) a CI repete a cada commit
+  na ISA real, em máquina emulada por QEMU** — e no caso do big-endian o job
+  imprime a ordem de bytes de dentro do binário antes de testar qualquer coisa,
+  com **250.212 checagens, 0 falhas** em cima dela. Os núcleos RVV e SVE2 rodam
   contra referência escalar com o comprimento de vetor varrido de 128 a 1024
   bits, que é mais do que uma placa só daria.
 - Compatibilidade de arquivo medida nas **duas** direções entre versões.

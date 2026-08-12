@@ -18,7 +18,7 @@ description: Copie um header para o seu projeto e classifique uma coluna em trê
     <div class="kpi"><b>1</b><small>arquivo: smart2raw.h, C11, sem sistema de build e sem configuração</small></div>
     <div class="kpi"><b>3</b><small>linhas para classificar, guardar e operar</small></div>
     <div class="kpi"><b>0</b><small>dependências — nem para compilar, nem em tempo de execução</small></div>
-    <div class="kpi"><b>4</b><small>alvos com a suíte passando em hardware real — x86-64, ARM64 com NEON, big-endian e microcontrolador. RVV e SVE2 são experimentais</small></div>
+    <div class="kpi"><b>4</b><small>alvos com a suíte passando — x86-64 em hardware real; ARM64 com NEON e s390x big-endian na ISA real sob QEMU, a cada commit; e o modo de microcontrolador. RVV e SVE2 são experimentais</small></div>
   </div>
 </section>
 ::
@@ -121,9 +121,19 @@ NEON e SVE2, RISC-V com RVV, máquinas big-endian, e microcontroladores em modo
 enxuto (`-DS2R_NO_STDIO -DS2R_NO_MMAP -DS2R_NO_SIMD`). E, a partir deste site, em
 WebAssembly e num PE de Windows ligado sem runtime de C.
 
-Vale dizer como cada um é verificado, porque não é a mesma coisa. **ARM64 e
-big-endian a integração contínua repete em máquina real**, via QEMU, a cada
-commit. Os núcleos **RVV e SVE2 rodam de verdade** — o código vetorial que vai
+Vale dizer como cada um é verificado, porque não é a mesma coisa. Em **hardware
+real** roda um: x86-64, que é a máquina da integração contínua. **ARM64 e s390x
+são ISA real em máquina emulada** (QEMU), a cada commit — as instruções e a ordem
+de bytes são as do alvo; o silício não é. E vale ser específico sobre o que isso
+prova, porque "big-endian" costuma ser uma palavra e não uma medida: antes de
+qualquer teste, o job compila um binário s390x e o executa, e ele imprime
+`__BYTE_ORDER__ : big` e o valor `0x01020304` gravado na memória como
+`01 02 03 04`, saindo com erro se não for; em cima disso rodam **250.212
+checagens em 16 suítes, 0 falhas**. O modo de microcontrolador
+(`-DS2R_NO_STDIO -DS2R_NO_MMAP -DS2R_NO_SIMD`) é uma configuração de compilação,
+não uma placa.
+
+Os núcleos **RVV e SVE2 rodam de verdade** — o código vetorial que vai
 para o hardware, não uma reimplementação — conferidos elemento a elemento contra
 uma referência escalar, com o **comprimento de vetor varrido de 128 a 1024 bits**
 e com as bordas de tira e as caudas exercitadas explicitamente. Uma placa real

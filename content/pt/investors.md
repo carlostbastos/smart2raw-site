@@ -17,7 +17,7 @@ description: Uma coluna de inteiros custa oito bytes por elemento porque ningué
   <div class="kpis">
     <div class="kpi"><b>6</b><small>versões depositadas no Zenodo com DOI citável, estabelecendo uma data de prioridade</small></div>
     <div class="kpi"><b>31</b><small>suítes de teste, 0 falhas, incluindo 100.950 checagens de fuzz com sementes fixas</small></div>
-    <div class="kpi"><b>4</b><small>alvos com a suíte passando em hardware real: x86-64, ARM64 com NEON, big-endian e MCU. RVV e SVE2 rodam por varredura de comprimento de vetor, não em placa</small></div>
+    <div class="kpi"><b>4</b><small>alvos com a suíte passando: x86-64 em hardware real, ARM64 e s390x na ISA real sob QEMU a cada commit (250.212 checagens só no big-endian), e o modo de microcontrolador. RVV e SVE2 por varredura de comprimento de vetor, não em placa</small></div>
     <div class="kpi"><b>0</b><small>dependências — um header C11, que é o que torna a adoção barata</small></div>
     <div class="kpi hl"><b>161×</b><small><code>SUM</code> contra o SQLite no mesmo dado, com 1,49× menos disco e 2,73× menos memória — espaço e tempo na mesma medição</small></div>
   </div>
