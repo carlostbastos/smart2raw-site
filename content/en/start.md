@@ -18,7 +18,7 @@ description: Copy one header into your project and classify a column in three li
     <div class="kpi"><b>1</b><small>file: smart2raw.h, C11, no build system and no configuration</small></div>
     <div class="kpi"><b>3</b><small>lines to classify, store and operate</small></div>
     <div class="kpi"><b>0</b><small>dependencies — neither to compile nor at runtime</small></div>
-    <div class="kpi"><b>4</b><small>targets with the suite passing on real hardware — x86-64, ARM64 with NEON, big-endian and microcontroller. RVV and SVE2 are experimental</small></div>
+    <div class="kpi"><b>4</b><small>targets with the suite passing — x86-64 on real hardware; ARM64 with NEON and s390x big-endian on the real ISA under QEMU, on every commit; and the microcontroller mode. RVV and SVE2 are experimental</small></div>
   </div>
 </section>
 ::
@@ -121,9 +121,19 @@ NEON and SVE2, RISC-V with RVV, big-endian machines, and microcontrollers in lea
 mode (`-DS2R_NO_STDIO -DS2R_NO_MMAP -DS2R_NO_SIMD`). And, as of this site, in
 WebAssembly and in a Windows PE linked without a C runtime.
 
-It is worth saying how each one is verified, because they are not the same.
-**ARM64 and big-endian are repeated on real machines by CI**, through QEMU, on
-every commit. The **RVV and SVE2 kernels run for real** — the vector code that
+It is worth saying how each one is verified, because they are not the same. One
+runs on **real hardware**: x86-64, which is the CI machine itself. **ARM64 and
+s390x are the real ISA on an emulated machine** (QEMU), on every commit — the
+instructions and the byte order are the target's; the silicon is not. And it is
+worth being specific about what that proves, because "big-endian" is usually a
+word rather than a measurement: before any test runs, the job compiles an s390x
+binary and executes it, and it prints `__BYTE_ORDER__ : big` and the value
+`0x01020304` laid out in memory as `01 02 03 04`, exiting with an error if it is
+not; on top of that run **250,212 checks across 16 suites, 0 failures**. The
+microcontroller mode (`-DS2R_NO_STDIO -DS2R_NO_MMAP -DS2R_NO_SIMD`) is a build
+configuration, not a board.
+
+The **RVV and SVE2 kernels run for real** — the vector code that
 ships, not a reimplementation — checked element by element against a scalar
 reference, with the **vector length swept from 128 to 1024 bits** and the
 strip-mine boundaries and tails exercised explicitly. A real board would have

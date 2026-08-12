@@ -17,7 +17,7 @@ description: An integer column costs eight bytes per element because nobody meas
   <div class="kpis">
     <div class="kpi"><b>6</b><small>versions deposited on Zenodo with a citable DOI, establishing a priority date</small></div>
     <div class="kpi"><b>31</b><small>test suites, 0 failures, including 100,950 fuzz checks with fixed seeds</small></div>
-    <div class="kpi"><b>4</b><small>targets with the suite passing on real hardware: x86-64, ARM64 with NEON, big-endian and MCU. RVV and SVE2 run through a vector-length sweep, not on a board</small></div>
+    <div class="kpi"><b>4</b><small>targets with the suite passing: x86-64 on real hardware, ARM64 and s390x on the real ISA under QEMU on every commit (250,212 checks on big-endian alone), and the microcontroller mode. RVV and SVE2 through a vector-length sweep, not on a board</small></div>
     <div class="kpi"><b>0</b><small>dependencies — one C11 header, which is what makes adoption cheap</small></div>
     <div class="kpi hl"><b>161×</b><small><code>SUM</code> against SQLite on the same data, with 1.49× less disk and 2.73× less memory — space and time in one measurement</small></div>
   </div>
