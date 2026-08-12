@@ -58,9 +58,27 @@ the stored bytes are native integers, a predicate runs on them **as they are**:
 size_t k = s2r_count_gt_fast(&p, 100);
 ```
 
-There is no decode step, no dictionary lookup, no intermediate buffer. Reading
-one quarter of the bytes means one quarter of the memory traffic, and memory
-traffic is what a scan costs.
+There is no decode step, no dictionary lookup, no intermediate buffer. That has
+two consequences, and both are measured.
+
+**The first is width.** A 512-bit register carries **64 `u8` values per
+instruction against 8 `int64` values**. The narrow class is not a cost paid at
+read time: it is what unlocks vectorisation. Measured, signed `count_gt` on `i8`
+goes from 1402 to 18833 Mval/s — **13.4×** — and the `u8` sum through `vpsadbw`
+lands between 2.8× and 10×, depending on whether the data fits in cache.
+
+**The second is what stops happening.** Compare against a peer that occupies
+practically the same space — 11.44 MB against 11.45 MB — so the bytes drop out of
+the comparison and only processing is left. `SUM` comes out at **0.44 ms against
+7.52 ms**, 17×, because a dictionary code is not an operand you can add: the codes
+have to be histogrammed and the dictionary folded on top. And reaching a kernel
+that is not SQL — a quantised dot product, a convolution, an int8 matmul — costs
+**7.9 ms of materialisation** on the peer's side and **zero** on ours, because the
+pool already *is* the contiguous native-width buffer that kernel requires.
+
+Reading one quarter of the bytes means one quarter of the memory traffic, and
+memory traffic is what a scan costs. But the larger win is usually the second one:
+the buffer that never had to exist.
 
 ## Three shapes, chosen by measurement
 

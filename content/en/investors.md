@@ -19,6 +19,7 @@ description: An integer column costs eight bytes per element because nobody meas
     <div class="kpi"><b>31</b><small>test suites, 0 failures, including 100,950 fuzz checks with fixed seeds</small></div>
     <div class="kpi"><b>4</b><small>targets with the suite passing on real hardware: x86-64, ARM64 with NEON, big-endian and MCU. RVV and SVE2 run through a vector-length sweep, not on a board</small></div>
     <div class="kpi"><b>0</b><small>dependencies — one C11 header, which is what makes adoption cheap</small></div>
+    <div class="kpi hl"><b>161×</b><small><code>SUM</code> against SQLite on the same data, with 1.49× less disk and 2.73× less memory — space and time in one measurement</small></div>
   </div>
 </section>
 ::
@@ -32,6 +33,35 @@ every 60 seconds needs a base and a small index. The gap between what is
 declared and what is needed is paid in RAM, in disk, in memory bandwidth and in
 the electricity that moves it — in every database, every telemetry pipeline,
 every inference server and every embedded device.
+
+And the gap is neither small nor theoretical. On a 0..200 telemetry column
+measured over 4 million elements, **30.52 MB becomes 3.81 MB**. Against a SQLite
+running on the same data, `SUM` comes out **161× faster**, disk drops 1.49× and
+resident memory 2.73×. Every number on this page has, in the repository, the
+program that prints it.
+
+## Why now, and not five years ago
+
+Three numbers that are not ours, and that explain why this is the decade in which
+it starts to matter:
+
+- **3.0× against 1.6×.** Over 20 years hardware peak compute grew 3.0× every two
+  years; DRAM bandwidth grew 1.6×, and interconnect 1.4×. Adding FLOPs stopped
+  solving it — the side that stayed narrow is exactly the one that reading fewer
+  bytes, with no decode step to pay, attacks head on.
+  *(IEEE Micro · [arXiv:2403.14123](https://arxiv.org/abs/2403.14123))*
+- **+58% to 63% in one quarter.** That is how much DRAM contract prices rose in
+  Q2 2026, in the worst shortage in nearly 15 years. An AI server uses 8 to 10
+  times the memory of an ordinary one. *(TrendForce, April 2026)*
+- **945 TWh by 2030.** Data-centre electricity consumption is expected to more
+  than double this decade, with AI as the driver. Moving fewer bytes is spending
+  less energy per query — the same arithmetic, seen from the other side.
+  *(International Energy Agency)*
+
+The commercial thesis fits in one line: **the bottleneck moved, and what stayed
+narrow was memory and bandwidth.** A format that reduces both without charging a
+decode step attacks the bottleneck where it is today, not where it was when the
+classical formats were designed.
 
 ## The wedge
 

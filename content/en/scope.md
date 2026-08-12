@@ -44,6 +44,12 @@ no bit packing. So on a column with few distinct values spread over a wide range
 4 million elements: dictionary 1.91 MB against 3.82 MB. That is a factor of two,
 and it is real.
 
+**And the cost is not only space.** In that same regime the peer also answers
+faster: **0.326 ms against 0.468 ms**, 1.44× on its side. Saying the trade costs
+bytes and stopping there would be telling half of it — where the range is narrow
+enough for 4-bit codes to fit, the dictionary wins on both axes, and it is fair to
+know that before choosing.
+
 That absence is the decision, not an oversight. Sub-byte codes are what force a
 decode step, and the decode step is what the whole approach exists to remove.
 Keeping the class at 8 bits is what makes the stored bytes an array the processor
